@@ -1,0 +1,16 @@
+import type { Metadata } from 'next'
+import { ContactClient } from './contact-client'
+
+export const metadata: Metadata = {
+  title: 'Contact | The Torts Attorney - Build Your Acquisition System',
+  description: 'Contact The Torts Attorney to discuss plaintiff acquisition systems for your law firm. Schedule a consultation for campaign strategy and intake operations.',
+  openGraph: {
+    title: 'Contact | The Torts Attorney - Build Your Acquisition System',
+    description: 'Contact The Torts Attorney to discuss plaintiff acquisition systems for your law firm. Schedule a consultation for campaign strategy and intake operations.',
+    type: 'website',
+  },
+}
+
+export default function ContactPage() {
+  return <ContactClient />
+}
