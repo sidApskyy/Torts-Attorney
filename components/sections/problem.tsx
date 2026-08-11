@@ -35,23 +35,37 @@ export function Problem() {
   )
   const accentBarScaleY = useTransform(insightProgress, [0.1, 0.5], [0, 1])
 
+  // GPU-accelerated opacity crossfade for background gradients (avoids repaint)
+  const bgLayer1Opacity = useTransform(sectionProgress, [0, 0.4, 0.6], [1, 0.5, 0])
+  const bgLayer2Opacity = useTransform(sectionProgress, [0.3, 0.5, 0.7], [0, 1, 0.5])
+  const bgLayer3Opacity = useTransform(sectionProgress, [0.6, 0.8, 1], [0, 0.5, 1])
+
   return (
     <section ref={sectionRef} className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="problem-heading">
-      {/* Ambient gradient that drifts with scroll */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: useTransform(
-            sectionProgress,
-            [0, 0.5, 1],
-            [
-              'radial-gradient(circle at 20% 30%, rgba(198, 162, 74, 0.04), transparent 50%)',
-              'radial-gradient(circle at 80% 50%, rgba(198, 162, 74, 0.06), transparent 50%)',
-              'radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.8), transparent 50%)',
-            ]
-          ),
-        }}
-      />
+      {/* Ambient gradient — opacity crossfade between 3 static layers (GPU-accelerated) */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(circle at 20% 30%, rgba(198, 162, 74, 0.04), transparent 50%)',
+            opacity: prefersReducedMotion ? 1 : bgLayer1Opacity,
+          }}
+        />
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(circle at 80% 50%, rgba(198, 162, 74, 0.06), transparent 50%)',
+            opacity: prefersReducedMotion ? 0 : bgLayer2Opacity,
+          }}
+        />
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.8), transparent 50%)',
+            opacity: prefersReducedMotion ? 0 : bgLayer3Opacity,
+          }}
+        />
+      </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
@@ -73,7 +87,7 @@ export function Problem() {
                 className="h-px bg-[#C6A24A]"
               />
               <span className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A]">
-                The Problem with Lead Volume
+                The Form Is Only the Beginning
               </span>
               <motion.div
                 initial={{ width: 0 }}
@@ -93,8 +107,7 @@ export function Problem() {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden"
             >
-              Lead Volume Isn't the{' '}
-              <span className="text-[#C6A24A] italic">Finish Line</span>
+              A lead is only valuable if the next steps hold up.
             </motion.h2>
 
             {/* Subtitle — letter-spacing collapse from wide to normal */}
@@ -105,7 +118,7 @@ export function Problem() {
               transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]"
             >
-              Acquisition performance depends on what happens after the initial response. The real opportunity—or loss—occurs in the stages that follow.
+              A campaign can generate responses and still underperform. The real questions begin after the form is submitted: Was the prospect contacted quickly? Did the intake team ask the right questions? Was the record actually qualified? Were missing documents followed up on? Did the opportunity reach the right law firm?
             </motion.p>
           </div>
 
@@ -247,8 +260,8 @@ export function Problem() {
                   }}
                   className="font-serif text-2xl md:text-3xl text-[#202124] leading-[1.4] tracking-[-0.01em] relative"
                 >
-                  Most agencies focus on the top of the funnel. We focus on what happens after the lead arrives—because{' '}
-                  <span className="text-[#C6A24A] italic font-medium">that's where cases are won or lost.</span>
+                  That is where we put our attention:{' '}
+                  <span className="text-[#C6A24A] italic font-medium">what happens after the response.</span>
                 </motion.p>
               </div>
             </motion.div>

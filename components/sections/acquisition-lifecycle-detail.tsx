@@ -8,57 +8,57 @@ const lifecycleCards: MagicBentoCardData[] = [
   {
     label: '01',
     title: 'Strategy',
-    description: 'Campaign planning, media strategy, and operational design tailored to your firm\'s capacity and goals.',
+    description: 'Campaign planning, audience planning, creative direction and operational design built around the campaign\'s actual criteria.',
     featured: true,
     span: 'wide',
   },
   {
     label: '02',
     title: 'Media',
-    description: 'Media buying, campaign deployment, and channel optimization across multiple platforms.',
+    description: 'Media deployment, channel optimization and budget decisions across search, social and display.',
   },
   {
     label: '03',
     title: 'Response',
-    description: 'Lead capture, initial response management, and rapid connection to intake operations.',
+    description: 'Lead capture, initial response management and rapid connection to intake operations.',
   },
   {
     label: '04',
     title: 'Intake',
-    description: 'Structured intake operations with campaign-specific workflows and qualification logic.',
+    description: 'Campaign-specific questions, contact workflows and qualification logic designed around what the receiving firm needs.',
     featured: true,
     span: 'wide',
   },
   {
     label: '05',
     title: 'Qualification',
-    description: 'Lead qualification, screening, and dispositioning based on campaign criteria.',
+    description: 'Campaign-specific screening, dispositioning and escalation based on firm-approved criteria.',
   },
   {
     label: '06',
     title: 'Documentation',
-    description: 'Document collection, review, and management throughout the qualification process.',
+    description: 'Document collection, e-signature routing and missing-information outreach throughout the qualification process.',
   },
   {
     label: '07',
     title: 'Retainer',
-    description: 'Retainer workflow support, document completion tracking, and signature management.',
+    description: 'Retainer workflow, completion tracking and status monitoring designed to reduce avoidable drop-off.',
     featured: true,
   },
   {
     label: '08',
     title: 'Delivery',
-    description: 'Qualified case delivery with complete documentation and attribution data.',
+    description: 'Secure, structured delivery through agreed APIs, webhooks, SFTP or file-based workflows.',
   },
   {
     label: '09',
     title: 'Reporting',
-    description: 'Transparent performance reporting, metrics tracking, and operational visibility.',
+    description: 'Transparent reporting on source, status, qualification, completion and delivery wherever the workflow provides data.',
   },
   {
     label: '10',
     title: 'Optimization',
-    description: 'Campaign optimization, downstream analysis, and continuous improvement of acquisition economics.',
+    description: 'Media, creative, qualification, follow-up and budget decisions refined using verified downstream outcomes.',
     featured: true,
   },
 ]
@@ -66,6 +66,9 @@ const lifecycleCards: MagicBentoCardData[] = [
 export function AcquisitionLifecycleDetail() {
   return (
     <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold">
+      {/* Floating background orbs */}
+      <div className="absolute top-1/4 right-0 w-[350px] h-[350px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
+      <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
@@ -85,7 +88,7 @@ export function AcquisitionLifecycleDetail() {
                 className="h-px bg-[#C6A24A]"
               />
               <span className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A]">
-                The System
+                See the Whole Pipeline
               </span>
               <motion.div
                 initial={{ width: 0 }}
@@ -96,7 +99,7 @@ export function AcquisitionLifecycleDetail() {
               />
             </motion.span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">
-              The Complete <span className="text-[#C6A24A] font-bold">Acquisition Lifecycle</span>
+              From the first response to the <span className="text-[#C6A24A] font-bold">firm's next decision.</span>
             </h2>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -105,7 +108,7 @@ export function AcquisitionLifecycleDetail() {
               transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]"
             >
-              We don&apos;t simply generate leads. We build and operate plaintiff acquisition systems that connect every stage from strategy through optimization.
+              You may need qualified leads. You may need intake. You may need help moving eligible prospects through documentation and retainer workflow. Or you may need the entire acquisition operation connected. We can build around the part of the pipeline that needs attention — without losing sight of what happens next.
             </motion.p>
           </div>
 

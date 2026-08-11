@@ -10,7 +10,7 @@ export function Footer() {
           <div className="space-y-6">
             <h3 className="font-serif text-2xl font-bold text-[#202124]">{SITE_NAME}</h3>
             <p className="text-sm text-[#4B5563] leading-[1.7]">
-              Build a Smarter Plaintiff Acquisition Pipeline.
+              Where Better Cases Begin With Better Acquisition.
             </p>
             <div className="space-y-3 text-sm text-[#6B7280]">
               <p>{CONTACT_ADDRESS}</p>
@@ -79,7 +79,7 @@ export function Footer() {
           <div>
             <h4 className="font-semibold mb-6 text-[#202124] text-sm tracking-wide">Important Notice</h4>
             <p className="text-xs text-[#6B7280] leading-[1.7]">
-              The Torts Attorney provides legal marketing and case-acquisition services to law firms. It is not a law firm and does not provide legal advice. All campaign information is for illustrative purposes unless otherwise verified.
+              We provide legal marketing and case-acquisition services for plaintiff law firms and campaign partners. We are not a law firm and do not provide legal advice or legal representation.
             </p>
           </div>
         </div>

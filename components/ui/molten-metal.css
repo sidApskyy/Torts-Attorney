@@ -4,3 +4,10 @@
   height: 100%;
   overflow: hidden;
 }
+
+.molten-metal-container.molten-overlay {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}

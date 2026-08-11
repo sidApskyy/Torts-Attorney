@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { useInView, useMotionValue, useSpring, motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { useInView, useMotionValue, useSpring, useMotionValueEvent } from 'framer-motion'
 
 interface AnimatedCounterProps {
   value: number
@@ -20,7 +20,6 @@ export function AnimatedCounter({
   const inView = useInView(ref, { once: true, margin: '-50px' })
   const motionValue = useMotionValue(0)
   const spring = useSpring(motionValue, { duration: duration * 1000, bounce: 0 })
-  const [display, setDisplay] = useState('0')
 
   useEffect(() => {
     if (inView) {
@@ -28,18 +27,17 @@ export function AnimatedCounter({
     }
   }, [inView, motionValue, value])
 
-  useEffect(() => {
-    const unsubscribe = spring.on('change', (latest) => {
-      const formatted = formatValue(latest, format)
-      setDisplay(formatted)
-    })
-    return () => unsubscribe()
-  }, [spring, format])
+  // Direct DOM text update — avoids 60+ setState re-renders per second
+  useMotionValueEvent(spring, 'change', (latest) => {
+    if (ref.current) {
+      ref.current.textContent = formatValue(latest, format)
+    }
+  })
 
   return (
-    <motion.span ref={ref} className={className}>
-      {display}
-    </motion.span>
+    <span ref={ref} className={className}>
+      0
+    </span>
   )
 }
 

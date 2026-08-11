@@ -133,6 +133,7 @@ export function ScrollExpand({
     let target = 0
     let stageH = 0
     let running = false
+    let cachedTrackTop = 0
 
     const measure = () => {
       const c = propsRef.current as Record<string, number>
@@ -143,6 +144,7 @@ export function ScrollExpand({
 
       const w = root.clientWidth || stageH
       stage.style.setProperty('--se-title-size', `${clamp(w * 0.075, 20, 84)}px`)
+      cachedTrackTop = track.getBoundingClientRect().top + window.scrollY
     }
 
     const readProgress = () => {
@@ -150,7 +152,7 @@ export function ScrollExpand({
       if (!c.enabled) return 1
       const span = stageH * Math.max(0.01, c.scrollDistance)
       if (c.useWindowScroll) {
-        const top = track.getBoundingClientRect().top
+        const top = cachedTrackTop - window.scrollY
         return clamp(-top / span, 0, 1)
       }
       return clamp(root.scrollTop / span, 0, 1)
@@ -203,11 +205,19 @@ export function ScrollExpand({
     const ro = new ResizeObserver(onResize)
     ro.observe(root)
 
+    // Refresh cached track position when it enters/leaves viewport
+    // (handles dynamic content shifts above the hero)
+    const trackIO = new IntersectionObserver(() => {
+      cachedTrackTop = track.getBoundingClientRect().top + window.scrollY
+    }, { threshold: 0 })
+    trackIO.observe(track)
+
     return () => {
       if (raf) cancelAnimationFrame(raf)
       scroller.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       ro.disconnect()
+      trackIO.disconnect()
     }
   }, [applyProgress, useWindowScroll])
 

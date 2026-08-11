@@ -90,7 +90,7 @@ export function Header() {
             transition={{ delay: 0.6, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <Button variant="red" size="lg" className="text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
-              Start a Conversation
+              Talk Through a Campaign
             </Button>
           </motion.div>
 
@@ -167,7 +167,7 @@ export function Header() {
                 className="pt-4"
               >
                 <Button variant="red" size="lg" className="w-full shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
-                  Start a Conversation
+                  Talk About My Campaign
                 </Button>
               </motion.div>
             </nav>

@@ -9,44 +9,50 @@ export function Solutions() {
   const solutions = [
     {
       title: 'Campaign Strategy & Media',
-      problem: 'Media buying without operational alignment leads to wasted spend and unqualified volume.',
-      capability: 'Campaign-specific operating plans, media strategy, and deployment aligned to your intake capacity.',
+      problem: 'Start with the audience the campaign is actually trying to reach.',
+      capability: 'Campaign selection, audience planning, creative direction, landing-page strategy, media deployment and ongoing budget decisions built around the campaign\'s actual criteria.',
       value: 'Higher-quality responses that match your firm\'s operational capability.',
+      cta: 'Explore Media Strategy',
       featured: true,
     },
     {
       title: 'Intake & Qualification',
-      problem: 'Generic intake workflows miss qualification opportunities and create downstream bottlenecks.',
-      capability: 'Campaign-specific intake operations with qualification logic and disposition tracking.',
+      problem: 'Give the intake team something they can work with.',
+      capability: 'Campaign-specific questions, contact workflows, qualification logic, disposition standards, escalation paths and follow-up designed around what the receiving firm actually needs.',
       value: 'Faster qualification, better dispositioning, and improved conversion rates.',
+      cta: 'Explore Intake Operations',
       featured: false,
     },
     {
       title: 'Retainer Workflow',
-      problem: 'Document collection and retainer completion are where most potential cases are lost.',
-      capability: 'Structured retainer workflow support with document tracking and completion monitoring.',
+      problem: 'Don\'t let a qualified opportunity sit still.',
+      capability: 'Document follow-up, e-signature routing, missing-information outreach and status tracking designed to reduce avoidable drop-off between qualification and completion.',
       value: 'Higher retainer completion rates and faster time-to-signature.',
+      cta: 'Explore Retainer Operations',
       featured: false,
     },
     {
       title: 'Lead Nurturing & Reactivation',
-      problem: 'Qualified leads that don\'t convert immediately are often lost to follow-up gaps.',
-      capability: 'Systematic nurturing and reactivation workflows for qualified but unconverted leads.',
+      problem: 'Some people need another conversation.',
+      capability: 'Structured follow-up for unreachable, incomplete, undecided or document-pending prospects — with different paths for different situations.',
       value: 'Recovery of qualified opportunities and improved campaign economics.',
+      cta: 'Explore Nurturing',
       featured: false,
     },
     {
       title: 'Reporting & Analytics',
-      problem: 'Without visibility into downstream performance, you can\'t optimize acquisition economics.',
-      capability: 'Transparent reporting on metrics from response through retainer completion.',
+      problem: 'Know what happened after the lead came in.',
+      capability: 'Track source, response, contact, qualification, completion, delivery and fallout wherever the agreed workflow provides the necessary downstream data.',
       value: 'Data-driven optimization and clear visibility into campaign performance.',
+      cta: 'Explore Reporting',
       featured: false,
     },
     {
       title: 'CRM & Workflow Integration',
-      problem: 'Manual data transfer between acquisition systems and case management creates errors and delays.',
-      capability: 'Seamless integration with your existing CRM and case management systems.',
+      problem: 'Fit the delivery to your team\'s workflow.',
+      capability: 'Secure, structured delivery through agreed APIs, webhooks, SFTP, email or file-based workflows, subject to technical validation and access.',
       value: 'Faster delivery, reduced errors, and automated workflow triggers.',
+      cta: 'Explore Integrations',
       featured: false,
     },
   ]
@@ -54,7 +60,8 @@ export function Solutions() {
   return (
     <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="solutions-heading">
       {/* Subtle background accents */}
-      <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
+      <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
@@ -94,7 +101,7 @@ export function Solutions() {
               transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]"
             >
-              We address the operational challenges that occur after the lead arrives—because that's where acquisition performance is determined.
+              We can support one operating need or build the connected workflow from acquisition through delivery.
             </motion.p>
           </div>
 
@@ -121,7 +128,7 @@ export function Solutions() {
                   <div className="space-y-6">
                     <div>
                       <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#6B7280]">
-                        The Problem
+                        Heading
                       </p>
                       <p className="text-[#4B5563] leading-[1.7]">
                         {solutions[0].problem}
@@ -175,7 +182,7 @@ export function Solutions() {
                   <div className="space-y-4">
                     <div>
                       <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#6B7280]">
-                        The Problem
+                        Heading
                       </p>
                       <p className="text-sm text-[#4B5563] leading-[1.7]">
                         {solution.problem}
@@ -196,6 +203,9 @@ export function Solutions() {
                       <p className="text-sm text-[#202124] leading-[1.7] font-medium">
                         {solution.value}
                       </p>
+                      <p className="text-sm text-[#C6A24A] font-medium mt-3">
+                        {solution.cta} →
+                      </p>
                     </div>
                   </div>
                 </PixelCard>
@@ -212,7 +222,7 @@ export function Solutions() {
             className="text-center"
           >
             <Button variant="red" size="lg" className="text-base">
-              Explore Solutions in Detail
+              Talk Through a Campaign
             </Button>
           </motion.div>
         </div>

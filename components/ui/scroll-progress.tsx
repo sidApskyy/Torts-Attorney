@@ -15,7 +15,7 @@ export function ScrollProgress() {
   return (
     <motion.div
       key={pathname}
-      className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#9B7830] via-[#C6A24A] to-[#9B7830] origin-left z-[100] pointer-events-none"
+      className="fixed top-0 left-0 right-0 h-[3px] scroll-progress-bar origin-left z-[100] pointer-events-none"
       style={{ scaleX }}
     />
   )

@@ -10,11 +10,11 @@ import { Proof } from '@/components/sections/proof'
 import { FinalCTA } from '@/components/sections/final-cta'
 
 export const metadata: Metadata = {
-  title: 'The Torts Attorney - Plaintiff Acquisition Systems for Law Firms',
-  description: 'Build and operate plaintiff acquisition systems: campaign strategy, media buying, intake operations, qualification workflows, retainer support, and delivery for law firms.',
+  title: 'Plaintiff Case Acquisition & Intake Services | The Torts Attorney',
+  description: 'We help plaintiff law firms build and operate case-acquisition programs across campaign strategy, media, intake, qualification, retainer workflow and reporting.',
   openGraph: {
-    title: 'The Torts Attorney - Plaintiff Acquisition Systems for Law Firms',
-    description: 'Build and operate plaintiff acquisition systems: campaign strategy, media buying, intake operations, qualification workflows, retainer support, and delivery for law firms.',
+    title: 'Plaintiff Case Acquisition & Intake Services | The Torts Attorney',
+    description: 'We help plaintiff law firms build and operate case-acquisition programs across campaign strategy, media, intake, qualification, retainer workflow and reporting.',
     type: 'website',
   },
 }

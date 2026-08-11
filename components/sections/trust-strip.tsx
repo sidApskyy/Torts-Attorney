@@ -7,24 +7,24 @@ import { Marquee } from '@/components/ui/marquee'
 export function TrustStrip() {
   const capabilities = [
     {
-      title: "Nationwide Campaign Reach",
-      description: "Scale campaigns across multiple markets with consistent quality"
-    },
-    {
       title: "Campaign-Specific Intake",
       description: "Tailored intake operations for each campaign's unique requirements"
     },
     {
-      title: "Real-Time Performance Visibility",
-      description: "Transparent reporting on campaign metrics and conversion rates"
+      title: "Documented Source Tracking",
+      description: "Complete attribution from initial response through delivery"
+    },
+    {
+      title: "Consent-Aware Workflows",
+      description: "Campaign workflows built around approved disclosures and documented consent"
     },
     {
       title: "CRM-Ready Delivery",
-      description: "Seamless integration with your existing case management systems"
+      description: "Structured delivery through agreed APIs, webhooks, SFTP or CRM integration"
     },
     {
-      title: "Source and Status Tracking",
-      description: "Complete attribution from initial response through delivery"
+      title: "Downstream Performance Visibility",
+      description: "Track what happens after the lead arrives, not just the lead count"
     }
   ]
 

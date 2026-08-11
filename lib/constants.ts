@@ -1,7 +1,7 @@
 // Site Configuration
 export const SITE_NAME = 'The Torts Attorney'
-export const SITE_TAGLINE = 'Smarter Case Acquisition Starts Here.'
-export const SITE_DESCRIPTION = 'Build a Smarter Plaintiff Acquisition Pipeline. Campaign strategy, intake operations, qualification workflows, retainer support, delivery, and transparent reporting for plaintiff law firms.'
+export const SITE_TAGLINE = 'Where Better Cases Begin With Better Acquisition.'
+export const SITE_DESCRIPTION = 'Campaign strategy, intake operations, qualification workflows and transparent reporting for plaintiff law firms.'
 
 // Contact Information
 export const CONTACT_EMAIL = 'TODO: CLIENT VERIFICATION'
@@ -17,11 +17,11 @@ export const SOCIAL_LINKS = {
 // Navigation
 export const NAVIGATION = [
   { name: 'Solutions', href: '/solutions' },
+  { name: 'Campaigns', href: '/campaign-intelligence' },
   { name: 'How It Works', href: '/how-it-works' },
   { name: 'Technology', href: '/technology' },
   { name: 'Insights', href: '/insights' },
   { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
 ] as const
 
 // Acquisition Lifecycle Stages

@@ -26,7 +26,7 @@ export function StackCards({ items, className = '' }: StackCardsProps) {
 
   useMotionValueEvent(smoothProgress, 'change', (latest) => {
     const idx = Math.min(items.length - 1, Math.floor(latest * items.length))
-    setActiveIndex(idx)
+    setActiveIndex((prev) => (prev === idx ? prev : idx))
   })
 
   return (

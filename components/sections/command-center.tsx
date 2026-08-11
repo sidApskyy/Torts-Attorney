@@ -8,8 +8,8 @@ import { BorderGlow } from '@/components/ui/border-glow'
 export function CommandCenter() {
   const metrics = [
     { label: 'Total Responses', value: 10000, change: '+12%', format: 'number' as const },
-    { label: 'Qualified', value: 7200, change: '+8%', format: 'number' as const },
-    { label: 'Retainers', value: 1555, change: '+15%', format: 'number' as const },
+    { label: 'Qualified Opportunities', value: 7200, change: '+8%', format: 'number' as const },
+    { label: 'Retainers Completed', value: 1555, change: '+15%', format: 'number' as const },
     { label: 'Cost/Retainer', value: 285, change: '-5%', format: 'currency' as const },
   ]
 
@@ -27,8 +27,8 @@ export function CommandCenter() {
   return (
     <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="command-center-heading">
       {/* Subtle background accents */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '7s' }} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
@@ -38,11 +38,14 @@ export function CommandCenter() {
             viewport={{ once: true }}
             className="text-center mb-20 section-heading-glow"
           >
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
+              Measure What the Firm Can Act On
+            </p>
             <h2 id="command-center-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">
-              Acquisition <span className="text-[#C6A24A] italic">Command Center</span>
+              See the Pipeline, <span className="text-[#C6A24A] italic">Not Just the Lead Count.</span>
             </h2>
             <p className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]">
-              Real-time visibility into your acquisition pipeline. Track performance from response through retainer completion with transparent, actionable metrics.
+              The better question is what those leads became. A useful acquisition dashboard follows the prospect beyond the first response.
             </p>
           </motion.div>
 

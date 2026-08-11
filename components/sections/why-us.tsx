@@ -6,35 +6,36 @@ export function WhyUs() {
   const differentiators = [
     {
       title: 'Campaign-Specific Operating Plans',
-      description: 'Every campaign has a unique operating plan aligned to your firm\'s capacity, target markets, and acquisition goals—not a generic template.',
+      description: 'Every campaign has its own criteria, timing, exclusions, documentation and operational constraints.',
     },
     {
       title: 'Transparent Dispositioning',
-      description: 'Clear visibility into why leads qualify or don\'t qualify, with documented reasons and audit trails for every decision.',
+      description: 'A useful system should show why a record advanced, stalled, fell out or requires review.',
     },
     {
       title: 'Capacity-Aware Scaling',
-      description: 'We scale campaigns based on your firm\'s actual intake capacity, ensuring quality doesn\'t suffer as volume increases.',
+      description: 'Traffic should not outrun the intake team, documentation process or receiving firm\'s ability to work the opportunity.',
     },
     {
       title: 'Downstream Optimization',
-      description: 'We optimize the entire pipeline—from response through retainer—not just lead generation at the top of the funnel.',
+      description: 'The cheapest lead is not automatically the best lead. When downstream outcomes are available, they should influence campaign decisions.',
     },
     {
       title: 'Flexible Delivery',
-      description: 'Delivery options tailored to your systems: API, webhooks, SFTP, or CRM integration with custom field mapping.',
+      description: 'Programs can be structured around lead delivery, qualified opportunity, document-complete workflow or signed-retainer workflow, depending on the engagement.',
     },
     {
       title: 'Human Accountability',
-      description: 'Real people accountable for campaign performance, with dedicated support and clear escalation paths when issues arise.',
+      description: 'Automation improves consistency and speed. People still handle judgment, exceptions and quality review.',
     },
   ]
 
   return (
     <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="why-us-heading">
       {/* Subtle background accent */}
-      <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none" />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
+      <div className="absolute bottom-1/4 right-0 w-[300px] h-[300px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
           <motion.div
@@ -43,11 +44,14 @@ export function WhyUs() {
             viewport={{ once: true }}
             className="text-center mb-20 section-heading-glow"
           >
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
+              Built Around Plaintiff-Side Reality
+            </p>
             <h2 id="why-us-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">
               Why <span className="text-[#C6A24A] italic">The Torts Attorney</span>
             </h2>
             <p className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]">
-              We build and operate acquisition systems rather than simply generating leads. These principles guide our approach.
+              Acquisition is only one part of the job. We build around what follows.
             </p>
           </motion.div>
 

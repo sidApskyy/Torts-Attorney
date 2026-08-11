@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import { MagneticButton } from '@/components/ui/magnetic-button'
 
 export function FinalCTA() {
   return (
@@ -40,14 +41,18 @@ export function FinalCTA() {
         >
           {/* Gold top accent */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C6A24A] to-transparent rounded-t-xl" />
+          {/* Eyebrow */}
+          <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A] mb-6">
+            Where Is the Pipeline Losing Value?
+          </p>
           {/* Headline */}
           <h2 id="final-cta-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-8 leading-[0.95] tracking-[-0.02em]">
-            Let's Find Where Your Campaign Is <span className="text-[#C6A24A] italic">Losing Value</span>
+            Let's find the point where good opportunities are <span className="text-[#C6A24A] italic">getting lost.</span>
           </h2>
           
           {/* Supporting copy */}
           <p className="text-lg md:text-xl text-[#4B5563] max-w-2xl mx-auto mb-12 leading-[1.7]">
-            Most campaigns lose value in the stages after the lead arrives. We help you identify where—and build systems to recover it.
+            Bring us the campaign, acquisition problem, intake workflow or reporting challenge. We will map the current process, identify the gaps and determine whether there is a practical path to improve it.
           </p>
           
           {/* CTAs */}
@@ -58,13 +63,28 @@ export function FinalCTA() {
             transition={{ delay: 0.1 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button variant="red" size="lg" className="w-full sm:w-auto text-base">
-              Start a Conversation
-            </Button>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto text-base">
-              Request a Campaign Review
-            </Button>
+            <MagneticButton strength={0.25} className="rounded-full">
+              <Button variant="red" size="lg" className="w-full sm:w-auto text-base">
+                Talk Through the Pipeline
+              </Button>
+            </MagneticButton>
+            <MagneticButton strength={0.25} className="rounded-full">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto text-base">
+                Send Us the Campaign
+              </Button>
+            </MagneticButton>
           </motion.div>
+          
+          {/* Supporting line */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="mt-8 text-sm text-[#4B5563] max-w-xl mx-auto"
+          >
+            No inflated promises. No mystery metrics. Just a clearer view of the pipeline and what can be improved.
+          </motion.p>
           
           {/* Disclosure */}
           <motion.p
@@ -74,7 +94,7 @@ export function FinalCTA() {
             transition={{ delay: 0.2 }}
             className="mt-10 text-sm text-[#6B7280]"
           >
-            The Torts Attorney provides legal marketing and case-acquisition services to law firms. It is not a law firm and does not provide legal advice.
+            The Torts Attorney provides legal marketing and case-acquisition services. We are not a law firm and do not provide legal advice or legal representation.
           </motion.p>
         </motion.div>
       </div>

@@ -71,7 +71,7 @@ export default function RootLayout({
             style={{ background: 'radial-gradient(circle, rgba(107, 143, 214, 0.03), transparent 70%)', animationDelay: '5s' }}
           />
           {/* Floating gold particles */}
-          <ParticleField count={25} />
+          <ParticleField count={12} />
         </div>
         <CursorGlow />
         <SmoothScroll>

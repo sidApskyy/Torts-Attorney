@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { AnimatedCounter } from '@/components/ui/animated-counter'
 import { ScrollExpand } from '@/components/ui/scroll-expand'
 import { MoltenMetal } from '@/components/ui/molten-metal'
+import { MagneticButton } from '@/components/ui/magnetic-button'
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion()
@@ -43,36 +44,45 @@ export function Hero() {
       <div className="relative z-[2]">
         <ScrollExpand
           mediaContent={
-            <MoltenMetal
-              color1="#F5F7FA"
-              color2="#C6A24A"
-              color3="#FFFFFF"
-              speed={0.45}
-              scale={5}
-              detail={4}
-              glow={2.2}
-              coreSize={0.14}
-              swirl={1.5}
-              fold={-0.3}
-              blackPoint={0.04}
-              brightness={1.6}
-              colorMode="molten"
-              grain={true}
-              grainIntensity={0.03}
-              mouseInteraction={true}
-              mouseStrength={0.35}
-              opacity={0.9}
-            />
+            <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+              <img
+                src="/background hero.png"
+                alt="Lady Justice with columns and law book"
+                draggable={false}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+              />
+              <MoltenMetal
+                color1="#F5F7FA"
+                color2="#C6A24A"
+                color3="#FFFFFF"
+                speed={0.3}
+                scale={5}
+                detail={4}
+                glow={2.2}
+                coreSize={0.14}
+                swirl={1.5}
+                fold={-0.3}
+                blackPoint={0.04}
+                brightness={1.6}
+                colorMode="molten"
+                grain={true}
+                grainIntensity={0.03}
+                mouseInteraction={true}
+                mouseStrength={0.35}
+                opacity={0.85}
+                className="molten-overlay"
+              />
+            </div>
           }
           scrollHint="Scroll"
-          startWidth={70}
-          startHeight={80}
+          startWidth={55}
+          startHeight={65}
           startRadius={24}
           endRadius={0}
           mediaZoom={1.2}
-          scrollDistance={0.8}
-          holdDistance={0.25}
-          smoothing={0.08}
+          scrollDistance={0.45}
+          holdDistance={0.15}
+          smoothing={0}
           overlayScrim={0.88}
           useWindowScroll
           className="scroll-expand-hero"
@@ -93,7 +103,7 @@ export function Hero() {
               className="text-xs sm:text-sm text-[#202124] font-medium tracking-[0.2em] uppercase mb-8"
               style={{ opacity: 0.85 }}
             >
-              Smarter Case Acquisition Starts Here
+              PLAINTIFF ACQUISITION, BUILT AROUND THE WAY YOUR FIRM WORKS
             </motion.p>
 
             <motion.h2
@@ -103,8 +113,8 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] leading-[1.1] tracking-[-0.02em] mb-10"
             >
-              Every Stage. Every Metric.<br />
-              <span className="text-[#C6A24A]">Every Signed Retainer.</span>
+              Bring More of the Right<br />
+              <span className="text-[#C6A24A]">Opportunities to Your Firm.</span>
             </motion.h2>
 
             <motion.p
@@ -114,7 +124,7 @@ export function Hero() {
               className="text-sm sm:text-base md:text-lg text-[#4B5563] leading-[1.8] mb-12 max-w-xl mx-auto"
               style={{ opacity: 0.92 }}
             >
-              We build and operate plaintiff acquisition systems — from strategy and media through intake, qualification, retainer, delivery, and reporting.
+              We help mass tort and personal injury firms plan, launch, qualify and track plaintiff-acquisition campaigns — from the first response through intake, retainer workflow and law-firm delivery.
             </motion.p>
 
             <motion.div
@@ -123,12 +133,16 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
-              <Button variant="red" size="lg" className="text-base">
-                Start a Conversation
-              </Button>
-              <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830]">
-                Explore the Acquisition System
-              </Button>
+              <MagneticButton strength={0.25} className="rounded-full">
+                <Button variant="red" size="lg" className="text-base">
+                  Talk Through a Campaign
+                </Button>
+              </MagneticButton>
+              <MagneticButton strength={0.25} className="rounded-full">
+                <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830]">
+                  See Current Campaigns
+                </Button>
+              </MagneticButton>
             </motion.div>
             </div>
           </div>
@@ -149,7 +163,7 @@ export function Hero() {
               <p className="font-serif text-3xl md:text-4xl font-bold text-[#202124] tabular-nums mb-2">
                 <AnimatedCounter value={9712} duration={2} />
               </p>
-              <p className="text-sm text-[#4B5563]">Pipeline Volume</p>
+              <p className="text-sm text-[#4B5563]">Campaign-Specific Intake</p>
             </motion.div>
 
             <motion.div
@@ -162,7 +176,7 @@ export function Hero() {
               <p className="font-serif text-3xl md:text-4xl font-bold text-[#C6A24A] tabular-nums mb-2">
                 <AnimatedCounter value={16} duration={2} format="percent" />
               </p>
-              <p className="text-sm text-[#4B5563]">Retainer Rate</p>
+              <p className="text-sm text-[#4B5563]">Documented Source Tracking</p>
             </motion.div>
 
             <motion.div
@@ -175,7 +189,7 @@ export function Hero() {
               <p className="font-serif text-3xl md:text-4xl font-bold text-[#202124] tabular-nums mb-2">
                 <AnimatedCounter value={10} duration={2} />
               </p>
-              <p className="text-sm text-[#4B5563]">Lifecycle Stages</p>
+              <p className="text-sm text-[#4B5563]">Consent-Aware Workflows</p>
             </motion.div>
           </div>
 
@@ -186,7 +200,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-xs text-[#6B7280] max-w-lg leading-[1.7] mt-10 mx-auto sm:mx-0 text-center sm:text-left"
           >
-            The Torts Attorney provides legal marketing and case-acquisition services to law firms. It is not a law firm and does not provide legal advice.
+            The Torts Attorney provides legal marketing and case-acquisition services. We are not a law firm and do not provide legal advice or legal representation.
           </motion.p>
         </div>
       </div>
