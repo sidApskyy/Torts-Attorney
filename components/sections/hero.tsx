@@ -76,7 +76,7 @@ export function Hero() {
           }
           scrollHint="Scroll"
           startWidth={55}
-          startHeight={65}
+          startHeight={72}
           startRadius={24}
           endRadius={0}
           mediaZoom={1.2}
@@ -100,7 +100,7 @@ export function Hero() {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="text-xs sm:text-sm text-[#202124] font-medium tracking-[0.2em] uppercase mb-8"
+              className="text-xs sm:text-sm text-[#202124] font-medium tracking-[0.2em] uppercase mb-5 sm:mb-6 lg:mb-8"
               style={{ opacity: 0.85 }}
             >
               PLAINTIFF ACQUISITION, BUILT AROUND THE WAY YOUR FIRM WORKS
@@ -111,7 +111,7 @@ export function Hero() {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] leading-[1.1] tracking-[-0.02em] mb-10"
+              className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] leading-[1.1] tracking-[-0.02em] mb-6 sm:mb-8 lg:mb-10"
             >
               Bring More of the Right<br />
               <span className="text-[#C6A24A]">Opportunities to Your Firm.</span>
@@ -121,7 +121,7 @@ export function Hero() {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="text-sm sm:text-base md:text-lg text-[#4B5563] leading-[1.8] mb-12 max-w-xl mx-auto"
+              className="text-sm sm:text-base md:text-lg text-[#4B5563] leading-[1.8] mb-8 sm:mb-10 lg:mb-12 max-w-xl mx-auto"
               style={{ opacity: 0.92 }}
             >
               We help mass tort and personal injury firms plan, launch, qualify and track plaintiff-acquisition campaigns — from the first response through intake, retainer workflow and law-firm delivery.
