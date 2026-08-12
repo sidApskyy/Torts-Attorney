@@ -11,14 +11,34 @@ import { cn } from '@/lib/utils'
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
+    let lastScrollY = window.scrollY
+    let ticking = false
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY
+          setIsScrolled(currentScrollY > 10)
+
+          // Hide when scrolling down (past 120px threshold), show when scrolling up
+          if (currentScrollY > 120 && currentScrollY > lastScrollY) {
+            setIsHidden(true)
+          } else {
+            setIsHidden(false)
+          }
+
+          lastScrollY = currentScrollY
+          ticking = false
+        })
+        ticking = true
+      }
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -26,28 +46,32 @@ export function Header() {
     setIsMobileMenuOpen(false)
   }, [pathname])
 
+  useEffect(() => {
+    if (isHidden) setIsMobileMenuOpen(false)
+  }, [isHidden])
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      animate={{ y: isHidden && !isMobileMenuOpen ? -120 : 0, opacity: 1 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
         isScrolled
-          ? 'bg-[rgba(248,248,246,0.90)] backdrop-blur-[20px] border border-[#E4E1D8] rounded-[18px] mx-4 mt-3 shadow-[0_4px_16px_rgba(32,33,36,0.05)]'
+          ? 'bg-[rgba(248,248,246,0.90)] backdrop-blur-[20px] border border-[#E4E1D8] rounded-[18px] mx-2 mt-2 sm:mx-4 sm:mt-3 shadow-[0_4px_16px_rgba(32,33,36,0.05)]'
           : 'bg-transparent border border-transparent'
       )}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-3 sm:px-6 lg:px-8">
         <div className={cn(
           'flex items-center justify-between transition-all duration-500',
-          isScrolled ? 'h-16 md:h-20' : 'h-20 md:h-24'
+          isScrolled ? 'h-14 sm:h-16 md:h-20' : 'h-16 sm:h-20 md:h-24'
         )}>
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
             <span className={cn(
-              'font-serif font-bold text-[#202124] tracking-tight transition-all duration-500 group-hover:text-[#C6A24A]',
-              isScrolled ? 'text-xl md:text-2xl' : 'text-2xl md:text-3xl'
+              'font-serif font-bold text-[#202124] tracking-tight transition-all duration-500 group-hover:text-[#C6A24A] whitespace-nowrap',
+              isScrolled ? 'text-base sm:text-xl md:text-2xl' : 'text-lg sm:text-2xl md:text-3xl'
             )}>
               {SITE_NAME}
             </span>
@@ -97,7 +121,7 @@ export function Header() {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-3 rounded-full hover:bg-[#ECEFF2] transition-colors text-[#202124] min-h-[44px] min-w-[44px] relative z-50"
+            className="md:hidden p-2 sm:p-3 rounded-full hover:bg-[#ECEFF2] transition-colors text-[#202124] min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] relative z-50"
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
             whileTap={{ scale: 0.95 }}
@@ -111,7 +135,7 @@ export function Header() {
                   exit={{ rotate: 90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <X className="h-6 w-6" />
+                  <X className="h-5 w-5 sm:h-6 sm:w-6" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -121,7 +145,7 @@ export function Header() {
                   exit={{ rotate: -90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -137,9 +161,9 @@ export function Header() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden border-t border-[#E4E1D8] bg-[rgba(248,248,246,0.90)] backdrop-blur-[20px] overflow-hidden"
+            className="md:hidden border-t border-[#E4E1D8] bg-[rgba(248,248,246,0.95)] backdrop-blur-[20px] overflow-hidden rounded-b-[18px]"
           >
-            <nav className="container mx-auto px-4 py-4 space-y-2">
+            <nav className="px-3 sm:px-6 py-3 space-y-1.5">
               {NAVIGATION.map((item, index) => (
                 <motion.div
                   key={item.name}
@@ -150,7 +174,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     className={cn(
-                      'block px-4 py-3 rounded-2xl text-base font-medium transition-colors min-h-[48px] flex items-center',
+                      'block px-4 py-3 rounded-xl text-sm sm:text-base font-medium transition-colors min-h-[44px] flex items-center',
                       pathname === item.href
                         ? 'bg-[#C6A24A] text-[#FFFFFF] shadow-[0_4px_14px_rgba(198,162,74,0.12)]'
                         : 'text-[#30343A] hover:bg-[#ECEFF2] hover:text-[#202124]'
@@ -164,9 +188,9 @@ export function Header() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 + NAVIGATION.length * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="pt-4"
+                className="pt-3"
               >
-                <Button variant="red" size="lg" className="w-full shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
+                <Button variant="red" size="lg" className="w-full text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
                   Talk About My Campaign
                 </Button>
               </motion.div>

@@ -31,7 +31,7 @@ export function TrustStrip() {
   return (
     <section className="bg-[#F5F7FA] py-16 md:py-20 relative overflow-hidden">
       {/* Ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] sm:w-[600px] sm:h-[300px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none" />
 
       {/* Edge fade masks */}
       <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#F5F7FA] to-transparent z-10 pointer-events-none" />
@@ -42,7 +42,7 @@ export function TrustStrip() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center text-xs font-medium uppercase tracking-[0.15em] text-[#6B7280]"
+          className="text-center text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#6B7280]"
         >
           Core Capabilities
         </motion.p>

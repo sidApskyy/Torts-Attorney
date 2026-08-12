@@ -15,7 +15,7 @@ export function FinalCTA() {
           opacity: [0.3, 0.5, 0.3],
         }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-0 left-1/4 w-80 h-80 rounded-full blur-3xl pointer-events-none"
+        className="absolute top-0 left-1/4 w-56 h-56 sm:w-80 sm:h-80 rounded-full blur-3xl pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }}
       />
       <motion.div
@@ -25,7 +25,7 @@ export function FinalCTA() {
           opacity: [0.2, 0.4, 0.2],
         }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none"
+        className="absolute bottom-0 right-1/4 w-64 h-64 sm:w-96 sm:h-96 rounded-full blur-3xl pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent 70%)' }}
       />
 
@@ -37,12 +37,12 @@ export function FinalCTA() {
           whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-4xl mx-auto text-center relative z-10 content-card p-12 md:p-16"
+          className="max-w-4xl mx-auto text-center relative z-10 content-card p-6 sm:p-12 md:p-16"
         >
           {/* Gold top accent */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C6A24A] to-transparent rounded-t-xl" />
           {/* Eyebrow */}
-          <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A] mb-6">
+          <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-6">
             Where Is the Pipeline Losing Value?
           </p>
           {/* Headline */}

@@ -32,8 +32,8 @@ export function Technology() {
   return (
     <section className="bg-[#F5F7FA] py-20 md:py-28 relative overflow-hidden">
       {/* Floating background orbs */}
-      <div className="absolute top-1/3 left-0 w-[300px] h-[300px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
-      <div className="absolute bottom-1/4 right-0 w-[250px] h-[250px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '8s' }} />
+      <div className="absolute top-1/3 left-0 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
+      <div className="absolute bottom-1/4 right-0 w-[180px] h-[180px] sm:w-[250px] sm:h-[250px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '8s' }} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}

@@ -36,7 +36,7 @@ export function ReportingClient() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16 section-heading-glow">
-                <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[#202124] mb-4">What We Do</h2>
+                <h2 className="font-serif text-5xl md:text-6xl font-semibold text-[#202124] mb-4">What We Do</h2>
                 <p className="text-base md:text-lg text-[#4B5563] max-w-3xl mx-auto">We implement comprehensive reporting and campaign intelligence systems for operational visibility.</p>
               </motion.div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

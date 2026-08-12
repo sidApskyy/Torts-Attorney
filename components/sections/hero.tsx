@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { AnimatedCounter } from '@/components/ui/animated-counter'
+import { RollingCounter } from '@/components/ui/rolling-counter'
 import { ScrollExpand } from '@/components/ui/scroll-expand'
 import { MoltenMetal } from '@/components/ui/molten-metal'
 import { MagneticButton } from '@/components/ui/magnetic-button'
@@ -15,11 +15,11 @@ export function Hero() {
       {/* Background gradient mesh */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div
-          className="absolute top-[10%] left-[5%] w-[500px] h-[500px] rounded-full blur-[100px]"
+          className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] rounded-full blur-[80px] sm:blur-[100px]"
           style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.04), transparent 70%)' }}
         />
         <div
-          className="absolute bottom-[5%] right-[10%] w-[600px] h-[600px] rounded-full blur-[120px]"
+          className="absolute bottom-[5%] right-[10%] w-[320px] h-[320px] sm:w-[600px] sm:h-[600px] rounded-full blur-[100px] sm:blur-[120px]"
           style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.08), transparent 70%)' }}
         />
       </div>
@@ -88,9 +88,9 @@ export function Hero() {
           className="scroll-expand-hero"
         >
           {/* Overlay — only the essential hero message */}
-          <div className="max-w-2xl mx-auto px-6 sm:px-8 relative" style={{ textShadow: '0 2px 24px rgba(32,33,36,0.5)' }}>
+          <div className="max-w-2xl mx-auto px-4 sm:px-8 relative" style={{ textShadow: '0 2px 24px rgba(32,33,36,0.5)' }}>
             {/* Dedicated text backdrop — guarantees readability over any shader state */}
-            <div className="absolute inset-0 -mx-8 -my-6 rounded-[24px] pointer-events-none"
+            <div className="absolute inset-0 -mx-4 -my-6 sm:-mx-8 rounded-[24px] pointer-events-none"
               style={{
                 background: 'radial-gradient(ellipse 50% 40% at center, rgba(248,248,246,0.72) 0%, rgba(248,248,246,0.3) 55%, transparent 100%)',
               }}
@@ -160,10 +160,10 @@ export function Hero() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="text-center sm:text-left"
             >
-              <p className="font-serif text-3xl md:text-4xl font-bold text-[#202124] tabular-nums mb-2">
-                <AnimatedCounter value={9712} duration={2} />
+              <p className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] tabular-nums mb-3">
+                <RollingCounter value={9712} duration={3.5} />
               </p>
-              <p className="text-sm text-[#4B5563]">Campaign-Specific Intake</p>
+              <p className="text-base md:text-lg text-[#4B5563]">Campaign-Specific Intake</p>
             </motion.div>
 
             <motion.div
@@ -173,10 +173,10 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="text-center sm:text-left"
             >
-              <p className="font-serif text-3xl md:text-4xl font-bold text-[#C6A24A] tabular-nums mb-2">
-                <AnimatedCounter value={16} duration={2} format="percent" />
+              <p className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#C6A24A] tabular-nums mb-3">
+                <RollingCounter value={16} duration={3.5} format="percent" />
               </p>
-              <p className="text-sm text-[#4B5563]">Documented Source Tracking</p>
+              <p className="text-base md:text-lg text-[#4B5563]">Documented Source Tracking</p>
             </motion.div>
 
             <motion.div
@@ -186,10 +186,10 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="text-center sm:text-left"
             >
-              <p className="font-serif text-3xl md:text-4xl font-bold text-[#202124] tabular-nums mb-2">
-                <AnimatedCounter value={10} duration={2} />
+              <p className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] tabular-nums mb-3">
+                <RollingCounter value={10} duration={3.5} />
               </p>
-              <p className="text-sm text-[#4B5563]">Consent-Aware Workflows</p>
+              <p className="text-base md:text-lg text-[#4B5563]">Consent-Aware Workflows</p>
             </motion.div>
           </div>
 
@@ -198,7 +198,7 @@ export function Hero() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-xs text-[#6B7280] max-w-lg leading-[1.7] mt-10 mx-auto sm:mx-0 text-center sm:text-left"
+            className="text-sm md:text-base text-[#6B7280] max-w-lg leading-[1.7] mt-10 mx-auto sm:mx-0 text-center sm:text-left"
           >
             The Torts Attorney provides legal marketing and case-acquisition services. We are not a law firm and do not provide legal advice or legal representation.
           </motion.p>

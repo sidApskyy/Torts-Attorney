@@ -67,8 +67,8 @@ export function AcquisitionLifecycleDetail() {
   return (
     <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold">
       {/* Floating background orbs */}
-      <div className="absolute top-1/4 right-0 w-[350px] h-[350px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
-      <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
+      <div className="absolute top-1/4 right-0 w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
+      <div className="absolute bottom-1/4 left-0 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
@@ -87,7 +87,7 @@ export function AcquisitionLifecycleDetail() {
                 transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="h-px bg-[#C6A24A]"
               />
-              <span className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A]">
+              <span className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">
                 See the Whole Pipeline
               </span>
               <motion.div

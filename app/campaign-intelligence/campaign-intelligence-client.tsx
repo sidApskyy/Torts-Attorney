@@ -74,7 +74,7 @@ export function CampaignIntelligenceClient() {
         {/* Disclosure */}
         <section className="bg-[#F1F3F5] py-8">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-sm text-[#4B5563] text-center">
+            <p className="text-base md:text-lg text-[#4B5563] text-center">
               Illustrative sample data — not actual company performance. This dashboard demonstrates the type of visibility and intelligence available.
             </p>
           </div>

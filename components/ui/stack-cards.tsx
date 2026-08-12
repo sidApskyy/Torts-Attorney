@@ -105,10 +105,12 @@ function StackCardItemWrapper({
   const recedeEnd = (index + 1) / total
 
   // Entrance: slide in from alternating sides + 3D tilt
+  // Use smaller slide distance on mobile via window check at render time
+  const slideDistance = typeof window !== 'undefined' && window.innerWidth < 768 ? 30 : 80
   const slideIn = useTransform(
     scrollYProgress,
     [enterStart, enterEnd],
-    isEven ? [80, 0] : [-80, 0]
+    isEven ? [slideDistance, 0] : [-slideDistance, 0]
   )
   const enterRotateY = useTransform(
     scrollYProgress,
@@ -159,7 +161,7 @@ function StackCardItemWrapper({
         filter: blurFilter,
         top: '5rem',
         zIndex: index,
-        height: '45vh',
+        height: 'clamp(280px, 45vh, 500px)',
         transformStyle: 'preserve-3d',
         perspective: '1200px',
       }}

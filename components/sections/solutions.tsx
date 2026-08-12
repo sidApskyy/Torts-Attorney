@@ -1,9 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
-import { PixelCard } from '@/components/ui/pixel-card'
 
 export function Solutions() {
   const solutions = [
@@ -60,8 +58,8 @@ export function Solutions() {
   return (
     <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="solutions-heading">
       {/* Subtle background accents */}
-      <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
-      <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
+      <div className="absolute top-0 right-1/4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
+      <div className="absolute bottom-1/4 left-1/4 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
@@ -80,7 +78,7 @@ export function Solutions() {
                 transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="h-px bg-[#C6A24A]"
               />
-              <span className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A]">
+              <span className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">
                 What We Do
               </span>
               <motion.div
@@ -105,86 +103,25 @@ export function Solutions() {
             </motion.p>
           </div>
 
-          {/* Featured solution - slide-up + fade in */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-20"
-          >
-            <PixelCard
-              variant="red"
-              gap={8}
-              speed={45}
-              className="glass-card p-10 md:p-14"
-            >
-              <div className="absolute top-0 left-0 bottom-0 w-1 bg-gradient-to-b from-[#C6A24A] to-[#9B7830]" />
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-bold text-[#202124] mb-6">
-                    {solutions[0].title}
-                  </h3>
-                  <div className="space-y-6">
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#6B7280]">
-                        Heading
-                      </p>
-                      <p className="text-[#4B5563] leading-[1.7]">
-                        {solutions[0].problem}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#C6A24A]">
-                        Our Capability
-                      </p>
-                      <p className="text-[#4B5563] leading-[1.7]">
-                        {solutions[0].capability}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="lg:border-l lg:border-[rgba(32, 33, 36,0.28)] lg:pl-10">
-                  <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#6B7280]">
-                    Operational Value
-                  </p>
-                  <p className="text-[#202124] text-lg md:text-xl leading-[1.5] font-medium">
-                    {solutions[0].value}
-                  </p>
-                </div>
-              </div>
-            </PixelCard>
-          </motion.div>
-
-          {/* Supporting solutions - PixelCard with hover animation */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-            {solutions.slice(1).map((solution, index) => (
+          {/* 4 Key Solution Cards - 2x2 grid, all equal size */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+            {solutions.slice(0, 4).map((solution, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: index * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className={cn(
-                  'h-full',
-                  index === 0 ? 'md:col-span-2' : ''
-                )}
+                className="h-full"
               >
-                <PixelCard
-                  variant="copper"
-                  gap={7}
-                  speed={40}
-                  className={cn('glass-card h-full p-8', index === 0 ? 'md:col-span-2' : '')}
-                >
-                  <h3 className="font-serif text-xl md:text-2xl font-bold text-[#202124] mb-4">
+                <div className="glass-card h-full p-6 sm:p-8 md:p-10 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 bottom-0 w-1 bg-gradient-to-b from-[#C6A24A] to-[#9B7830]" />
+                  <h3 className="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-[#202124] mb-5">
                     {solution.title}
                   </h3>
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#6B7280]">
-                        Heading
-                      </p>
-                      <p className="text-sm text-[#4B5563] leading-[1.7]">
+                      <p className="text-base text-[#4B5563] leading-[1.7]">
                         {solution.problem}
                       </p>
                     </div>
@@ -192,15 +129,12 @@ export function Solutions() {
                       <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#C6A24A]">
                         Our Capability
                       </p>
-                      <p className="text-sm text-[#4B5563] leading-[1.7]">
+                      <p className="text-base text-[#4B5563] leading-[1.7]">
                         {solution.capability}
                       </p>
                     </div>
                     <div className="pt-4 border-t border-[rgba(198, 162, 74,0.20)]">
-                      <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#6B7280]">
-                        Operational Value
-                      </p>
-                      <p className="text-sm text-[#202124] leading-[1.7] font-medium">
+                      <p className="text-base text-[#202124] leading-[1.5] font-medium">
                         {solution.value}
                       </p>
                       <p className="text-sm text-[#C6A24A] font-medium mt-3">
@@ -208,7 +142,39 @@ export function Solutions() {
                       </p>
                     </div>
                   </div>
-                </PixelCard>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* 2 Secondary Solution Cards - compact row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
+            {solutions.slice(4).map((solution, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="h-full"
+              >
+                <div className="glass-card h-full p-6 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C6A24A]/40 to-transparent" />
+                  <h3 className="font-serif text-lg md:text-xl font-bold text-[#202124] mb-3">
+                    {solution.title}
+                  </h3>
+                  <p className="text-sm text-[#4B5563] leading-[1.6] mb-3">
+                    {solution.capability}
+                  </p>
+                  <div className="pt-3 border-t border-[rgba(198, 162, 74,0.15)]">
+                    <p className="text-sm text-[#202124] font-medium leading-[1.5]">
+                      {solution.value}
+                    </p>
+                    <p className="text-sm text-[#C6A24A] font-medium mt-2">
+                      {solution.cta} →
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>

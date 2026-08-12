@@ -29,8 +29,15 @@
   overflow: hidden;
   cursor: grab;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  padding: 40px 32px;
-  gap: 20px;
+  padding: 28px 20px;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .carousel-item {
+    padding: 40px 32px;
+    gap: 20px;
+  }
 }
 
 .carousel-item:hover {
@@ -123,17 +130,29 @@
 .carousel-item-title {
   margin: 0;
   font-weight: 900;
-  font-size: 26px;
+  font-size: 20px;
   color: #202124;
   font-family: var(--font-serif, Georgia, serif);
   line-height: 1.2;
 }
 
+@media (min-width: 768px) {
+  .carousel-item-title {
+    font-size: 26px;
+  }
+}
+
 .carousel-item-description {
-  font-size: 16px;
+  font-size: 14px;
   color: #4B5563;
   line-height: 1.6;
   margin: 0;
+}
+
+@media (min-width: 768px) {
+  .carousel-item-description {
+    font-size: 16px;
+  }
 }
 
 .carousel-indicators-container {

@@ -27,8 +27,8 @@ export function CommandCenter() {
   return (
     <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="command-center-heading">
       {/* Subtle background accents */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '7s' }} />
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
+      <div className="absolute bottom-0 left-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '7s' }} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
@@ -38,7 +38,7 @@ export function CommandCenter() {
             viewport={{ once: true }}
             className="text-center mb-20 section-heading-glow"
           >
-            <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
+            <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Measure What the Firm Can Act On
             </p>
             <h2 id="command-center-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">
@@ -59,10 +59,10 @@ export function CommandCenter() {
               transition={{ delay: 0.1 }}
               className="flex justify-center"
             >
-              <div style={{ height: '420px', position: 'relative' }}>
+              <div style={{ height: 'clamp(320px, 60vh, 420px)', position: 'relative' }}>
                 <Carousel
                   items={carouselItems}
-                  baseWidth={520}
+                  baseWidth={typeof window !== 'undefined' && window.innerWidth < 640 ? 300 : 520}
                   autoplay={true}
                   autoplayDelay={3500}
                   pauseOnHover={true}
@@ -115,7 +115,7 @@ export function CommandCenter() {
                 coneSpread={25}
                 animated={true}
                 colors={['#C6A24A', '#9B7830', '#D8BC72']}
-                className="p-8 md:p-10"
+                className="p-5 sm:p-8 md:p-10"
               >
                 <h3 className="font-serif text-xl md:text-2xl font-bold text-[#202124] mb-8 gold-accent-line">
                   Pipeline Flow
@@ -134,9 +134,9 @@ export function CommandCenter() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.25 + index * 0.05 }}
-                      className="flex items-center gap-6"
+                      className="flex items-center gap-3 sm:gap-6"
                     >
-                      <div className="w-28 md:w-36 flex-shrink-0">
+                      <div className="w-24 sm:w-36 md:w-48 flex-shrink-0">
                         <p className="text-sm md:text-base text-[#4B5563]">{item.stage}</p>
                       </div>
                       <div className="flex-1 bg-[#F1F3F5] rounded-[12px] h-8 md:h-10 relative overflow-hidden">
@@ -180,7 +180,7 @@ export function CommandCenter() {
                 coneSpread={25}
                 animated={true}
                 colors={['#C6A24A', '#9B7830', '#D8BC72']}
-                className="p-8 md:p-10"
+                className="p-5 sm:p-8 md:p-10"
               >
                 <h3 className="font-serif text-xl md:text-2xl font-bold text-[#202124] mb-8 gold-accent-line">
                   Source Performance
@@ -203,7 +203,7 @@ export function CommandCenter() {
                       <div className="flex-1">
                         <p className="text-sm md:text-base font-medium text-[#202124]">{item.source}</p>
                       </div>
-                      <div className="flex items-center gap-10">
+                      <div className="flex items-center gap-4 sm:gap-6 md:gap-10">
                         <div className="text-right">
                           <p className="text-xs text-[#6B7280]">Responses</p>
                           <p className="text-sm md:text-base text-[#202124]">{item.responses.toLocaleString()}</p>
@@ -231,7 +231,7 @@ export function CommandCenter() {
             transition={{ delay: 0.4 }}
             className="mt-12 text-center"
           >
-            <p className="text-xs text-[#6B7280] italic">
+            <p className="text-sm text-[#6B7280] italic">
               Illustrative sample data — not actual company performance
             </p>
           </motion.div>

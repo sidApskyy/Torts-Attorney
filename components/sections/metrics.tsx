@@ -56,7 +56,7 @@ export function Metrics() {
 
           {/* Disclosure */}
           <div className="mt-8 text-center">
-            <p className="text-xs text-[#6B7280] italic">
+            <p className="text-sm text-[#6B7280] italic">
               Illustrative sample data — not actual company performance
             </p>
           </div>

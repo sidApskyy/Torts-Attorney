@@ -33,8 +33,8 @@ export function WhyUs() {
   return (
     <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="why-us-heading">
       {/* Subtle background accent */}
-      <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
-      <div className="absolute bottom-1/4 right-0 w-[300px] h-[300px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
+      <div className="absolute top-1/3 left-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
+      <div className="absolute bottom-1/4 right-0 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
@@ -44,7 +44,7 @@ export function WhyUs() {
             viewport={{ once: true }}
             className="text-center mb-20 section-heading-glow"
           >
-            <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
+            <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Built Around Plaintiff-Side Reality
             </p>
             <h2 id="why-us-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">

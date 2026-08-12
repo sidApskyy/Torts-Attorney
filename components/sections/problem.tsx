@@ -86,7 +86,7 @@ export function Problem() {
                 transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="h-px bg-[#C6A24A]"
               />
-              <span className="text-xs font-medium uppercase tracking-[0.15em] text-[#C6A24A]">
+              <span className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">
                 The Form Is Only the Beginning
               </span>
               <motion.div
@@ -139,7 +139,7 @@ export function Problem() {
                   className="flex items-center gap-4 md:gap-6 group"
                 >
                   {/* Stage label — slides in from left */}
-                  <div className="w-36 md:w-48 flex-shrink-0">
+                  <div className="w-24 sm:w-36 md:w-48 flex-shrink-0">
                     <motion.p
                       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: -15 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -213,7 +213,7 @@ export function Problem() {
               <div className="w-36 md:w-48 flex-shrink-0" />
               <div className="flex-1 flex items-center gap-3">
                 <div className="h-px flex-1 bg-gradient-to-r from-[#C6A24A]/40 to-[#C6A24A]/10" />
-                <span className="text-xs font-medium text-[#C6A24A] tabular-nums whitespace-nowrap">
+                <span className="text-lg md:text-xl font-semibold text-[#C6A24A] tabular-nums whitespace-nowrap">
                   84% of leads never become retainers
                 </span>
                 <div className="h-px flex-1 bg-gradient-to-l from-[#C6A24A]/40 to-[#C6A24A]/10" />
@@ -227,7 +227,7 @@ export function Problem() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 1.4, duration: 0.5 }}
-              className="mt-10 text-center text-xs text-[#6B7280] italic"
+              className="mt-10 text-center text-sm text-[#6B7280] italic"
             >
               Illustrative sample data — not actual company performance
             </motion.p>
