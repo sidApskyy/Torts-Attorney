@@ -23,10 +23,16 @@ export function Header() {
       if (!ticking) {
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY
-          setIsScrolled(currentScrollY > 10)
 
-          // Hide when scrolling down (past 120px threshold), show when scrolling up
-          if (currentScrollY > 120 && currentScrollY > lastScrollY) {
+          // Header appears only after scrolling past the hero section
+          // (roughly 90% of viewport height, where the ScrollExpand finishes)
+          const heroThreshold = window.innerHeight * 0.85
+          const pastHero = currentScrollY > heroThreshold
+
+          setIsScrolled(pastHero)
+
+          // Hide when scrolling down (past heroThreshold + 80px), show when scrolling up
+          if (pastHero && currentScrollY > heroThreshold + 80 && currentScrollY > lastScrollY) {
             setIsHidden(true)
           } else {
             setIsHidden(false)
@@ -39,6 +45,8 @@ export function Header() {
       }
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
+    // Also check on mount in case page loads scrolled
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -52,14 +60,19 @@ export function Header() {
 
   return (
     <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: isHidden && !isMobileMenuOpen ? -120 : 0, opacity: 1 }}
+      initial={{ y: -120, opacity: 0 }}
+      animate={{
+        y: isScrolled
+          ? (isHidden && !isMobileMenuOpen ? -120 : 0)
+          : -120,
+        opacity: isScrolled ? 1 : 0,
+      }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
         isScrolled
           ? 'bg-[rgba(248,248,246,0.90)] backdrop-blur-[20px] border border-[#E4E1D8] rounded-[18px] mx-2 mt-2 sm:mx-4 sm:mt-3 shadow-[0_4px_16px_rgba(32,33,36,0.05)]'
-          : 'bg-transparent border border-transparent'
+          : 'bg-transparent border border-transparent pointer-events-none'
       )}
     >
       <div className="mx-auto px-3 sm:px-6 lg:px-8">

@@ -22,7 +22,7 @@ export function RollingCounter({
 
   useEffect(() => {
     if (inView) {
-      const timer = setTimeout(() => setStarted(true), 80)
+      const timer = setTimeout(() => setStarted(true), 200)
       return () => clearTimeout(timer)
     }
   }, [inView])
@@ -34,23 +34,36 @@ export function RollingCounter({
         ? `${value}%`
         : value.toLocaleString()
 
+  const digitCount = formatted.replace(/[^0-9]/g, '').length
+
   let digitIdx = -1
   const chars = formatted.split('').map((char) => {
     if (/[0-9]/.test(char)) {
       digitIdx++
-      return { char, isDigit: true, digitIndex: digitIdx, digitValue: parseInt(char, 10) }
+      return {
+        char,
+        isDigit: true,
+        digitIndex: digitIdx,
+        digitValue: parseInt(char, 10),
+        totalDigits: digitCount,
+      }
     }
-    return { char, isDigit: false, digitIndex: -1, digitValue: -1 }
+    return { char, isDigit: false, digitIndex: -1, digitValue: -1, totalDigits: digitCount }
   })
 
   return (
-    <span ref={ref} className={className} style={{ display: 'inline-flex', alignItems: 'baseline' }}>
+    <span
+      ref={ref}
+      className={className}
+      style={{ display: 'inline-flex', alignItems: 'baseline', fontVariantNumeric: 'tabular-nums' }}
+    >
       {chars.map((c, i) =>
         c.isDigit ? (
           <RollingDigit
             key={`d-${i}`}
             targetDigit={c.digitValue}
-            delay={c.digitIndex * 0.15}
+            digitIndex={c.digitIndex}
+            totalDigits={c.totalDigits}
             duration={duration}
             started={started}
           />
@@ -58,7 +71,7 @@ export function RollingCounter({
           <span key={`c-${i}`} style={{ display: 'inline-block' }}>
             {c.char}
           </span>
-        )
+        ),
       )}
     </span>
   )
@@ -66,18 +79,26 @@ export function RollingCounter({
 
 function RollingDigit({
   targetDigit,
-  delay,
+  digitIndex,
+  totalDigits,
   duration,
   started,
 }: {
   targetDigit: number
-  delay: number
+  digitIndex: number
+  totalDigits: number
   duration: number
   started: boolean
 }) {
-  const cycles = 3
+  // Variable cycles: leftmost digits roll more, rightmost roll fewer
+  const cycles = 5 - Math.round((digitIndex / Math.max(totalDigits - 1, 1)) * 3)
   const totalPositions = cycles * 10 + targetDigit
   const digits = Array.from({ length: totalPositions + 1 }, (_, i) => i % 10)
+
+  // Stagger: each digit starts 120ms after the previous
+  const delay = digitIndex * 0.12
+  // Slightly longer duration for digits that travel farther
+  const digitDuration = duration + digitIndex * 0.1
 
   return (
     <span
@@ -87,13 +108,14 @@ function RollingDigit({
         overflow: 'hidden',
         verticalAlign: 'top',
         lineHeight: '1',
+        position: 'relative',
       }}
     >
       <span
         style={{
           display: 'block',
           transition: started
-            ? `transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`
+            ? `transform ${digitDuration + 0.35}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`
             : 'none',
           transform: started ? `translateY(-${totalPositions}em)` : 'translateY(0)',
           willChange: 'transform',
