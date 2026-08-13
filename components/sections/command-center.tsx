@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { AnimatedCounter } from '@/components/ui/animated-counter'
+import { GradientText } from '@/components/ui/gradient-text'
 import Carousel, { CarouselItem } from '@/components/ui/carousel'
 import { BorderGlow } from '@/components/ui/border-glow'
 
@@ -41,8 +42,10 @@ export function CommandCenter() {
             <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Measure What the Firm Can Act On
             </p>
-            <h2 id="command-center-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">
-              See the Pipeline, <span className="text-[#C6A24A] italic">Not Just the Lead Count.</span>
+            <h2 id="command-center-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
+              <GradientText animationSpeed={5}>
+                See the Pipeline, Not Just the Lead Count.
+              </GradientText>
             </h2>
             <p className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]">
               The better question is what those leads became. A useful acquisition dashboard follows the prospect beyond the first response.

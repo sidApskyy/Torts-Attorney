@@ -23,18 +23,20 @@ export function Header() {
       if (!ticking) {
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY
+          const vh = window.innerHeight
 
-          // Header appears only after scrolling past the hero section
-          // (roughly 90% of viewport height, where the ScrollExpand finishes)
-          const heroThreshold = window.innerHeight * 0.85
+          // ScrollExpand uses scrollDistance=0.45, so expansion
+          // completes at ~0.45 * viewport height of scroll
+          const heroThreshold = vh * 0.45
           const pastHero = currentScrollY > heroThreshold
 
           setIsScrolled(pastHero)
 
-          // Hide when scrolling down (past heroThreshold + 80px), show when scrolling up
-          if (pastHero && currentScrollY > heroThreshold + 80 && currentScrollY > lastScrollY) {
+          // Hide when scrolling down (with 200px buffer past threshold),
+          // show when scrolling up or still near the threshold
+          if (pastHero && currentScrollY > heroThreshold + 200 && currentScrollY > lastScrollY) {
             setIsHidden(true)
-          } else {
+          } else if (currentScrollY < lastScrollY) {
             setIsHidden(false)
           }
 

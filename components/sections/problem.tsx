@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
+import { GradientText } from '@/components/ui/gradient-text'
 
 const funnelStages = [
   { label: 'Initial Responses', value: '10,000', width: '100%', color: '#D8BC72', dropOff: 0 },
@@ -105,9 +106,11 @@ export function Problem() {
               whileInView={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden"
+              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden"
             >
-              A lead is only valuable if the next steps hold up.
+              <GradientText animationSpeed={5}>
+                A lead is only valuable if the next steps hold up.
+              </GradientText>
             </motion.h2>
 
             {/* Subtitle — letter-spacing collapse from wide to normal */}

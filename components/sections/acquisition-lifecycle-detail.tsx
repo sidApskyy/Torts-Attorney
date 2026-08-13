@@ -3,6 +3,7 @@
 import { LifecycleSystem } from '@/components/shared/lifecycle-system'
 import { motion } from 'framer-motion'
 import { MagicBento, type MagicBentoCardData } from '@/components/ui/magic-bento'
+import { GradientText } from '@/components/ui/gradient-text'
 
 const lifecycleCards: MagicBentoCardData[] = [
   {
@@ -98,8 +99,10 @@ export function AcquisitionLifecycleDetail() {
                 className="h-px bg-[#C6A24A]"
               />
             </motion.span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">
-              From the first response to the <span className="text-[#C6A24A] font-bold">firm's next decision.</span>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
+              <GradientText animationSpeed={5}>
+                From the first response to the firm's next decision.
+              </GradientText>
             </h2>
             <motion.p
               initial={{ opacity: 0, y: 10 }}

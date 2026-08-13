@@ -48,10 +48,16 @@
   box-shadow: 0 10px 30px rgba(32, 33, 36, 0.07), 0 0 20px rgba(198, 162, 74, 0.05);
 }
 
-/* Featured cards get a gold left accent */
+/* Featured cards — Key Stage highlight */
 .magic-bento-card--featured {
-  border-color: rgba(198, 162, 74, 0.35);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(248, 248, 246, 0.95));
+  border: 2px solid rgba(198, 162, 74, 0.5);
+  background: linear-gradient(145deg, rgba(255, 252, 245, 0.95), rgba(248, 243, 230, 0.9));
+  box-shadow:
+    0 4px 24px rgba(198, 162, 74, 0.12),
+    0 0 0 1px rgba(198, 162, 74, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: scale(1.02);
+  z-index: 3;
 }
 
 .magic-bento-card--featured::before {
@@ -60,9 +66,42 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 3px;
+  width: 5px;
   background: linear-gradient(to bottom, #C6A24A, #9B7830);
   z-index: 2;
+  box-shadow: 2px 0 12px rgba(198, 162, 74, 0.3);
+}
+
+.magic-bento-card--featured:hover {
+  box-shadow:
+    0 8px 32px rgba(198, 162, 74, 0.18),
+    0 0 0 1px rgba(198, 162, 74, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Featured cards: larger title */
+.magic-bento-card--featured .magic-bento-card__title {
+  font-size: 22px;
+  color: #202124;
+}
+
+/* Featured cards: more prominent badge */
+.magic-bento-card--featured .magic-bento-card__badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #C6A24A, #9B7830);
+  border-radius: 9999px;
+  padding: 5px 14px;
+  box-shadow: 0 2px 8px rgba(198, 162, 74, 0.25);
+}
+
+/* Featured cards: gold label */
+.magic-bento-card--featured .magic-bento-card__label {
+  font-size: 16px;
+  color: #9B7830;
 }
 
 .magic-bento-card__header,

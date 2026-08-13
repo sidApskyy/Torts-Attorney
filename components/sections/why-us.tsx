@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { GradientText } from '@/components/ui/gradient-text'
 
 export function WhyUs() {
   const differentiators = [
@@ -47,8 +48,10 @@ export function WhyUs() {
             <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Built Around Plaintiff-Side Reality
             </p>
-            <h2 id="why-us-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">
-              Why <span className="text-[#C6A24A] italic">The Torts Attorney</span>
+            <h2 id="why-us-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
+              <GradientText animationSpeed={5}>
+                Why The Torts Attorney
+              </GradientText>
             </h2>
             <p className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]">
               Acquisition is only one part of the job. We build around what follows.

@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { GradientText } from '@/components/ui/gradient-text'
 
 export function Proof() {
   return (
@@ -20,8 +21,10 @@ export function Proof() {
             <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Let the Numbers Show the Work
             </p>
-            <h2 id="proof-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">
-              Reporting should answer <span className="text-[#C6A24A] italic">questions, not create more.</span>
+            <h2 id="proof-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
+              <GradientText animationSpeed={5}>
+                Reporting should answer questions, not create more.
+              </GradientText>
             </h2>
             <p className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]">
               We connect source, intake, qualification, completion and delivery wherever the agreed workflow provides those data points.

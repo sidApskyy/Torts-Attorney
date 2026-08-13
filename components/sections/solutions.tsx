@@ -2,6 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import { GlareHover } from '@/components/ui/glare-hover'
+import { GradientText } from '@/components/ui/gradient-text'
 
 export function Solutions() {
   const solutions = [
@@ -89,8 +91,10 @@ export function Solutions() {
                 className="h-px bg-[#C6A24A]"
               />
             </motion.span>
-            <h2 id="solutions-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-6 leading-[0.95] tracking-[-0.02em]">
-              Solutions Built for the <span className="text-[#9B7830] font-bold">Full Pipeline</span>
+            <h2 id="solutions-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
+              <GradientText animationSpeed={5}>
+                Solutions Built for the Full Pipeline
+              </GradientText>
             </h2>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -114,35 +118,49 @@ export function Solutions() {
                 transition={{ delay: index * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 className="h-full"
               >
-                <div className="glass-card h-full p-6 sm:p-8 md:p-10 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 bottom-0 w-1 bg-gradient-to-b from-[#C6A24A] to-[#9B7830]" />
-                  <h3 className="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-[#202124] mb-5">
-                    {solution.title}
-                  </h3>
-                  <div className="space-y-5">
-                    <div>
-                      <p className="text-base text-[#4B5563] leading-[1.7]">
-                        {solution.problem}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#C6A24A]">
-                        Our Capability
-                      </p>
-                      <p className="text-base text-[#4B5563] leading-[1.7]">
-                        {solution.capability}
-                      </p>
-                    </div>
-                    <div className="pt-4 border-t border-[rgba(198, 162, 74,0.20)]">
-                      <p className="text-base text-[#202124] leading-[1.5] font-medium">
-                        {solution.value}
-                      </p>
-                      <p className="text-sm text-[#C6A24A] font-medium mt-3">
-                        {solution.cta} →
-                      </p>
+                <GlareHover
+                  width="100%"
+                  height="100%"
+                  background="linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,248,246,0.95))"
+                  borderRadius="20px"
+                  borderColor="rgba(198, 162, 74, 0.25)"
+                  glareColor="#C6A24A"
+                  glareOpacity={0.18}
+                  glareAngle={-30}
+                  glareSize={300}
+                  transitionDuration={800}
+                  className="glass-card"
+                  style={{ padding: '1.5rem', position: 'relative', boxSizing: 'border-box' }}
+                >
+                  <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <h3 className="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-[#202124] mb-5">
+                      {solution.title}
+                    </h3>
+                    <div className="space-y-5">
+                      <div>
+                        <p className="text-base text-[#4B5563] leading-[1.7]">
+                          {solution.problem}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#C6A24A]">
+                          Our Capability
+                        </p>
+                        <p className="text-base text-[#4B5563] leading-[1.7]">
+                          {solution.capability}
+                        </p>
+                      </div>
+                      <div className="pt-4 border-t border-[rgba(198, 162, 74,0.20)]">
+                        <p className="text-base text-[#202124] leading-[1.5] font-medium">
+                          {solution.value}
+                        </p>
+                        <p className="text-sm text-[#C6A24A] font-medium mt-3">
+                          {solution.cta} →
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </GlareHover>
               </motion.div>
             ))}
           </div>
@@ -158,23 +176,37 @@ export function Solutions() {
                 transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="h-full"
               >
-                <div className="glass-card h-full p-6 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C6A24A]/40 to-transparent" />
-                  <h3 className="font-serif text-lg md:text-xl font-bold text-[#202124] mb-3">
-                    {solution.title}
-                  </h3>
-                  <p className="text-sm text-[#4B5563] leading-[1.6] mb-3">
-                    {solution.capability}
-                  </p>
-                  <div className="pt-3 border-t border-[rgba(198, 162, 74,0.15)]">
-                    <p className="text-sm text-[#202124] font-medium leading-[1.5]">
-                      {solution.value}
+                <GlareHover
+                  width="100%"
+                  height="100%"
+                  background="linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,248,246,0.95))"
+                  borderRadius="16px"
+                  borderColor="rgba(198, 162, 74, 0.20)"
+                  glareColor="#C6A24A"
+                  glareOpacity={0.12}
+                  glareAngle={-30}
+                  glareSize={300}
+                  transitionDuration={800}
+                  className="glass-card"
+                  style={{ padding: '1.5rem', position: 'relative', boxSizing: 'border-box' }}
+                >
+                  <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <h3 className="font-serif text-lg md:text-xl font-bold text-[#202124] mb-3">
+                      {solution.title}
+                    </h3>
+                    <p className="text-sm text-[#4B5563] leading-[1.6] mb-3">
+                      {solution.capability}
                     </p>
-                    <p className="text-sm text-[#C6A24A] font-medium mt-2">
-                      {solution.cta} →
-                    </p>
+                    <div className="pt-3 border-t border-[rgba(198, 162, 74,0.15)]">
+                      <p className="text-sm text-[#202124] font-medium leading-[1.5]">
+                        {solution.value}
+                      </p>
+                      <p className="text-sm text-[#C6A24A] font-medium mt-2">
+                        {solution.cta} →
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </GlareHover>
               </motion.div>
             ))}
           </div>

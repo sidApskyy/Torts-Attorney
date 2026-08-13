@@ -6,6 +6,7 @@ import { RollingCounter } from '@/components/ui/rolling-counter'
 import { ScrollExpand } from '@/components/ui/scroll-expand'
 import { MoltenMetal } from '@/components/ui/molten-metal'
 import { MagneticButton } from '@/components/ui/magnetic-button'
+import { GradientText } from '@/components/ui/gradient-text'
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion()
@@ -111,10 +112,12 @@ export function Hero() {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] leading-[1.1] tracking-[-0.02em] mb-5 sm:mb-6 lg:mb-8"
+              className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-[-0.02em] mb-5 sm:mb-6 lg:mb-8"
             >
-              Bring More of the Right<br />
-              <span className="text-[#C6A24A]">Opportunities to Your Firm.</span>
+              <GradientText animationSpeed={5}>
+                Bring More of the Right<br />
+                Opportunities to Your Firm.
+              </GradientText>
             </motion.h2>
 
             <motion.p

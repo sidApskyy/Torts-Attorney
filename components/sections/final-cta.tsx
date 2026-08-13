@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { MagneticButton } from '@/components/ui/magnetic-button'
+import { GradientText } from '@/components/ui/gradient-text'
 
 export function FinalCTA() {
   return (
@@ -46,8 +47,10 @@ export function FinalCTA() {
             Where Is the Pipeline Losing Value?
           </p>
           {/* Headline */}
-          <h2 id="final-cta-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] mb-8 leading-[0.95] tracking-[-0.02em]">
-            Let's find the point where good opportunities are <span className="text-[#C6A24A] italic">getting lost.</span>
+          <h2 id="final-cta-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[0.95] tracking-[-0.02em]">
+            <GradientText animationSpeed={5}>
+              Let's find the point where good opportunities are getting lost.
+            </GradientText>
           </h2>
           
           {/* Supporting copy */}
