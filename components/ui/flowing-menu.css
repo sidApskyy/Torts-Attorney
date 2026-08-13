@@ -1,0 +1,139 @@
+.flowing-menu-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.flowing-menu {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.flowing-menu__item {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--fm-border, rgba(198, 162, 74, 0.15));
+}
+
+.flowing-menu__item:first-child {
+  border-top: none;
+}
+
+.flowing-menu__item-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 2.25rem 2rem;
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.35s ease;
+}
+
+.flowing-menu__item:hover .flowing-menu__item-link {
+  opacity: 0;
+}
+
+.flowing-menu__item-num {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #C6A24A;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.flowing-menu__item-title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #202124;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.flowing-menu__item:hover .flowing-menu__item-title {
+  color: #9B7830;
+}
+
+.flowing-menu__marquee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform: translate3d(0, 101%, 0);
+}
+
+.flowing-menu__marquee-inner-wrap {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.flowing-menu__marquee-inner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: fit-content;
+  will-change: transform;
+}
+
+.flowing-menu__marquee-part {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.flowing-menu__marquee-text {
+  white-space: nowrap;
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0 2rem;
+  color: #202124;
+  letter-spacing: -0.01em;
+}
+
+.flowing-menu__marquee-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #C6A24A;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .flowing-menu__item-link {
+    padding: 1.5rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .flowing-menu__item-num {
+    font-size: 1.5rem;
+  }
+
+  .flowing-menu__item-title {
+    font-size: 1.125rem;
+  }
+
+  .flowing-menu__marquee-text {
+    font-size: 1rem;
+    padding: 0 1.25rem;
+  }
+
+  .flowing-menu__marquee-dot {
+    width: 6px;
+    height: 6px;
+  }
+}
