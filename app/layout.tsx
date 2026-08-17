@@ -14,6 +14,11 @@ import { SectionRail } from "@/components/ui/section-rail";
 import { BackgroundTintShift } from "@/components/ui/background-tint-shift";
 import { CookieConsent } from "@/components/ui/cookie-consent";
 import { AnimatedFavicon } from "@/components/ui/animated-favicon";
+import { SectionLabel } from "@/components/ui/section-label";
+import { CursorSparkles } from "@/components/ui/cursor-sparkles";
+import { VelocityOrbs } from "@/components/ui/velocity-orbs";
+
+export const dynamic = "force-dynamic";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -63,22 +68,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <AnimatedFavicon />
         <BackgroundTintShift />
-        {/* Ambient live animations */}
+        {/* Ambient live animations — scroll velocity parallax orbs */}
+        <VelocityOrbs />
+        {/* Floating gold particles */}
         <div className="fixed inset-0 pointer-events-none z-0" aria-hidden>
-          {/* Drifting ambient orbs */}
-          <div
-            className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] rounded-full blur-[100px] sm:blur-[120px] animate-orb-1"
-            style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.04), transparent 70%)' }}
-          />
-          <div
-            className="absolute top-[50%] right-[10%] w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] rounded-full blur-[120px] sm:blur-[140px] animate-orb-2"
-            style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }}
-          />
-          <div
-            className="absolute bottom-[15%] left-[30%] w-[240px] h-[240px] sm:w-[350px] sm:h-[350px] rounded-full blur-[80px] sm:blur-[100px] animate-orb-1"
-            style={{ background: 'radial-gradient(circle, rgba(107, 143, 214, 0.03), transparent 70%)', animationDelay: '5s' }}
-          />
-          {/* Floating gold particles */}
           <ParticleField count={12} />
         </div>
         <CursorGlow />
@@ -94,6 +87,8 @@ export default function RootLayout({
           </main>
           <Footer />
           <ScrollToTop />
+          <SectionLabel />
+          <CursorSparkles />
           <CookieConsent />
         </SmoothScroll>
       </body>

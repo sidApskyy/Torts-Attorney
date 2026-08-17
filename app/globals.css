@@ -1458,6 +1458,170 @@
   animation: gold-dust 8s ease-in-out infinite;
 }
 
+/* ── Text shimmer sweep on headings ── */
+@keyframes text-shimmer-sweep {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-shimmer-sweep {
+  background: linear-gradient(
+    90deg,
+    #B89542 0%,
+    #C6A24A 30%,
+    #E2C982 50%,
+    #C6A24A 70%,
+    #B89542 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer-sweep 6s ease-in-out infinite;
+}
+
+/* ── Custom gold focus-visible outlines for accessibility ── */
+*:focus-visible {
+  outline: 2px solid rgba(198, 162, 74, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
+  transition: outline 0.2s ease;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid rgba(198, 162, 74, 0.7);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(198, 162, 74, 0.08);
+}
+
+/* ── Animated section divider with traveling gold dot ── */
+.section-divider-animated {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(228, 225, 216, 0.6) 15%,
+    rgba(198, 162, 74, 0.25) 50%,
+    rgba(228, 225, 216, 0.6) 85%,
+    transparent 100%
+  );
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: visible;
+}
+
+.section-divider-animated::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #C6A24A;
+  box-shadow: 0 0 8px rgba(198, 162, 74, 0.5);
+  animation: divider-dot-travel 8s ease-in-out infinite;
+}
+
+@keyframes divider-dot-travel {
+  0%, 100% { left: 0; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+/* ── Footer link animated underline ── */
+.footer-link {
+  position: relative;
+  display: inline-block;
+}
+
+.footer-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #C6A24A, #9B7830);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+/* ── Monogram pulse glow ── */
+@keyframes monogram-glow {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(198, 162, 74, 0.3), 0 0 24px rgba(198, 162, 74, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(198, 162, 74, 0.5), 0 0 40px rgba(198, 162, 74, 0.2);
+  }
+}
+
+.monogram-glow {
+  animation: monogram-glow 3s ease-in-out infinite;
+}
+
+/* ── Sticky section label ── */
+.section-label-sticky {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  pointer-events: none;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ── Source performance mini-bar ── */
+.source-mini-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(198, 162, 74, 0.12);
+  overflow: hidden;
+  position: relative;
+}
+
+.source-mini-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #C6A24A, #D8BC72);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Cursor trail sparkle ── */
+.cursor-sparkle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #C6A24A;
+  box-shadow: 0 0 6px rgba(198, 162, 74, 0.5);
+  pointer-events: none;
+  z-index: 9999;
+  animation: sparkle-fade 0.8s ease-out forwards;
+}
+
+@keyframes sparkle-fade {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.2) translateY(-20px); }
+}
+
+/* ── Eyebrow accent line draw ── */
+@keyframes eyebrow-line-draw {
+  from { width: 0; }
+  to { width: 2rem; }
+}
+
 /* GPU acceleration hint for animated elements */
 [data-framer-motion] {
   will-change: transform, opacity;

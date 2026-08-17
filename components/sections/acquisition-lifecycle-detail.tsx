@@ -6,6 +6,7 @@ import { MagicBento, type MagicBentoCardData } from '@/components/ui/magic-bento
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
+import { WordReveal } from '@/components/ui/word-reveal'
 
 const lifecycleCards: MagicBentoCardData[] = [
   {
@@ -105,11 +106,7 @@ export function AcquisitionLifecycleDetail() {
               />
             </motion.span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
-              <TextReveal as="span" delay={0.1}>
-                <GradientText animationSpeed={5}>
-                  From the first response to the firm's next decision.
-                </GradientText>
-              </TextReveal>
+              <WordReveal text="From the first response to the firm's next decision." as="span" delay={0.1} className="inline" />
             </h2>
             <motion.p
               initial={{ opacity: 0, y: 10 }}

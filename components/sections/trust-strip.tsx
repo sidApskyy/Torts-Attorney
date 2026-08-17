@@ -64,6 +64,7 @@ export function TrustStrip() {
 
 function MarqueeCard({ index, title, description }: { index: number; title: string; description: string }) {
   const [isFlipped, setIsFlipped] = useState(false)
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
 
   return (
     <div
@@ -71,6 +72,13 @@ function MarqueeCard({ index, title, description }: { index: number; title: stri
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped((prev) => !prev)}
+      onMouseMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect()
+        setMousePos({
+          x: ((e.clientX - rect.left) / rect.width) * 100,
+          y: ((e.clientY - rect.top) / rect.height) * 100,
+        })
+      }}
     >
       <motion.div
         animate={{ rotateY: isFlipped ? 180 : 0 }}
@@ -78,7 +86,12 @@ function MarqueeCard({ index, title, description }: { index: number; title: stri
         className="relative w-full h-full [transform-style:preserve-3d]"
       >
         {/* Front */}
-        <div className="absolute inset-0 [backface-visibility:hidden] rounded-[24px] glass-card p-6 flex flex-col items-center justify-center text-center">
+        <div
+          className="absolute inset-0 [backface-visibility:hidden] rounded-[24px] glass-card p-6 flex flex-col items-center justify-center text-center relative overflow-hidden"
+          style={{
+            background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(198, 162, 74, 0.08), transparent 60%), rgba(255, 255, 255, 0.80)`,
+          }}
+        >
           <div className="w-11 h-11 mb-3 rounded-full bg-[#C6A24A]/15 flex items-center justify-center border border-[#C6A24A]/20">
             <span className="text-[#C6A24A] font-serif text-lg font-bold">
               {String(index + 1).padStart(2, '0')}

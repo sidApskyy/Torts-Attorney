@@ -1,12 +1,35 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { GradientText } from '@/components/ui/gradient-text'
+
+export const dynamic = 'force-dynamic'
 
 export default function NotFound() {
+  const particles = Array.from({ length: 14 }).map((_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: 2 + Math.random() * 3,
+    delay: Math.random() * 3,
+    duration: 5 + Math.random() * 4,
+  }))
+
   return (
     <section className="min-h-screen bg-[#F8F8F6] flex items-center justify-center relative overflow-hidden px-4">
+      {/* Gold particle field — CSS animated */}
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="absolute rounded-full bg-[#C6A24A] pointer-events-none"
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            boxShadow: '0 0 6px rgba(198, 162, 74, 0.4)',
+            animation: `gold-dust ${p.duration}s ease-in-out ${p.delay}s infinite`,
+          }}
+        />
+      ))}
+
       {/* Ambient accents */}
       <div className="absolute top-1/4 left-0 w-[300px] h-[250px] sm:w-[500px] sm:h-[400px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" />
       <div className="absolute bottom-1/4 right-0 w-[250px] h-[200px] sm:w-[400px] sm:h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
@@ -24,11 +47,7 @@ export default function NotFound() {
       />
 
       <div className="relative z-10 text-center max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <div>
           {/* 404 */}
           <p className="font-serif text-8xl md:text-9xl font-bold text-[#C6A24A]/15 leading-none mb-4 tabular-nums">
             404
@@ -43,9 +62,9 @@ export default function NotFound() {
           </div>
 
           <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
-            <GradientText animationSpeed={5}>
+            <span className="text-gradient-gold">
               That page is not in the pipeline.
-            </GradientText>
+            </span>
           </h1>
 
           <p className="text-base md:text-lg text-[#4B5563] leading-[1.7] mb-10 max-w-lg mx-auto">
@@ -67,7 +86,7 @@ export default function NotFound() {
               Contact Us
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -12,6 +12,7 @@ import { HowItWorks } from '@/components/sections/how-it-works'
 import { FAQ } from '@/components/sections/faq'
 import { FinalCTA } from '@/components/sections/final-cta'
 import { MarqueeStrip } from '@/components/ui/marquee-strip'
+import { JsonLd } from '@/components/seo/json-ld'
 
 export const metadata: Metadata = {
   title: 'Plaintiff Case Acquisition & Intake Services | The Torts Attorney',
@@ -26,14 +27,15 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex flex-col">
+      <JsonLd />
       <div id="hero">
         <Hero />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="capabilities">
         <TrustStrip />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="problem">
         <Problem />
       </div>
@@ -41,35 +43,35 @@ export default function Home() {
       <div id="how-it-works">
         <HowItWorks />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="lifecycle">
         <AcquisitionLifecycleDetail />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="solutions">
         <Solutions />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="command-center">
         <CommandCenter />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="why-us">
         <WhyUs />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="proof">
         <Proof />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="social-proof">
         <SocialProof />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="faq">
         <FAQ />
       </div>
-      <div className="section-divider" />
+      <div className="section-divider-animated" />
       <div id="final-cta">
         <FinalCTA />
       </div>

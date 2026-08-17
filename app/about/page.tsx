@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
-import { AboutClient } from './about-client'
+import { AboutClientWrapper } from './about-wrapper'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'About | The Torts Attorney - Plaintiff Acquisition Intelligence',
@@ -12,5 +14,5 @@ export const metadata: Metadata = {
 }
 
 export default function AboutPage() {
-  return <AboutClient />
+  return <AboutClientWrapper />
 }

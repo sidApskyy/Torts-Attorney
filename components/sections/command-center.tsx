@@ -7,6 +7,7 @@ import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
 import Carousel, { CarouselItem } from '@/components/ui/carousel'
 import { BorderGlow } from '@/components/ui/border-glow'
+import { FunnelCounter } from '@/components/ui/funnel-counter'
 
 export function CommandCenter() {
   const metrics = [
@@ -160,7 +161,7 @@ export function CommandCenter() {
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
                           <span className="text-xs sm:text-sm md:text-base font-semibold text-[#202124] drop-shadow-sm">
-                            {item.count.toLocaleString()}
+                            <FunnelCounter value={item.count.toLocaleString()} duration={1.5} />
                           </span>
                         </div>
                       </div>
@@ -208,10 +209,20 @@ export function CommandCenter() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.35 + index * 0.05 }}
-                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 border-b border-[#E4E1D8] last:border-0 gap-2 sm:gap-4"
+                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 border-b border-[#E4E1D8] last:border-0 gap-3 sm:gap-4"
                     >
-                      <div className="flex-1">
-                        <p className="text-sm md:text-base font-medium text-[#202124]">{item.source}</p>
+                      <div className="flex-1 w-full sm:w-auto">
+                        <p className="text-sm md:text-base font-medium text-[#202124] mb-2">{item.source}</p>
+                        {/* Mini bar showing qualification rate */}
+                        <div className="source-mini-bar w-full sm:hidden">
+                          <motion.div
+                            className="source-mini-bar-fill"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: item.rate }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.4 + index * 0.05, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                          />
+                        </div>
                       </div>
                       <div className="flex items-center gap-3 sm:gap-6 md:gap-10">
                         <div className="text-right">
@@ -223,7 +234,17 @@ export function CommandCenter() {
                           <p className="text-sm md:text-base text-[#202124]">{item.qualified.toLocaleString()}</p>
                         </div>
                         <div className="w-16 sm:w-20 text-right">
-                          <p className="text-sm md:text-base font-semibold text-[#C6A24A]">{item.rate}</p>
+                          <p className="text-sm md:text-base font-semibold text-[#C6A24A] mb-1">{item.rate}</p>
+                          {/* Mini bar on desktop */}
+                          <div className="source-mini-bar hidden sm:block">
+                            <motion.div
+                              className="source-mini-bar-fill"
+                              initial={{ width: 0 }}
+                              whileInView={{ width: item.rate }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.4 + index * 0.05, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                            />
+                          </div>
                         </div>
                       </div>
                     </motion.div>

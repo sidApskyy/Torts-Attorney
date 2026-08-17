@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
@@ -43,6 +43,19 @@ const faqs = [
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [search, setSearch] = useState('')
+
+  const filteredFaqs = useMemo(() => {
+    if (!search.trim()) return faqs.map((f, i) => ({ ...f, originalIndex: i }))
+    const lower = search.toLowerCase()
+    return faqs
+      .map((f, i) => ({ ...f, originalIndex: i }))
+      .filter(
+        (f) =>
+          f.question.toLowerCase().includes(lower) ||
+          f.answer.toLowerCase().includes(lower)
+      )
+  }, [search])
 
   return (
     <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden" aria-labelledby="faq-heading">
@@ -73,21 +86,59 @@ export function FAQ() {
             </h2>
           </div>
 
+          {/* Search input */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-8"
+          >
+            <div className="relative">
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search questions..."
+                className="w-full px-6 py-4 rounded-full border border-[#E4E1D8] bg-white text-sm text-[#202124] placeholder:text-[#6B7280] focus:border-[#C6A24A]/50 focus:outline-none transition-colors duration-300"
+                aria-label="Search FAQ"
+              />
+              <svg
+                className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#C6A24A]/50"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </motion.div>
+
           {/* FAQ accordion */}
           <div className="space-y-3">
-            {faqs.map((faq, index) => {
-              const isOpen = openIndex === index
+            {filteredFaqs.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-12 text-[#6B7280]"
+              >
+                <p className="text-sm">No questions match your search. Try different keywords.</p>
+              </motion.div>
+            )}
+            {filteredFaqs.map((faq) => {
+              const isOpen = openIndex === faq.originalIndex
               return (
                 <motion.div
-                  key={index}
+                  key={faq.originalIndex}
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-20px' }}
-                  transition={{ delay: index * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className={`content-card overflow-hidden transition-all duration-300 ${isOpen ? 'ring-1 ring-[#C6A24A]/20' : ''}`}
                 >
                   <button
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    onClick={() => setOpenIndex(isOpen ? null : faq.originalIndex)}
                     className="w-full flex items-center justify-between gap-4 p-6 text-left group"
                     aria-expanded={isOpen}
                   >

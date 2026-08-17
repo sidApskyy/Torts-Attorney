@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { NAVIGATION, SITE_NAME, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_ADDRESS } from '@/lib/constants'
 
 export function Footer() {
@@ -10,11 +13,17 @@ export function Footer() {
       <div className="absolute top-0 left-1/4 w-[300px] h-[150px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 relative z-10">
         {/* Value proposition banner */}
-        <div className="mb-16 pb-12 border-b border-[rgba(255,255,255,0.08)]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 pb-12 border-b border-[rgba(255,255,255,0.08)]"
+        >
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              {/* Monogram */}
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#C6A24A] to-[#9B7830] flex items-center justify-center flex-shrink-0">
+              {/* Monogram with pulsing glow */}
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#C6A24A] to-[#9B7830] flex items-center justify-center flex-shrink-0 monogram-glow">
                 <span className="font-serif text-2xl font-bold text-white">T</span>
               </div>
               <div>
@@ -27,9 +36,15 @@ export function Footer() {
               <span aria-hidden>→</span>
             </Link>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16"
+        >
           {/* Company Info */}
           <div className="space-y-6">
             <h3 className="font-serif text-2xl font-bold text-white">{SITE_NAME}</h3>
@@ -38,8 +53,8 @@ export function Footer() {
             </p>
             <div className="space-y-3 text-sm text-[rgba(255,255,255,0.4)]">
               <p>{CONTACT_ADDRESS}</p>
-              <p>{CONTACT_EMAIL}</p>
-              <p>{CONTACT_PHONE}</p>
+              <p><a href={`mailto:${CONTACT_EMAIL}`} className="footer-link">{CONTACT_EMAIL}</a></p>
+              <p><a href={`tel:${CONTACT_PHONE}`} className="footer-link">{CONTACT_PHONE}</a></p>
             </div>
           </div>
 
@@ -51,7 +66,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
+                    className="footer-link text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -67,7 +82,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/legal/privacy"
-                  className="text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
+                  className="footer-link text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -75,7 +90,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/legal/terms"
-                  className="text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
+                  className="footer-link text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
                 >
                   Terms of Service
                 </Link>
@@ -83,7 +98,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/legal/disclosures"
-                  className="text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
+                  className="footer-link text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
                 >
                   Disclosures
                 </Link>
@@ -91,7 +106,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/legal/cookie-policy"
-                  className="text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
+                  className="footer-link text-sm text-[rgba(255,255,255,0.5)] hover:text-[#C6A24A] transition-colors"
                 >
                   Cookie Policy
                 </Link>
@@ -106,11 +121,17 @@ export function Footer() {
               We provide legal marketing and case-acquisition services for plaintiff law firms and campaign partners. We are not a law firm and do not provide legal advice or legal representation.
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="border-t border-[rgba(255,255,255,0.08)] mt-16 pt-8 text-center text-xs text-[rgba(255,255,255,0.3)]">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="border-t border-[rgba(255,255,255,0.08)] mt-16 pt-8 text-center text-xs text-[rgba(255,255,255,0.3)]"
+        >
           <p>&copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.</p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   )
