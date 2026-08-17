@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion
 import { useRef } from 'react'
 import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
+import { TextReveal } from '@/components/ui/text-reveal'
 
 const funnelStages = [
   { label: 'Initial Responses', value: '10,000', width: '100%', color: '#D8BC72', dropOff: 0 },
@@ -72,6 +73,22 @@ export function Problem() {
       {/* Top gold accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C6A24A]/30 to-transparent pointer-events-none" />
 
+      {/* Floating gold dust particles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {Array.from({ length: 15 }).map((_, i) => (
+          <div
+            key={i}
+            className="gold-dust-particle"
+            style={{
+              left: `${5 + i * 6.5}%`,
+              bottom: `${10 + (i % 4) * 20}%`,
+              animationDelay: `${i * 0.6}s`,
+              animationDuration: `${7 + (i % 3) * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* ── HEADING: Asymmetric layout — left-aligned heading, image on right ── */}
@@ -97,18 +114,16 @@ export function Problem() {
                 </span>
               </motion.div>
 
-              <motion.h2
+              <TextReveal
+                as="h2"
                 id="problem-heading"
-                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
-                whileInView={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden text-left"
+                delay={0.2}
+                className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left"
               >
                 <GradientText animationSpeed={5}>
                   A lead is only valuable if the next steps hold up.
                 </GradientText>
-              </motion.h2>
+              </TextReveal>
 
               <motion.p
                 initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, letterSpacing: '0.3em', filter: 'blur(4px)' }}
@@ -128,17 +143,22 @@ export function Problem() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-full overflow-hidden rounded-3xl"
+                className="relative w-full overflow-hidden rounded-3xl group"
                 style={{ aspectRatio: '4/5' }}
               >
-                <Image
-                  src="/image 1.png"
-                  alt="Classical courthouse columns at dusk"
-                  fill
-                  sizes="(max-width: 1024px) 0px, 40vw"
-                  className="object-cover"
-                  priority={false}
-                />
+                <motion.div
+                  style={{ y: prefersReducedMotion ? 0 : useTransform(sectionProgress, [0, 1], ['-3%', '3%']) }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src="/image 1.png"
+                    alt="Classical courthouse columns at dusk"
+                    fill
+                    sizes="(max-width: 1024px) 0px, 40vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    priority={false}
+                  />
+                </motion.div>
                 {/* Gold tint overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1F]/60 via-transparent to-[#C6A24A]/10 pointer-events-none" />
                 {/* Subtle inner border */}

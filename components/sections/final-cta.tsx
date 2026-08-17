@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { GradientText } from '@/components/ui/gradient-text'
+import { TextReveal } from '@/components/ui/text-reveal'
 
 export function FinalCTA() {
   return (
@@ -59,10 +60,12 @@ export function FinalCTA() {
             Where Is the Pipeline Losing Value?
           </p>
           {/* Headline */}
-          <h2 id="final-cta-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[0.95] tracking-[-0.02em]">
-            <GradientText animationSpeed={5}>
-              Let's find the point where good opportunities are getting lost.
-            </GradientText>
+          <h2 id="final-cta-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+            <TextReveal as="span" delay={0.1}>
+              <GradientText animationSpeed={5}>
+                Let's find the point where good opportunities are getting lost.
+              </GradientText>
+            </TextReveal>
           </h2>
           
           {/* Supporting copy */}

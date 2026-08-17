@@ -3,6 +3,9 @@
 import { motion } from 'framer-motion'
 import { GradientText } from '@/components/ui/gradient-text'
 import { AnimatedCounter } from '@/components/ui/animated-counter'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { AnimatedBorder } from '@/components/ui/animated-border'
+import { SectionNumber } from '@/components/ui/section-number'
 
 export function SocialProof() {
   const testimonials = [
@@ -31,6 +34,9 @@ export function SocialProof() {
 
   return (
     <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden">
+      {/* Background section number */}
+      <SectionNumber number="07" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+
       {/* Ambient accents */}
       <div className="absolute top-1/4 left-0 w-[300px] h-[250px] sm:w-[500px] sm:h-[400px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
       <div className="absolute bottom-1/4 right-0 w-[250px] h-[200px] sm:w-[400px] sm:h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
@@ -45,10 +51,12 @@ export function SocialProof() {
                 What Partners See
               </p>
             </div>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-3xl">
-              <GradientText animationSpeed={5}>
-                Results that show up in the pipeline.
-              </GradientText>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-3xl overflow-hidden">
+              <TextReveal as="span" delay={0.1}>
+                <GradientText animationSpeed={5}>
+                  Results that show up in the pipeline.
+                </GradientText>
+              </TextReveal>
             </h2>
           </div>
 
@@ -93,13 +101,15 @@ export function SocialProof() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: index * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="glass-card p-8 relative overflow-hidden"
+                className="relative"
               >
+                <AnimatedBorder borderRadius="20px" className="glass-card h-full">
+                  <div className="p-8 relative overflow-hidden h-full">
                 {/* Gold accent bar */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C6A24A] to-transparent" />
 
                 {/* Quote mark */}
-                <div className="font-serif text-5xl text-[#C6A24A]/20 leading-none mb-4">"</div>
+                <div className="font-serif text-5xl text-[#C6A24A]/20 leading-none mb-4">“</div>
 
                 <p className="text-base text-[#202124] leading-[1.7] mb-6 relative">
                   {testimonial.quote}
@@ -113,6 +123,8 @@ export function SocialProof() {
                     {testimonial.context}
                   </p>
                 </div>
+                  </div>
+                </AnimatedBorder>
               </motion.div>
             ))}
           </div>

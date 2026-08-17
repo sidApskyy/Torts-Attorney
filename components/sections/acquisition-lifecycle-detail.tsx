@@ -4,6 +4,8 @@ import { LifecycleSystem } from '@/components/shared/lifecycle-system'
 import { motion } from 'framer-motion'
 import { MagicBento, type MagicBentoCardData } from '@/components/ui/magic-bento'
 import { GradientText } from '@/components/ui/gradient-text'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { SectionNumber } from '@/components/ui/section-number'
 
 const lifecycleCards: MagicBentoCardData[] = [
   {
@@ -67,6 +69,9 @@ const lifecycleCards: MagicBentoCardData[] = [
 export function AcquisitionLifecycleDetail() {
   return (
     <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold">
+      {/* Background section number */}
+      <SectionNumber number="03" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+
       {/* Floating background orbs */}
       <div className="absolute top-1/4 right-0 w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
       <div className="absolute bottom-1/4 left-0 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
@@ -99,10 +104,12 @@ export function AcquisitionLifecycleDetail() {
                 className="h-px bg-[#C6A24A]"
               />
             </motion.span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
-              <GradientText animationSpeed={5}>
-                From the first response to the firm's next decision.
-              </GradientText>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+              <TextReveal as="span" delay={0.1}>
+                <GradientText animationSpeed={5}>
+                  From the first response to the firm's next decision.
+                </GradientText>
+              </TextReveal>
             </h2>
             <motion.p
               initial={{ opacity: 0, y: 10 }}

@@ -1,11 +1,22 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { useRef } from 'react'
 import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { SectionNumber } from '@/components/ui/section-number'
 import { FlowingMenu, type FlowingMenuItem } from '@/components/ui/flowing-menu'
 
 export function WhyUs() {
+  const imageRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({
+    target: imageRef,
+    offset: ['start end', 'end start'],
+  })
+  const imageY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%'])
+
   const differentiators: FlowingMenuItem[] = [
     {
       label: '01',
@@ -41,6 +52,9 @@ export function WhyUs() {
 
   return (
     <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="why-us-heading">
+      {/* Background section number */}
+      <SectionNumber number="05" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+
       {/* Subtle background accent */}
       <div className="absolute top-1/3 left-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
       <div className="absolute bottom-1/4 right-0 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
@@ -56,10 +70,12 @@ export function WhyUs() {
             <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Built Around Plaintiff-Side Reality
             </p>
-            <h2 id="why-us-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
-              <GradientText animationSpeed={5}>
-                Why The Torts Attorney
-              </GradientText>
+            <h2 id="why-us-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+              <TextReveal as="span" delay={0.1}>
+                <GradientText animationSpeed={5}>
+                  Why The Torts Attorney
+                </GradientText>
+              </TextReveal>
             </h2>
             <p className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]">
               Acquisition is only one part of the job. We build around what follows.
@@ -68,20 +84,26 @@ export function WhyUs() {
 
           {/* Full-width architectural panorama */}
           <motion.div
+            ref={imageRef}
             initial={{ opacity: 0, scale: 1.02 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-12 relative w-full overflow-hidden rounded-2xl shadow-[0_20px_60px_-15px_rgba(32,33,36,0.15)]"
+            className="mb-12 relative w-full overflow-hidden rounded-2xl shadow-[0_20px_60px_-15px_rgba(32,33,36,0.15)] group"
             style={{ aspectRatio: '16/9' }}
           >
-            <Image
-              src="/image 3.png"
-              alt="Grand classical law library interior"
-              fill
-              sizes="100vw"
-              className="object-cover object-center"
-            />
+            <motion.div
+              style={{ y: prefersReducedMotion ? 0 : imageY }}
+              className="absolute inset-0"
+            >
+              <Image
+                src="/image 3.png"
+                alt="Grand classical law library interior"
+                fill
+                sizes="100vw"
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+            </motion.div>
             {/* Subtle gold tint overlay — top */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#C6A24A]/8 via-transparent to-transparent pointer-events-none" />
             {/* Bottom fade for text legibility if needed */}

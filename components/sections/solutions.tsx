@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { GlareHover } from '@/components/ui/glare-hover'
 import { GradientText } from '@/components/ui/gradient-text'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { SectionNumber } from '@/components/ui/section-number'
 
 export function Solutions() {
   const solutions = [
@@ -60,6 +62,9 @@ export function Solutions() {
 
   return (
     <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="solutions-heading">
+      {/* Background section number */}
+      <SectionNumber number="03" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+
       {/* Subtle background accents */}
       <div className="absolute top-0 right-1/4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
       <div className="absolute bottom-1/4 left-1/4 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
@@ -92,10 +97,12 @@ export function Solutions() {
                 className="h-px bg-[#C6A24A]"
               />
             </motion.span>
-            <h2 id="solutions-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
-              <GradientText animationSpeed={5}>
-                Solutions Built for the Full Pipeline
-              </GradientText>
+            <h2 id="solutions-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+              <TextReveal as="span" delay={0.1}>
+                <GradientText animationSpeed={5}>
+                  Solutions Built for the Full Pipeline
+                </GradientText>
+              </TextReveal>
             </h2>
             <motion.p
               initial={{ opacity: 0, y: 10 }}

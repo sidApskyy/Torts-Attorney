@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { GradientText } from '@/components/ui/gradient-text'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { SectionNumber } from '@/components/ui/section-number'
 
 const steps = [
   {
@@ -28,6 +30,9 @@ const steps = [
 export function HowItWorks() {
   return (
     <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden" aria-labelledby="how-it-works-heading">
+      {/* Background section number */}
+      <SectionNumber number="02" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+
       {/* Ambient accents */}
       <div className="absolute top-1/3 left-0 w-[300px] h-[250px] sm:w-[500px] sm:h-[400px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" />
       <div className="absolute bottom-1/4 right-0 w-[250px] h-[200px] sm:w-[400px] sm:h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
@@ -42,10 +47,12 @@ export function HowItWorks() {
                 From Conversation to Campaign
               </p>
             </div>
-            <h2 id="how-it-works-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-3xl">
-              <GradientText animationSpeed={5}>
-                Three steps. No black boxes.
-              </GradientText>
+            <h2 id="how-it-works-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-3xl overflow-hidden">
+              <TextReveal as="span" delay={0.1}>
+                <GradientText animationSpeed={5}>
+                  Three steps. No black boxes.
+                </GradientText>
+              </TextReveal>
             </h2>
             <p className="text-lg md:text-xl text-[#4B5563] max-w-2xl leading-[1.7] text-left">
               Every engagement follows the same transparent structure — from initial conversation through active operation.

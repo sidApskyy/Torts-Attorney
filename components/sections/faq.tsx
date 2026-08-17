@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { GradientText } from '@/components/ui/gradient-text'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { SectionNumber } from '@/components/ui/section-number'
 
 const faqs = [
   {
@@ -44,6 +46,9 @@ export function FAQ() {
 
   return (
     <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden" aria-labelledby="faq-heading">
+      {/* Background section number */}
+      <SectionNumber number="08" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+
       {/* Ambient accents */}
       <div className="absolute top-1/4 right-0 w-[300px] h-[250px] sm:w-[500px] sm:h-[400px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
       <div className="absolute bottom-1/4 left-0 w-[250px] h-[200px] sm:w-[400px] sm:h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
@@ -59,10 +64,12 @@ export function FAQ() {
               </p>
               <div className="h-px w-8 bg-[#C6A24A]" />
             </div>
-            <h2 id="faq-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
-              <GradientText animationSpeed={5}>
-                What firms ask before they engage.
-              </GradientText>
+            <h2 id="faq-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+              <TextReveal as="span" delay={0.1}>
+                <GradientText animationSpeed={5}>
+                  What firms ask before they engage.
+                </GradientText>
+              </TextReveal>
             </h2>
           </div>
 
@@ -87,15 +94,16 @@ export function FAQ() {
                     <span className={`font-serif text-lg md:text-xl font-bold transition-colors duration-300 ${isOpen ? 'text-[#C6A24A]' : 'text-[#202124] group-hover:text-[#9B7830]'}`}>
                       {faq.question}
                     </span>
-                    <span className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-[#C6A24A] rotate-180' : 'bg-[#F1F3F5] group-hover:bg-[#C6A24A]/10'}`}>
+                    <span className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-[#C6A24A]' : 'bg-[#F1F3F5] group-hover:bg-[#C6A24A]/10'}`}>
                       <svg
                         width="14"
                         height="14"
                         viewBox="0 0 14 14"
                         fill="none"
                         className={`transition-colors duration-300 ${isOpen ? 'text-white' : 'text-[#C6A24A]'}`}
+                        style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}
                       >
-                        <path d="M7 10L2 5h10L7 10z" fill="currentColor" />
+                        <path d="M6 1h2v12H6V1zM1 6h12v2H1V6z" fill="currentColor" />
                       </svg>
                     </span>
                   </button>
@@ -108,9 +116,11 @@ export function FAQ() {
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                       >
-                        <div className="px-6 pb-6">
+                        <div className="px-6 pb-6 relative">
+                          {/* Gold gradient fill background */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#C6A24A]/5 via-transparent to-transparent rounded-b-2xl pointer-events-none" />
                           <div className="h-px w-full bg-gradient-to-r from-[#C6A24A]/20 to-transparent mb-4" />
-                          <p className="text-base text-[#4B5563] leading-[1.7]">
+                          <p className="text-base text-[#4B5563] leading-[1.7] relative">
                             {faq.answer}
                           </p>
                         </div>

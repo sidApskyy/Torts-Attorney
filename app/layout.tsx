@@ -9,6 +9,9 @@ import { PageTransition } from "@/components/ui/page-transition";
 import { CursorGlow } from "@/components/ui/cursor-glow";
 import { ParticleField } from "@/components/ui/particle-field";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { Preloader } from "@/components/ui/preloader";
+import { SectionRail } from "@/components/ui/section-rail";
+import { BackgroundTintShift } from "@/components/ui/background-tint-shift";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -56,6 +59,7 @@ export default function RootLayout({
       className={`${manrope.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <BackgroundTintShift />
         {/* Ambient live animations */}
         <div className="fixed inset-0 pointer-events-none z-0" aria-hidden>
           {/* Drifting ambient orbs */}
@@ -75,8 +79,10 @@ export default function RootLayout({
           <ParticleField count={12} />
         </div>
         <CursorGlow />
+        <Preloader />
         <SmoothScroll>
           <ScrollProgress />
+          <SectionRail />
           <Header />
           <main className="flex-1">
             <PageTransition>

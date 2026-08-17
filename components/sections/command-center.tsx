@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import { AnimatedCounter } from '@/components/ui/animated-counter'
 import { GradientText } from '@/components/ui/gradient-text'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { SectionNumber } from '@/components/ui/section-number'
 import Carousel, { CarouselItem } from '@/components/ui/carousel'
 import { BorderGlow } from '@/components/ui/border-glow'
 
@@ -27,6 +29,9 @@ export function CommandCenter() {
 
   return (
     <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="command-center-heading">
+      {/* Background section number */}
+      <SectionNumber number="04" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+
       {/* Subtle background accents */}
       <div className="absolute top-0 right-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
       <div className="absolute bottom-0 left-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '7s' }} />
@@ -42,10 +47,12 @@ export function CommandCenter() {
             <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Measure What the Firm Can Act On
             </p>
-            <h2 id="command-center-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
-              <GradientText animationSpeed={5}>
-                See the Pipeline, Not Just the Lead Count.
-              </GradientText>
+            <h2 id="command-center-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+              <TextReveal as="span" delay={0.1}>
+                <GradientText animationSpeed={5}>
+                  See the Pipeline, Not Just the Lead Count.
+                </GradientText>
+              </TextReveal>
             </h2>
             <p className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]">
               The better question is what those leads became. A useful acquisition dashboard follows the prospect beyond the first response.

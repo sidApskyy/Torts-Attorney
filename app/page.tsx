@@ -11,6 +11,7 @@ import { SocialProof } from '@/components/sections/social-proof'
 import { HowItWorks } from '@/components/sections/how-it-works'
 import { FAQ } from '@/components/sections/faq'
 import { FinalCTA } from '@/components/sections/final-cta'
+import { MarqueeStrip } from '@/components/ui/marquee-strip'
 
 export const metadata: Metadata = {
   title: 'Plaintiff Case Acquisition & Intake Services | The Torts Attorney',
@@ -25,29 +26,53 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex flex-col">
-      <Hero />
+      <div id="hero">
+        <Hero />
+      </div>
       <div className="section-divider" />
-      <TrustStrip />
+      <div id="capabilities">
+        <TrustStrip />
+      </div>
       <div className="section-divider" />
-      <Problem />
+      <div id="problem">
+        <Problem />
+      </div>
+      <MarqueeStrip />
+      <div id="how-it-works">
+        <HowItWorks />
+      </div>
       <div className="section-divider" />
-      <HowItWorks />
+      <div id="lifecycle">
+        <AcquisitionLifecycleDetail />
+      </div>
       <div className="section-divider" />
-      <AcquisitionLifecycleDetail />
+      <div id="solutions">
+        <Solutions />
+      </div>
       <div className="section-divider" />
-      <Solutions />
+      <div id="command-center">
+        <CommandCenter />
+      </div>
       <div className="section-divider" />
-      <CommandCenter />
+      <div id="why-us">
+        <WhyUs />
+      </div>
       <div className="section-divider" />
-      <WhyUs />
+      <div id="proof">
+        <Proof />
+      </div>
       <div className="section-divider" />
-      <Proof />
+      <div id="social-proof">
+        <SocialProof />
+      </div>
       <div className="section-divider" />
-      <SocialProof />
+      <div id="faq">
+        <FAQ />
+      </div>
       <div className="section-divider" />
-      <FAQ />
-      <div className="section-divider" />
-      <FinalCTA />
+      <div id="final-cta">
+        <FinalCTA />
+      </div>
     </div>
   )
 }
