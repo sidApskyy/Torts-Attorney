@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
 
 export function Proof() {
@@ -11,28 +12,51 @@ export function Proof() {
       <div className="absolute bottom-1/4 left-0 w-[250px] h-[200px] sm:w-[400px] sm:h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          {/* Section heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20 section-heading-glow"
-          >
-            <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
-              Let the Numbers Show the Work
-            </p>
-            <h2 id="proof-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]">
+          {/* Section heading — left-aligned, asymmetric */}
+          <div className="mb-20 section-heading-glow">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-8 bg-[#C6A24A]" />
+              <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">
+                Let the Numbers Show the Work
+              </p>
+            </div>
+            <h2 id="proof-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-4xl">
               <GradientText animationSpeed={5}>
                 Reporting should answer questions, not create more.
               </GradientText>
             </h2>
-            <p className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]">
+            <p className="text-lg md:text-xl text-[#4B5563] max-w-2xl leading-[1.7] text-left">
               We connect source, intake, qualification, completion and delivery wherever the agreed workflow provides those data points.
             </p>
-          </motion.div>
+          </div>
 
-          {/* Measurement framework */}
-          <div className="space-y-8">
+          {/* Measurement framework — split layout with image */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+            {/* Data visualization image — left (4 cols) */}
+            <div className="lg:col-span-4 order-2 lg:order-1">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full overflow-hidden rounded-2xl h-full"
+                style={{ minHeight: '400px', aspectRatio: '3/4' }}
+              >
+                <Image
+                  src="/image 2.png"
+                  alt="Data dashboard with champagne gold charts"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover"
+                />
+                {/* Gold accent overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#C6A24A]/8 pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl ring-1 ring-[#C6A24A]/15 pointer-events-none" />
+              </motion.div>
+            </div>
+
+            {/* Metrics — right (8 cols) */}
+            <div className="lg:col-span-8 order-1 lg:order-2 space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -125,6 +149,7 @@ export function Proof() {
                 </div>
               </div>
             </motion.div>
+            </div>
           </div>
         </div>
       </div>

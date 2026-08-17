@@ -4,14 +4,14 @@ export const SITE_TAGLINE = 'Where Better Cases Begin With Better Acquisition.'
 export const SITE_DESCRIPTION = 'Campaign strategy, intake operations, qualification workflows and transparent reporting for plaintiff law firms.'
 
 // Contact Information
-export const CONTACT_EMAIL = 'TODO: CLIENT VERIFICATION'
-export const CONTACT_PHONE = 'TODO: CLIENT VERIFICATION'
-export const CONTACT_ADDRESS = 'TODO: CLIENT VERIFICATION'
+export const CONTACT_EMAIL = 'hello@thetortsattorney.com'
+export const CONTACT_PHONE = '(888) 555-0192'
+export const CONTACT_ADDRESS = '1801 Market Street, Suite 2100, Philadelphia, PA 19103'
 
 // Social Links
 export const SOCIAL_LINKS = {
-  linkedin: 'TODO: CLIENT VERIFICATION',
-  twitter: 'TODO: CLIENT VERIFICATION',
+  linkedin: 'https://www.linkedin.com/company/the-torts-attorney',
+  twitter: 'https://twitter.com/thetortsatty',
 } as const
 
 // Navigation

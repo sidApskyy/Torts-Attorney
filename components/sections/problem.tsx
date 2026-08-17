@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
+import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
 
 const funnelStages = [
@@ -42,87 +43,108 @@ export function Problem() {
   const bgLayer3Opacity = useTransform(sectionProgress, [0.6, 0.8, 1], [0, 0.5, 1])
 
   return (
-    <section ref={sectionRef} className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="problem-heading">
+    <section ref={sectionRef} className="bg-[#1A1A1F] py-24 md:py-32 lg:py-40 relative overflow-hidden" aria-labelledby="problem-heading">
       {/* Ambient gradient — opacity crossfade between 3 static layers (GPU-accelerated) */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 20% 30%, rgba(198, 162, 74, 0.04), transparent 50%)',
+            background: 'radial-gradient(circle at 20% 30%, rgba(198, 162, 74, 0.08), transparent 50%)',
             opacity: prefersReducedMotion ? 1 : bgLayer1Opacity,
           }}
         />
         <motion.div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 80% 50%, rgba(198, 162, 74, 0.06), transparent 50%)',
+            background: 'radial-gradient(circle at 80% 50%, rgba(198, 162, 74, 0.10), transparent 50%)',
             opacity: prefersReducedMotion ? 0 : bgLayer2Opacity,
           }}
         />
         <motion.div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.8), transparent 50%)',
+            background: 'radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.04), transparent 50%)',
             opacity: prefersReducedMotion ? 0 : bgLayer3Opacity,
           }}
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Top gold accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C6A24A]/30 to-transparent pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
-          {/* ── HEADING: clip-path curtain wipe + letter-spacing collapse ── */}
-          <div className="text-center mb-20 md:mb-28 section-heading-glow">
-            {/* Eyebrow — slides in from left with a trailing line */}
-            <motion.div
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center justify-center gap-3 mb-8"
-            >
+          {/* ── HEADING: Asymmetric layout — left-aligned heading, image on right ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-20 md:mb-28 items-center">
+            {/* Left — heading (7 cols) */}
+            <div className="lg:col-span-7">
               <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: 32 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="h-px bg-[#C6A24A]"
-              />
-              <span className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">
-                The Form Is Only the Beginning
-              </span>
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-3 mb-8"
+              >
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: 32 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="h-px bg-[#C6A24A]"
+                />
+                <span className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">
+                  The Form Is Only the Beginning
+                </span>
+              </motion.div>
+
+              <motion.h2
+                id="problem-heading"
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
+                whileInView={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden text-left"
+              >
+                <GradientText animationSpeed={5}>
+                  A lead is only valuable if the next steps hold up.
+                </GradientText>
+              </motion.h2>
+
+              <motion.p
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, letterSpacing: '0.3em', filter: 'blur(4px)' }}
+                whileInView={{ opacity: 1, letterSpacing: '0em', filter: 'blur(0px)' }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="text-lg md:text-xl text-[rgba(255,255,255,0.65)] max-w-2xl leading-[1.7] text-left"
+              >
+                A campaign can generate responses and still underperform. The real questions begin after the form is submitted: Was the prospect contacted quickly? Did the intake team ask the right questions? Was the record actually qualified? Were missing documents followed up on? Did the opportunity reach the right law firm?
+              </motion.p>
+            </div>
+
+            {/* Right — architectural image (5 cols) */}
+            <div className="lg:col-span-5 hidden lg:block">
               <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: 32 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="h-px bg-[#C6A24A]"
-              />
-            </motion.div>
-
-            {/* Heading — clip-path curtain wipe from left */}
-            <motion.h2
-              id="problem-heading"
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
-              whileInView={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden"
-            >
-              <GradientText animationSpeed={5}>
-                A lead is only valuable if the next steps hold up.
-              </GradientText>
-            </motion.h2>
-
-            {/* Subtitle — letter-spacing collapse from wide to normal */}
-            <motion.p
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, letterSpacing: '0.3em', filter: 'blur(4px)' }}
-              whileInView={{ opacity: 1, letterSpacing: '0em', filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]"
-            >
-              A campaign can generate responses and still underperform. The real questions begin after the form is submitted: Was the prospect contacted quickly? Did the intake team ask the right questions? Was the record actually qualified? Were missing documents followed up on? Did the opportunity reach the right law firm?
-            </motion.p>
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full overflow-hidden rounded-3xl"
+                style={{ aspectRatio: '4/5' }}
+              >
+                <Image
+                  src="/image 1.png"
+                  alt="Classical courthouse columns at dusk"
+                  fill
+                  sizes="(max-width: 1024px) 0px, 40vw"
+                  className="object-cover"
+                  priority={false}
+                />
+                {/* Gold tint overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1F]/60 via-transparent to-[#C6A24A]/10 pointer-events-none" />
+                {/* Subtle inner border */}
+                <div className="absolute inset-0 rounded-3xl ring-1 ring-[#C6A24A]/20 pointer-events-none" />
+              </motion.div>
+            </div>
           </div>
 
           {/* ── FUNNEL: 3D perspective cascade with blur-to-focus numbers ── */}
@@ -139,23 +161,23 @@ export function Problem() {
                   viewport={{ once: true, margin: '-30px' }}
                   transition={{ delay: 0.15 + index * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                   style={{ transformStyle: 'preserve-3d', transformOrigin: 'center top' }}
-                  className="flex items-center gap-4 md:gap-6 group"
+                  className="flex items-center gap-3 sm:gap-4 md:gap-6 group"
                 >
                   {/* Stage label — slides in from left */}
-                  <div className="w-24 sm:w-36 md:w-48 flex-shrink-0">
+                  <div className="w-20 sm:w-36 md:w-48 flex-shrink-0">
                     <motion.p
                       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: -15 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: '-30px' }}
                       transition={{ delay: 0.25 + index * 0.1, duration: 0.5 }}
-                      className="text-sm md:text-base font-medium text-[#202124] transition-colors group-hover:text-[#C6A24A]"
+                      className="text-xs sm:text-sm md:text-base font-medium text-[rgba(255,255,255,0.85)] transition-colors group-hover:text-[#C6A24A]"
                     >
                       {stage.label}
                     </motion.p>
                   </div>
 
                   {/* Bar — width fill with number inside */}
-                  <div className="flex-1 bg-[#F1F3F5] rounded-[12px] h-12 md:h-14 relative overflow-hidden">
+                  <div className="flex-1 bg-[rgba(255,255,255,0.06)] rounded-[12px] h-10 sm:h-12 md:h-14 relative overflow-hidden">
                     <motion.div
                       initial={prefersReducedMotion ? { width: '100%' } : { width: 0 }}
                       whileInView={{ width: stage.width }}
@@ -171,7 +193,7 @@ export function Problem() {
                         whileInView={{ opacity: 1, filter: 'blur(0px)' }}
                         viewport={{ once: true, margin: '-30px' }}
                         transition={{ delay: 0.5 + index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="text-sm md:text-base font-semibold text-[#202124] drop-shadow-sm tabular-nums relative z-10 whitespace-nowrap"
+                        className="text-xs sm:text-sm md:text-base font-semibold text-[#202124] drop-shadow-sm tabular-nums relative z-10 whitespace-nowrap"
                       >
                         {stage.value}
                       </motion.span>
@@ -179,13 +201,13 @@ export function Problem() {
                   </div>
 
                   {/* Percentage + drop-off — fade in from right */}
-                  <div className="w-24 md:w-32 flex-shrink-0 text-right flex flex-col items-end">
+                  <div className="w-16 sm:w-24 md:w-32 flex-shrink-0 text-right flex flex-col items-end">
                     <motion.p
                       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: 15 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: '-30px' }}
                       transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
-                      className="text-sm md:text-base font-medium text-[#202124] tabular-nums"
+                      className="text-xs sm:text-sm md:text-base font-medium text-[rgba(255,255,255,0.85)] tabular-nums"
                     >
                       {stage.width}
                     </motion.p>
@@ -213,15 +235,15 @@ export function Problem() {
               transition={{ delay: 1.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="mt-8 flex items-center gap-4 md:gap-6"
             >
-              <div className="w-36 md:w-48 flex-shrink-0" />
+              <div className="w-20 sm:w-36 md:w-48 flex-shrink-0" />
               <div className="flex-1 flex items-center gap-3">
                 <div className="h-px flex-1 bg-gradient-to-r from-[#C6A24A]/40 to-[#C6A24A]/10" />
-                <span className="text-lg md:text-xl font-semibold text-[#C6A24A] tabular-nums whitespace-nowrap">
+                <span className="text-base sm:text-lg md:text-xl font-semibold text-[#C6A24A] tabular-nums whitespace-nowrap">
                   84% of leads never become retainers
                 </span>
                 <div className="h-px flex-1 bg-gradient-to-l from-[#C6A24A]/40 to-[#C6A24A]/10" />
               </div>
-              <div className="w-24 md:w-32 flex-shrink-0" />
+              <div className="w-16 sm:w-24 md:w-32 flex-shrink-0" />
             </motion.div>
 
             {/* Disclosure */}
@@ -230,7 +252,7 @@ export function Problem() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 1.4, duration: 0.5 }}
-              className="mt-10 text-center text-sm text-[#6B7280] italic"
+              className="mt-10 text-center text-sm text-[rgba(255,255,255,0.35)] italic"
             >
               Illustrative sample data — not actual company performance
             </motion.p>
@@ -246,7 +268,7 @@ export function Problem() {
                 transformOrigin: 'center bottom',
               }}
             >
-              <div className="max-w-4xl mx-auto content-card-accent p-10 md:p-16 relative overflow-hidden">
+              <div className="max-w-4xl mx-auto p-10 md:p-16 relative overflow-hidden rounded-2xl border border-[rgba(198,162,74,0.15)] bg-[rgba(255,255,255,0.03)] backdrop-blur-sm">
                 {/* Accent bar — scroll-driven grow from top */}
                 <motion.div
                   className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-[#C6A24A] to-[#9B7830] origin-top"
@@ -254,14 +276,14 @@ export function Problem() {
                 />
 
                 {/* Subtle static gradient sheen */}
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#C6A24A]/2 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#C6A24A]/5 to-transparent pointer-events-none" />
 
                 {/* Text — scroll-driven clip-path wipe reveal */}
                 <motion.p
                   style={{
                     clipPath: prefersReducedMotion ? 'inset(0 0 0 0)' : insightClipPath,
                   }}
-                  className="font-serif text-2xl md:text-3xl text-[#202124] leading-[1.4] tracking-[-0.01em] relative"
+                  className="font-serif text-2xl md:text-3xl text-[rgba(255,255,255,0.9)] leading-[1.4] tracking-[-0.01em] relative"
                 >
                   That is where we put our attention:{' '}
                   <span className="text-[#C6A24A] italic font-medium">what happens after the response.</span>

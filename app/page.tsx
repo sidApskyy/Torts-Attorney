@@ -7,6 +7,9 @@ import { Solutions } from '@/components/sections/solutions'
 import { CommandCenter } from '@/components/sections/command-center'
 import { WhyUs } from '@/components/sections/why-us'
 import { Proof } from '@/components/sections/proof'
+import { SocialProof } from '@/components/sections/social-proof'
+import { HowItWorks } from '@/components/sections/how-it-works'
+import { FAQ } from '@/components/sections/faq'
 import { FinalCTA } from '@/components/sections/final-cta'
 
 export const metadata: Metadata = {
@@ -28,6 +31,8 @@ export default function Home() {
       <div className="section-divider" />
       <Problem />
       <div className="section-divider" />
+      <HowItWorks />
+      <div className="section-divider" />
       <AcquisitionLifecycleDetail />
       <div className="section-divider" />
       <Solutions />
@@ -37,6 +42,10 @@ export default function Home() {
       <WhyUs />
       <div className="section-divider" />
       <Proof />
+      <div className="section-divider" />
+      <SocialProof />
+      <div className="section-divider" />
+      <FAQ />
       <div className="section-divider" />
       <FinalCTA />
     </div>

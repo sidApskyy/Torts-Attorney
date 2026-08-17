@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { RollingCounter } from '@/components/ui/rolling-counter'
 import { ScrollExpand } from '@/components/ui/scroll-expand'
@@ -136,16 +137,20 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
-              <MagneticButton strength={0.25} className="rounded-full">
-                <Button variant="red" size="lg" className="text-base">
-                  Talk Through a Campaign
-                </Button>
-              </MagneticButton>
-              <MagneticButton strength={0.25} className="rounded-full">
-                <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830]">
-                  See Current Campaigns
-                </Button>
-              </MagneticButton>
+              <Link href="/contact">
+                <MagneticButton strength={0.25} className="rounded-full">
+                  <Button variant="red" size="lg" className="text-base">
+                    Talk Through a Campaign
+                  </Button>
+                </MagneticButton>
+              </Link>
+              <Link href="/campaign-intelligence">
+                <MagneticButton strength={0.25} className="rounded-full">
+                  <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830]">
+                    See Current Campaigns
+                  </Button>
+                </MagneticButton>
+              </Link>
             </motion.div>
             </div>
           </div>
@@ -166,7 +171,7 @@ export function Hero() {
               <p className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] tabular-nums mb-3">
                 <RollingCounter value={9712} duration={3.5} />
               </p>
-              <p className="text-base md:text-lg text-[#4B5563]">Campaign-Specific Intake</p>
+              <p className="text-base md:text-lg text-[#4B5563]">Responses Processed</p>
             </motion.div>
 
             <motion.div
@@ -179,7 +184,7 @@ export function Hero() {
               <p className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#C6A24A] tabular-nums mb-3">
                 <RollingCounter value={16} duration={3.5} format="percent" />
               </p>
-              <p className="text-base md:text-lg text-[#4B5563]">Documented Source Tracking</p>
+              <p className="text-base md:text-lg text-[#4B5563]">Retainer Completion Rate</p>
             </motion.div>
 
             <motion.div
@@ -192,7 +197,7 @@ export function Hero() {
               <p className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] tabular-nums mb-3">
                 <RollingCounter value={10} duration={3.5} />
               </p>
-              <p className="text-base md:text-lg text-[#4B5563]">Consent-Aware Workflows</p>
+              <p className="text-base md:text-lg text-[#4B5563]">Pipeline Stages Tracked</p>
             </motion.div>
           </div>
 

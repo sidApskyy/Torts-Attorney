@@ -2,6 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import Image from 'next/image'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { GradientText } from '@/components/ui/gradient-text'
 
@@ -38,8 +40,18 @@ export function FinalCTA() {
           whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-4xl mx-auto text-center relative z-10 content-card p-6 sm:p-12 md:p-16"
+          className="max-w-4xl mx-auto text-center relative z-10 content-card p-6 sm:p-12 md:p-16 overflow-hidden"
         >
+          {/* Marble texture background at low opacity */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.08]">
+            <Image
+              src="/image 4.png"
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 56vw"
+              className="object-cover"
+            />
+          </div>
           {/* Gold top accent */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C6A24A] to-transparent rounded-t-xl" />
           {/* Eyebrow */}
@@ -66,16 +78,20 @@ export function FinalCTA() {
             transition={{ delay: 0.1 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <MagneticButton strength={0.25} className="rounded-full">
-              <Button variant="red" size="lg" className="w-full sm:w-auto text-base">
-                Talk Through the Pipeline
-              </Button>
-            </MagneticButton>
-            <MagneticButton strength={0.25} className="rounded-full">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto text-base">
-                Send Us the Campaign
-              </Button>
-            </MagneticButton>
+            <Link href="/contact">
+              <MagneticButton strength={0.25} className="rounded-full">
+                <Button variant="red" size="lg" className="w-full sm:w-auto text-base">
+                  Talk Through the Pipeline
+                </Button>
+              </MagneticButton>
+            </Link>
+            <Link href="/contact">
+              <MagneticButton strength={0.25} className="rounded-full">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto text-base">
+                  Send Us the Campaign
+                </Button>
+              </MagneticButton>
+            </Link>
           </motion.div>
           
           {/* Supporting line */}

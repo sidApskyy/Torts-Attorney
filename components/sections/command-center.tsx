@@ -81,17 +81,17 @@ export function CommandCenter() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.15 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4"
+              className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4"
             >
               {metrics.map((metric, index) => (
                 <div
                   key={index}
-                  className="content-card p-4 md:p-5 text-center"
+                  className="content-card p-3 sm:p-4 md:p-5 text-center"
                 >
                   <p className="text-xs text-[#6B7280] uppercase tracking-wider mb-2">
                     {metric.label}
                   </p>
-                  <p className="font-serif text-2xl md:text-3xl font-bold text-[#202124] mb-1">
+                  <p className="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-[#202124] mb-1">
                     <AnimatedCounter value={metric.value} format={metric.format} />
                   </p>
                   <p className={`text-sm font-medium ${metric.change.startsWith('+') ? 'text-[#C6A24A]' : 'text-[#9B7830]'}`}>
@@ -139,10 +139,10 @@ export function CommandCenter() {
                       transition={{ delay: 0.25 + index * 0.05 }}
                       className="flex items-center gap-3 sm:gap-6"
                     >
-                      <div className="w-24 sm:w-36 md:w-48 flex-shrink-0">
-                        <p className="text-sm md:text-base text-[#4B5563]">{item.stage}</p>
+                      <div className="w-20 sm:w-36 md:w-48 flex-shrink-0">
+                        <p className="text-xs sm:text-sm md:text-base text-[#4B5563]">{item.stage}</p>
                       </div>
-                      <div className="flex-1 bg-[#F1F3F5] rounded-[12px] h-8 md:h-10 relative overflow-hidden">
+                      <div className="flex-1 bg-[#F1F3F5] rounded-[12px] h-8 sm:h-9 md:h-10 relative overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: item.width }}
@@ -152,13 +152,13 @@ export function CommandCenter() {
                           style={{ backgroundColor: item.color }}
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-sm md:text-base font-semibold text-[#202124] drop-shadow-sm">
+                          <span className="text-xs sm:text-sm md:text-base font-semibold text-[#202124] drop-shadow-sm">
                             {item.count.toLocaleString()}
                           </span>
                         </div>
                       </div>
-                      <div className="w-16 md:w-20 flex-shrink-0 text-right">
-                        <p className="text-sm md:text-base text-[#4B5563]">{item.width}</p>
+                      <div className="w-12 sm:w-16 md:w-20 flex-shrink-0 text-right">
+                        <p className="text-xs sm:text-sm md:text-base text-[#4B5563]">{item.width}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -201,12 +201,12 @@ export function CommandCenter() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.35 + index * 0.05 }}
-                      className="flex items-center justify-between py-4 border-b border-[#E4E1D8] last:border-0"
+                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 border-b border-[#E4E1D8] last:border-0 gap-2 sm:gap-4"
                     >
                       <div className="flex-1">
                         <p className="text-sm md:text-base font-medium text-[#202124]">{item.source}</p>
                       </div>
-                      <div className="flex items-center gap-4 sm:gap-6 md:gap-10">
+                      <div className="flex items-center gap-3 sm:gap-6 md:gap-10">
                         <div className="text-right">
                           <p className="text-xs text-[#6B7280]">Responses</p>
                           <p className="text-sm md:text-base text-[#202124]">{item.responses.toLocaleString()}</p>
@@ -215,7 +215,7 @@ export function CommandCenter() {
                           <p className="text-xs text-[#6B7280]">Qualified</p>
                           <p className="text-sm md:text-base text-[#202124]">{item.qualified.toLocaleString()}</p>
                         </div>
-                        <div className="w-20 text-right">
+                        <div className="w-16 sm:w-20 text-right">
                           <p className="text-sm md:text-base font-semibold text-[#C6A24A]">{item.rate}</p>
                         </div>
                       </div>

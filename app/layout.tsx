@@ -8,6 +8,7 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { PageTransition } from "@/components/ui/page-transition";
 import { CursorGlow } from "@/components/ui/cursor-glow";
 import { ParticleField } from "@/components/ui/particle-field";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -83,6 +84,7 @@ export default function RootLayout({
             </PageTransition>
           </main>
           <Footer />
+          <ScrollToTop />
         </SmoothScroll>
       </body>
     </html>

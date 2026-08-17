@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
 import { FlowingMenu, type FlowingMenuItem } from '@/components/ui/flowing-menu'
 
@@ -63,6 +64,30 @@ export function WhyUs() {
             <p className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]">
               Acquisition is only one part of the job. We build around what follows.
             </p>
+          </motion.div>
+
+          {/* Full-width architectural panorama */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.02 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-12 relative w-full overflow-hidden rounded-2xl shadow-[0_20px_60px_-15px_rgba(32,33,36,0.15)]"
+            style={{ aspectRatio: '16/9' }}
+          >
+            <Image
+              src="/image 3.png"
+              alt="Grand classical law library interior"
+              fill
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+            {/* Subtle gold tint overlay — top */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#C6A24A]/8 via-transparent to-transparent pointer-events-none" />
+            {/* Bottom fade for text legibility if needed */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#F8F8F6]/40 via-transparent to-transparent pointer-events-none" />
+            {/* Inner border */}
+            <div className="absolute inset-0 rounded-2xl ring-1 ring-[#C6A24A]/15 pointer-events-none" />
           </motion.div>
 
           {/* Differentiators — FlowingMenu: titles stay visible, descriptions flow on hover */}

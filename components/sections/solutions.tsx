@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { GlareHover } from '@/components/ui/glare-hover'
 import { GradientText } from '@/components/ui/gradient-text'
 
@@ -107,9 +108,62 @@ export function Solutions() {
             </motion.p>
           </div>
 
-          {/* 4 Key Solution Cards - 2x2 grid, all equal size */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-            {solutions.slice(0, 4).map((solution, index) => (
+          {/* Featured Solution Card — full width, larger */}
+          <div className="grid grid-cols-1 gap-8 mb-8">
+            {solutions.slice(0, 1).map((solution, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: index * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="h-full"
+              >
+                <GlareHover
+                  width="100%"
+                  height="100%"
+                  background="linear-gradient(145deg, rgba(255,255,255,0.98), rgba(248,248,246,0.98))"
+                  borderRadius="24px"
+                  borderColor="rgba(198, 162, 74, 0.35)"
+                  glareColor="#C6A24A"
+                  glareOpacity={0.22}
+                  glareAngle={-30}
+                  glareSize={400}
+                  transitionDuration={800}
+                  className="glass-card"
+                  style={{ padding: '2.5rem', position: 'relative', boxSizing: 'border-box' }}
+                >
+                  <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <div className="flex items-center gap-3 mb-5">
+                      <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#C6A24A] bg-[#C6A24A]/10 px-3 py-1 rounded-full">Featured Solution</span>
+                    </div>
+                    <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#202124] mb-5">
+                      {solution.title}
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div>
+                        <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#C6A24A]">The Problem</p>
+                        <p className="text-base text-[#4B5563] leading-[1.7]">{solution.problem}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#C6A24A]">Our Capability</p>
+                        <p className="text-base text-[#4B5563] leading-[1.7]">{solution.capability}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#C6A24A]">Operational Value</p>
+                        <p className="text-base text-[#202124] leading-[1.5] font-medium">{solution.value}</p>
+                        <p className="text-sm text-[#C6A24A] font-medium mt-3">{solution.cta} →</p>
+                      </div>
+                    </div>
+                  </div>
+                </GlareHover>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* 3 Key Solution Cards - equal grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {solutions.slice(1, 4).map((solution, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 40 }}
@@ -219,9 +273,11 @@ export function Solutions() {
             transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="text-center"
           >
-            <Button variant="red" size="lg" className="text-base">
-              Talk Through a Campaign
-            </Button>
+            <Link href="/contact">
+              <Button variant="red" size="lg" className="text-base">
+                Talk Through a Campaign
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </div>
