@@ -8,6 +8,7 @@ import { ScrollExpand } from '@/components/ui/scroll-expand'
 import { MoltenMetal } from '@/components/ui/molten-metal'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { GradientText } from '@/components/ui/gradient-text'
+import { ProgressRing } from '@/components/ui/progress-ring'
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion()
@@ -166,12 +167,14 @@ export function Hero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="text-center sm:text-left"
+              className="text-center sm:text-left flex flex-col items-center sm:items-start"
             >
-              <p className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] tabular-nums mb-3">
-                <RollingCounter value={9712} duration={3.5} />
-              </p>
-              <p className="text-base md:text-lg text-[#4B5563]">Responses Processed</p>
+              <ProgressRing value={97} max={100} size={110} strokeWidth={3} delay={0.2}>
+                <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#202124] tabular-nums">
+                  <RollingCounter value={9712} duration={3.5} />
+                </p>
+              </ProgressRing>
+              <p className="text-base md:text-lg text-[#4B5563] mt-3">Responses Processed</p>
             </motion.div>
 
             <motion.div
@@ -179,12 +182,14 @@ export function Hero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-center sm:text-left"
+              className="text-center sm:text-left flex flex-col items-center sm:items-start"
             >
-              <p className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#C6A24A] tabular-nums mb-3">
-                <RollingCounter value={16} duration={3.5} format="percent" />
-              </p>
-              <p className="text-base md:text-lg text-[#4B5563]">Retainer Completion Rate</p>
+              <ProgressRing value={16} max={100} size={110} strokeWidth={3} delay={0.4} color="#C6A24A">
+                <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#C6A24A] tabular-nums">
+                  <RollingCounter value={16} duration={3.5} format="percent" />
+                </p>
+              </ProgressRing>
+              <p className="text-base md:text-lg text-[#4B5563] mt-3">Retainer Completion Rate</p>
             </motion.div>
 
             <motion.div
@@ -192,12 +197,14 @@ export function Hero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-center sm:text-left"
+              className="text-center sm:text-left flex flex-col items-center sm:items-start"
             >
-              <p className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-[#202124] tabular-nums mb-3">
-                <RollingCounter value={10} duration={3.5} />
-              </p>
-              <p className="text-base md:text-lg text-[#4B5563]">Pipeline Stages Tracked</p>
+              <ProgressRing value={100} max={100} size={110} strokeWidth={3} delay={0.6}>
+                <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#202124] tabular-nums">
+                  <RollingCounter value={10} duration={3.5} />
+                </p>
+              </ProgressRing>
+              <p className="text-base md:text-lg text-[#4B5563] mt-3">Pipeline Stages Tracked</p>
             </motion.div>
           </div>
 

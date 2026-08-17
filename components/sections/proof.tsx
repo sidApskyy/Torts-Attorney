@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
+import { ImageReveal } from '@/components/ui/image-reveal'
 
 export function Proof() {
   const imageRef = useRef<HTMLDivElement>(null)
@@ -59,6 +60,7 @@ export function Proof() {
                 className="relative w-full overflow-hidden rounded-2xl h-full group"
                 style={{ minHeight: '400px', aspectRatio: '3/4' }}
               >
+                <ImageReveal direction="left" delay={0.2} className="absolute inset-0">
                 <motion.div
                   style={{ y: prefersReducedMotion ? 0 : imageY }}
                   className="absolute inset-0"
@@ -71,6 +73,7 @@ export function Proof() {
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </motion.div>
+                </ImageReveal>
                 {/* Gold accent overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#C6A24A]/8 pointer-events-none" />
                 <div className="absolute inset-0 rounded-2xl ring-1 ring-[#C6A24A]/15 pointer-events-none" />

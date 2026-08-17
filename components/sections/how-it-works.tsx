@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
+import { SvgLineDraw } from '@/components/ui/svg-line-draw'
+import { TiltCard } from '@/components/ui/tilt-card'
 
 const steps = [
   {
@@ -61,8 +63,10 @@ export function HowItWorks() {
 
           {/* Steps */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
-            {/* Connecting line — desktop only */}
-            <div className="hidden md:block absolute top-12 left-[16.66%] right-[16.66%] h-px bg-gradient-to-r from-[#C6A24A]/10 via-[#C6A24A]/30 to-[#C6A24A]/10" />
+            {/* Animated SVG connecting line — desktop only */}
+            <div className="hidden md:block absolute top-12 left-[16.66%] right-[16.66%] z-0">
+              <SvgLineDraw color="rgba(198, 162, 74, 0.3)" strokeWidth={1} className="w-full h-[2px]" />
+            </div>
 
             {steps.map((step, index) => (
               <motion.div
@@ -71,8 +75,9 @@ export function HowItWorks() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: index * 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="relative"
+                className="relative [perspective:1000px]"
               >
+                <TiltCard intensity={6} className="rounded-2xl">
                 {/* Number circle */}
                 <div className="relative mb-8">
                   <div className="w-24 h-24 rounded-2xl bg-white border border-[#C6A24A]/20 flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(198,162,74,0.15)] relative z-10">
@@ -99,6 +104,7 @@ export function HowItWorks() {
                     </li>
                   ))}
                 </ul>
+                </TiltCard>
               </motion.div>
             ))}
           </div>

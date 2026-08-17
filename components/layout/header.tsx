@@ -73,7 +73,7 @@ export function Header() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
         isScrolled
-          ? 'bg-[rgba(248,248,246,0.90)] backdrop-blur-[20px] border border-[#E4E1D8] rounded-[18px] mx-2 mt-2 sm:mx-4 sm:mt-3 shadow-[0_4px_16px_rgba(32,33,36,0.05)]'
+          ? 'bg-[rgba(248,248,246,0.70)] backdrop-blur-[24px] border border-[rgba(198,162,74,0.12)] rounded-[18px] mx-2 mt-2 sm:mx-4 sm:mt-3 shadow-[0_8px_32px_rgba(32,33,36,0.08)]'
           : 'bg-transparent border border-transparent pointer-events-none'
       )}
     >
@@ -113,9 +113,14 @@ export function Header() {
                 >
                   {item.name}
                   <span className={cn(
-                    'absolute -bottom-1.5 left-0 h-[2px] bg-[#C6A24A] transition-all duration-500 ease-out rounded-full',
+                    'absolute -bottom-1.5 left-0 h-[2px] rounded-full transition-all duration-500 ease-out',
+                    'bg-gradient-to-r from-[#C6A24A] to-[#9B7830]',
                     pathname === item.href ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'
                   )} />
+                  {/* Gold dot indicator for active page */}
+                  {pathname === item.href && (
+                    <span className="absolute -bottom-1.5 left-0 w-1.5 h-1.5 rounded-full bg-[#C6A24A] animate-pulse" />
+                  )}
                 </Link>
               </motion.div>
             ))}

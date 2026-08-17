@@ -7,6 +7,7 @@ import { GlareHover } from '@/components/ui/glare-hover'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
+import { WordReveal } from '@/components/ui/word-reveal'
 
 export function Solutions() {
   const solutions = [
@@ -98,11 +99,7 @@ export function Solutions() {
               />
             </motion.span>
             <h2 id="solutions-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
-              <TextReveal as="span" delay={0.1}>
-                <GradientText animationSpeed={5}>
-                  Solutions Built for the Full Pipeline
-                </GradientText>
-              </TextReveal>
+              <WordReveal text="Solutions Built for the Full Pipeline" as="span" delay={0.1} className="inline" />
             </h2>
             <motion.p
               initial={{ opacity: 0, y: 10 }}

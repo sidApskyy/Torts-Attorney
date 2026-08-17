@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
+import { ImageReveal } from '@/components/ui/image-reveal'
 import { FlowingMenu, type FlowingMenuItem } from '@/components/ui/flowing-menu'
 
 export function WhyUs() {
@@ -92,6 +93,7 @@ export function WhyUs() {
             className="mb-12 relative w-full overflow-hidden rounded-2xl shadow-[0_20px_60px_-15px_rgba(32,33,36,0.15)] group"
             style={{ aspectRatio: '16/9' }}
           >
+            <ImageReveal direction="bottom" delay={0.2} className="absolute inset-0">
             <motion.div
               style={{ y: prefersReducedMotion ? 0 : imageY }}
               className="absolute inset-0"
@@ -104,6 +106,7 @@ export function WhyUs() {
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
             </motion.div>
+            </ImageReveal>
             {/* Subtle gold tint overlay — top */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#C6A24A]/8 via-transparent to-transparent pointer-events-none" />
             {/* Bottom fade for text legibility if needed */}

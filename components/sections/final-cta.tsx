@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
+import { ParticleBurst } from '@/components/ui/particle-burst'
 
 export function FinalCTA() {
   return (
@@ -43,6 +44,8 @@ export function FinalCTA() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl mx-auto text-center relative z-10 content-card p-6 sm:p-12 md:p-16 overflow-hidden"
         >
+          {/* Gold particle burst on scroll into view */}
+          <ParticleBurst />
           {/* Marble texture background at low opacity */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.08]">
             <Image

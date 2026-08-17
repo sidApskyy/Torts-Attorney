@@ -12,6 +12,8 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { Preloader } from "@/components/ui/preloader";
 import { SectionRail } from "@/components/ui/section-rail";
 import { BackgroundTintShift } from "@/components/ui/background-tint-shift";
+import { CookieConsent } from "@/components/ui/cookie-consent";
+import { AnimatedFavicon } from "@/components/ui/animated-favicon";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -59,6 +61,7 @@ export default function RootLayout({
       className={`${manrope.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <AnimatedFavicon />
         <BackgroundTintShift />
         {/* Ambient live animations */}
         <div className="fixed inset-0 pointer-events-none z-0" aria-hidden>
@@ -91,6 +94,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <ScrollToTop />
+          <CookieConsent />
         </SmoothScroll>
       </body>
     </html>

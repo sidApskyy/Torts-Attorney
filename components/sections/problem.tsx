@@ -5,13 +5,15 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
+import { ImageReveal } from '@/components/ui/image-reveal'
+import { FunnelCounter } from '@/components/ui/funnel-counter'
 
 const funnelStages = [
-  { label: 'Initial Responses', value: '10,000', width: '100%', color: '#D8BC72', dropOff: 0 },
-  { label: 'Qualified Contacts', value: '7,200', width: '72%', color: '#C6A24A', dropOff: 28 },
-  { label: 'Intake Completed', value: '4,320', width: '43%', color: '#B89542', dropOff: 40 },
-  { label: 'Documentation Received', value: '2,592', width: '26%', color: '#9B7830', dropOff: 40 },
-  { label: 'Retainer Signed', value: '1,555', width: '16%', color: '#8B6B2A', dropOff: 40 },
+  { label: 'Initial Responses', value: '10,000', width: '100%', color: '#D8BC72', dropOff: 0, tooltip: 'Every response from the campaign — before any filtering or qualification.' },
+  { label: 'Qualified Contacts', value: '7,200', width: '72%', color: '#C6A24A', dropOff: 28, tooltip: 'Responses that matched basic criteria and were successfully contacted.' },
+  { label: 'Intake Completed', value: '4,320', width: '43%', color: '#B89542', dropOff: 40, tooltip: 'Contacts who completed the full intake questionnaire and passed qualification.' },
+  { label: 'Documentation Received', value: '2,592', width: '26%', color: '#9B7830', dropOff: 40, tooltip: 'Qualified intakes where supporting documents were collected and verified.' },
+  { label: 'Retainer Signed', value: '1,555', width: '16%', color: '#8B6B2A', dropOff: 40, tooltip: 'Documented cases where the retainer was executed and returned to the firm.' },
 ]
 
 export function Problem() {
@@ -146,6 +148,7 @@ export function Problem() {
                 className="relative w-full overflow-hidden rounded-3xl group"
                 style={{ aspectRatio: '4/5' }}
               >
+                <ImageReveal direction="circle" delay={0.3} className="absolute inset-0">
                 <motion.div
                   style={{ y: prefersReducedMotion ? 0 : useTransform(sectionProgress, [0, 1], ['-3%', '3%']) }}
                   className="absolute inset-0"
@@ -159,6 +162,7 @@ export function Problem() {
                     priority={false}
                   />
                 </motion.div>
+                </ImageReveal>
                 {/* Gold tint overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1F]/60 via-transparent to-[#C6A24A]/10 pointer-events-none" />
                 {/* Subtle inner border */}
@@ -197,7 +201,15 @@ export function Problem() {
                   </div>
 
                   {/* Bar — width fill with number inside */}
-                  <div className="flex-1 bg-[rgba(255,255,255,0.06)] rounded-[12px] h-10 sm:h-12 md:h-14 relative overflow-hidden">
+                  <div className="flex-1 bg-[rgba(255,255,255,0.06)] rounded-[12px] h-10 sm:h-12 md:h-14 relative overflow-visible">
+                    {/* Tooltip on hover */}
+                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-full z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-normal w-56">
+                      <div className="bg-[#1A1A1F] border border-[#C6A24A]/25 rounded-xl px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
+                        <p className="text-xs text-[rgba(255,255,255,0.8)] leading-[1.5]">{stage.tooltip}</p>
+                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-[#1A1A1F] border-r border-b border-[#C6A24A]/25 rotate-45" />
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 rounded-[12px] overflow-hidden">
                     <motion.div
                       initial={prefersReducedMotion ? { width: '100%' } : { width: 0 }}
                       whileInView={{ width: stage.width }}
@@ -215,9 +227,10 @@ export function Problem() {
                         transition={{ delay: 0.5 + index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                         className="text-xs sm:text-sm md:text-base font-semibold text-[#202124] drop-shadow-sm tabular-nums relative z-10 whitespace-nowrap"
                       >
-                        {stage.value}
+                        <FunnelCounter value={stage.value} duration={1.5} />
                       </motion.span>
                     </motion.div>
+                    </div>
                   </div>
 
                   {/* Percentage + drop-off — fade in from right */}

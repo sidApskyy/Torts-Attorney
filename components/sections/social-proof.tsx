@@ -6,6 +6,7 @@ import { AnimatedCounter } from '@/components/ui/animated-counter'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { AnimatedBorder } from '@/components/ui/animated-border'
 import { SectionNumber } from '@/components/ui/section-number'
+import { TestimonialCarousel } from '@/components/ui/testimonial-carousel'
 
 export function SocialProof() {
   const testimonials = [
@@ -92,41 +93,9 @@ export function SocialProof() {
             ))}
           </div>
 
-          {/* Testimonials */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: index * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="relative"
-              >
-                <AnimatedBorder borderRadius="20px" className="glass-card h-full">
-                  <div className="p-8 relative overflow-hidden h-full">
-                {/* Gold accent bar */}
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C6A24A] to-transparent" />
-
-                {/* Quote mark */}
-                <div className="font-serif text-5xl text-[#C6A24A]/20 leading-none mb-4">“</div>
-
-                <p className="text-base text-[#202124] leading-[1.7] mb-6 relative">
-                  {testimonial.quote}
-                </p>
-
-                <div className="pt-4 border-t border-[#E4E1D8]">
-                  <p className="text-sm font-semibold text-[#202124]">
-                    {testimonial.attribution}
-                  </p>
-                  <p className="text-xs text-[#6B7280] mt-1">
-                    {testimonial.context}
-                  </p>
-                </div>
-                  </div>
-                </AnimatedBorder>
-              </motion.div>
-            ))}
+          {/* Testimonials — 3D coverflow carousel */}
+          <div className="relative px-12">
+            <TestimonialCarousel testimonials={testimonials} autoPlay={true} interval={5000} />
           </div>
 
           {/* Disclosure */}
