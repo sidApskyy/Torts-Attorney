@@ -2,6 +2,8 @@
 
 import { z } from 'zod'
 import { Resend } from 'resend'
+import { checkRateLimit } from '@/lib/rate-limiter'
+import { verifyTurnstile } from '@/lib/turnstile'
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -15,28 +17,6 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>
 
-// Simple in-memory rate limiting (for production, use Redis or similar)
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000 // 1 hour
-const RATE_LIMIT_MAX_REQUESTS = 3
-
-function checkRateLimit(identifier: string): boolean {
-  const now = Date.now()
-  const record = rateLimitMap.get(identifier)
-  
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(identifier, { count: 1, resetTime: now + RATE_LIMIT_WINDOW })
-    return true
-  }
-  
-  if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
-    return false
-  }
-  
-  record.count++
-  return true
-}
-
 // Simple spam detection
 function detectSpam(data: ContactFormData): boolean {
   const spamKeywords = ['viagra', 'casino', 'porn', 'xxx', 'lottery', 'winner', 'free money']
@@ -47,6 +27,25 @@ function detectSpam(data: ContactFormData): boolean {
 
 export async function submitContactForm(formData: FormData) {
   try {
+    // Honeypot check — if filled, silently reject (bot detected)
+    const honeypot = formData.get('company_website')
+    if (honeypot && String(honeypot).trim() !== '') {
+      return {
+        success: true,
+        message: 'Thank you for your inquiry. We will be in touch shortly.',
+      }
+    }
+
+    // Verify Turnstile CAPTCHA
+    const turnstileToken = formData.get('cf-turnstile-response') as string | null
+    const turnstileResult = await verifyTurnstile(turnstileToken)
+    if (!turnstileResult.success) {
+      return {
+        success: false,
+        error: 'CAPTCHA verification failed. Please try again.',
+      }
+    }
+
     // Extract form data
     const rawData = {
       name: formData.get('name') as string,
@@ -62,7 +61,7 @@ export async function submitContactForm(formData: FormData) {
     const validatedData = contactSchema.parse(rawData)
 
     // Rate limiting by email
-    if (!checkRateLimit(validatedData.email)) {
+    if (!(await checkRateLimit(validatedData.email))) {
       return {
         success: false,
         error: 'Too many submissions. Please try again later.',
@@ -77,7 +76,7 @@ export async function submitContactForm(formData: FormData) {
       }
     }
 
-    // Send email using Resend
+    const fromEmail = process.env.FROM_EMAIL || 'The Torts Attorney <contact@thetortsattorney.com>'
     const resend = new Resend(process.env.RESEND_API_KEY)
     
     const notificationEmail = process.env.CONTACT_NOTIFICATION_EMAIL
@@ -90,7 +89,7 @@ export async function submitContactForm(formData: FormData) {
     }
 
     await resend.emails.send({
-      from: 'The Torts Attorney <contact@thetortsattorney.com>',
+      from: fromEmail,
       to: notificationEmail,
       subject: `New Contact Form Submission: ${validatedData.company}`,
       html: `

@@ -4,6 +4,7 @@ import { InsightsClient } from './insights-client'
 export const metadata: Metadata = {
   title: 'Insights | The Torts Attorney - Plaintiff Growth Intelligence',
   description: 'Strategic insights on plaintiff acquisition, intake operations, qualification workflows, TCPA compliance, and campaign intelligence for law firms.',
+  alternates: { canonical: '/insights' },
   openGraph: {
     title: 'Insights | The Torts Attorney - Plaintiff Growth Intelligence',
     description: 'Strategic insights on plaintiff acquisition, intake operations, qualification workflows, TCPA compliance, and campaign intelligence for law firms.',

@@ -58,7 +58,7 @@ export function FAQ() {
   }, [search])
 
   return (
-    <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden" aria-labelledby="faq-heading">
+    <section className="bg-[#F8F8F6] py-16 md:py-20 lg:py-24 relative overflow-hidden" aria-labelledby="faq-heading">
       {/* Background section number */}
       <SectionNumber number="08" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
 

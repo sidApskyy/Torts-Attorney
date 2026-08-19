@@ -3,9 +3,13 @@
 import { useState, useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { z } from 'zod'
 import { submitContactForm } from '../actions/contact'
+import { GradientText } from '@/components/ui/gradient-text'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { MagneticButton } from '@/components/ui/magnetic-button'
+import { Turnstile } from '@/components/ui/turnstile'
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -32,6 +36,7 @@ export function ContactClient() {
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({})
   const [isPending, startTransition] = useTransition()
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -70,6 +75,8 @@ export function ContactClient() {
         formDataObj.append(key, value)
       })
 
+      formDataObj.append('cf-turnstile-response', turnstileToken)
+
       const result = await submitContactForm(formDataObj)
 
       if (result.success) {
@@ -95,7 +102,8 @@ export function ContactClient() {
   return (
     <main>
         {/* Hero */}
-        <section className="relative bg-[#F8F8F6] py-24 md:py-32 overflow-hidden">
+        <section className="relative bg-[#F8F8F6] py-16 md:py-20 lg:py-24 overflow-hidden">
+          {/* Architectural grid overlay */}
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `
               linear-gradient(to right, #6B7280 1px, transparent 1px),
@@ -103,31 +111,45 @@ export function ContactClient() {
             `,
             backgroundSize: '100px 100px'
           }} />
-          
+          {/* Ambient orbs */}
+          <div className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb" style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }} />
+          <div className="absolute bottom-[5%] right-[10%] w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] rounded-full blur-[120px] pointer-events-none float-orb" style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.04), transparent 70%)', animationDelay: '4s' }} />
+
           <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-sm md:text-base font-medium tracking-widest uppercase text-[#C6A24A] mb-4"
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-3 mb-8"
               >
-                Contact
-              </motion.p>
-              
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: 32 }}
+                  transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="h-px bg-[#C6A24A]"
+                />
+                <span className="text-sm md:text-base font-medium tracking-widest uppercase text-[#C6A24A]">
+                  Contact
+                </span>
+              </motion.div>
+
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold text-[#202124] leading-tight mb-6"
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]"
               >
-                Build Your Acquisition System
+                <GradientText animationSpeed={5}>
+                  Build Your Acquisition System
+                </GradientText>
               </motion.h1>
-              
+
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-lg md:text-xl text-[#4B5563] max-w-2xl leading-relaxed mb-8"
+                transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="text-lg md:text-xl text-[#4B5563] max-w-2xl leading-[1.7] mb-8"
               >
                 Let's discuss how we can build a plaintiff acquisition system tailored to your firm's goals and capacity.
               </motion.p>
@@ -135,50 +157,114 @@ export function ContactClient() {
           </div>
         </section>
 
+        <div className="section-divider-animated" />
+
         {/* Contact Form */}
-        <section className="bg-[#F5F7FA] py-24 md:py-32">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="bg-[#F5F7FA] py-16 md:py-20 lg:py-24 relative overflow-hidden">
+          {/* Ambient accents */}
+          <div className="absolute top-1/4 right-0 w-[300px] h-[250px] sm:w-[500px] sm:h-[400px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" />
+          <div className="absolute bottom-1/4 left-0 w-[250px] h-[200px] sm:w-[400px] sm:h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-3xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center mb-16"
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="text-center mb-16 section-heading-glow"
               >
-                <h2 className="font-serif text-4xl md:text-5xl font-semibold text-[#202124] mb-6">
-                  Schedule a Consultation
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-flex items-center gap-3 mb-6"
+                >
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 32 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="h-px bg-[#C6A24A]"
+                  />
+                  <span className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">
+                    Schedule a Consultation
+                  </span>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 32 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="h-px bg-[#C6A24A]"
+                  />
+                </motion.div>
+                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                  <TextReveal as="span" delay={0.1}>
+                    <GradientText animationSpeed={5}>
+                      Schedule a Consultation
+                    </GradientText>
+                  </TextReveal>
                 </h2>
-                <p className="text-lg md:text-xl text-[#4B5563]">
+                <p className="text-lg md:text-xl text-[#4B5563] max-w-2xl mx-auto leading-[1.7]">
                   Fill out the form below and we'll be in touch to discuss your acquisition needs.
                 </p>
               </motion.div>
 
-              {submitStatus?.type === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-10 p-8 bg-[#F1F3F5] border border-[rgba(32, 33, 36,0.28)] rounded-lg"
-                >
-                  <p className="text-[#202124] text-center font-medium text-lg">
-                    {submitStatus.message}
-                  </p>
-                </motion.div>
-              )}
+              <AnimatePresence>
+                {submitStatus?.type === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="mb-10 p-8 bg-[#F1F3F5] border border-[#C6A24A]/30 rounded-2xl relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C6A24A] to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#C6A24A]/3 to-transparent pointer-events-none" />
+                    <p className="text-[#202124] text-center font-medium text-lg relative">
+                      {submitStatus.message}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-              {submitStatus?.type === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-10 p-8 bg-[#B85C5C]/10 border border-[#B85C5C]/30 rounded-lg"
-                >
-                  <p className="text-[#B85C5C] text-center font-medium text-lg">
-                    {submitStatus.message}
-                  </p>
-                </motion.div>
-              )}
+              <AnimatePresence>
+                {submitStatus?.type === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="mb-10 p-8 bg-[#B85C5C]/10 border border-[#B85C5C]/30 rounded-2xl"
+                  >
+                    <p className="text-[#B85C5C] text-center font-medium text-lg">
+                      {submitStatus.message}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-              <Card className="bg-[#F1F3F5] border-[rgba(32, 33, 36,0.28)] p-10 md:p-12 shadow-premium-lg border-sheen">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+              <Card className="glass-card bg-[#F1F3F5] border-[rgba(198, 162, 74, 0.15)] p-10 md:p-12 shadow-premium-lg border-sheen relative overflow-hidden">
                 <form onSubmit={handleSubmit} className="space-y-8">
+                  {/* Honeypot field — hidden from users, catches bots */}
+                  <input
+                    type="text"
+                    name="company_website"
+                    value=""
+                    onChange={() => {}}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="absolute opacity-0 pointer-events-none -z-10"
+                    style={{ position: 'absolute', left: '-9999px' }}
+                  />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-[#202124] mb-3">
@@ -296,22 +382,27 @@ export function ContactClient() {
                   </div>
 
                   <div className="pt-4">
-                    <Button
-                      type="submit"
-                      variant="red"
-                      size="lg"
-                      className="w-full text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]"
-                      disabled={isPending}
-                    >
-                      {isPending ? 'Submitting...' : 'Start a Conversation'}
-                    </Button>
+                    <MagneticButton strength={0.15} className="rounded-full w-full">
+                      <Button
+                        type="submit"
+                        variant="red"
+                        size="lg"
+                        className="w-full text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]"
+                        disabled={isPending}
+                      >
+                        {isPending ? 'Submitting...' : 'Start a Conversation'}
+                      </Button>
+                    </MagneticButton>
                   </div>
 
                   <p className="text-sm text-[#6B7280] text-center">
                     * Required fields
                   </p>
+
+                  <Turnstile onVerify={setTurnstileToken} className="flex justify-center" />
                 </form>
               </Card>
+              </motion.div>
             </div>
           </div>
         </section>

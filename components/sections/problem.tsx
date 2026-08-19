@@ -46,7 +46,7 @@ export function Problem() {
   const bgLayer3Opacity = useTransform(sectionProgress, [0.6, 0.8, 1], [0, 0.5, 1])
 
   return (
-    <section ref={sectionRef} className="bg-[#1A1A1F] py-24 md:py-32 lg:py-40 relative overflow-hidden" aria-labelledby="problem-heading">
+    <section ref={sectionRef} className="bg-[#1A1A1F] py-16 md:py-20 lg:py-24 relative overflow-hidden" aria-labelledby="problem-heading">
       {/* Ambient gradient — opacity crossfade between 3 static layers (GPU-accelerated) */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
@@ -94,7 +94,7 @@ export function Problem() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* ── HEADING: Asymmetric layout — left-aligned heading, image on right ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-20 md:mb-28 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12 md:mb-16 items-center">
             {/* Left — heading (7 cols) */}
             <div className="lg:col-span-7">
               <motion.div
@@ -173,7 +173,7 @@ export function Problem() {
 
           {/* ── FUNNEL: 3D perspective cascade with blur-to-focus numbers ── */}
           <div
-            className="relative mb-20"
+            className="relative mb-12"
             style={{ perspective: '1200px' }}
           >
             <div className="space-y-2">
@@ -184,7 +184,7 @@ export function Problem() {
                   whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
                   viewport={{ once: true, margin: '-30px' }}
                   transition={{ delay: 0.15 + index * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                  style={{ transformStyle: 'preserve-3d', transformOrigin: 'center top' }}
+                  style={{ transformStyle: 'preserve-3d', transformOrigin: 'center top', transformPerspective: 1000 }}
                   className="flex items-center gap-3 sm:gap-4 md:gap-6 group"
                 >
                   {/* Stage label — slides in from left */}
@@ -299,6 +299,7 @@ export function Problem() {
                 opacity: prefersReducedMotion ? 1 : insightOpacity,
                 transformStyle: 'preserve-3d',
                 transformOrigin: 'center bottom',
+                transformPerspective: 1000,
               }}
             >
               <div className="max-w-4xl mx-auto p-10 md:p-16 relative overflow-hidden rounded-2xl border border-[rgba(198,162,74,0.15)] bg-[rgba(255,255,255,0.03)] backdrop-blur-sm">

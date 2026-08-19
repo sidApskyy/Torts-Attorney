@@ -52,7 +52,7 @@ export function WhyUs() {
   ]
 
   return (
-    <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="why-us-heading">
+    <section className="bg-[#F8F8F6] py-16 md:py-20 lg:py-24 relative overflow-hidden section-glow-gold" aria-labelledby="why-us-heading">
       {/* Background section number */}
       <SectionNumber number="05" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
 
@@ -66,7 +66,7 @@ export function WhyUs() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20 section-heading-glow"
+            className="text-center mb-12 section-heading-glow"
           >
             <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Built Around Plaintiff-Side Reality

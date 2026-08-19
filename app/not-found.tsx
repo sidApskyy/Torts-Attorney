@@ -1,7 +1,5 @@
 import Link from 'next/link'
 
-export const dynamic = 'force-dynamic'
-
 export default function NotFound() {
   const particles = Array.from({ length: 14 }).map((_, i) => ({
     id: i,

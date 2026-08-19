@@ -2,6 +2,8 @@
 
 import { z } from 'zod'
 import { Resend } from 'resend'
+import { checkRateLimit } from '@/lib/rate-limiter'
+import { verifyTurnstile } from '@/lib/turnstile'
 
 const leadSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
@@ -13,30 +15,34 @@ const leadSchema = z.object({
 
 type LeadFormData = z.infer<typeof leadSchema>
 
-// Simple in-memory rate limiting (for production, use Redis or similar)
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000 // 1 hour
-const RATE_LIMIT_MAX_REQUESTS = 3
-
-function checkRateLimit(identifier: string): boolean {
-  const now = Date.now()
-  const record = rateLimitMap.get(identifier)
-
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(identifier, { count: 1, resetTime: now + RATE_LIMIT_WINDOW })
-    return true
-  }
-
-  if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
-    return false
-  }
-
-  record.count++
-  return true
+// Simple spam detection
+function detectSpam(data: LeadFormData): boolean {
+  const spamKeywords = ['viagra', 'casino', 'porn', 'xxx', 'lottery', 'winner', 'free money']
+  const combinedText = `${data.firstName} ${data.lastName} ${data.email}`.toLowerCase()
+  return spamKeywords.some(keyword => combinedText.includes(keyword))
 }
 
 export async function submitLeadForm(formData: FormData) {
   try {
+    // Honeypot check — if filled, silently reject (bot detected)
+    const honeypot = formData.get('company_website')
+    if (honeypot && String(honeypot).trim() !== '') {
+      return {
+        success: true,
+        message: 'Thank you. We will be in touch shortly.',
+      }
+    }
+
+    // Verify Turnstile CAPTCHA
+    const turnstileToken = formData.get('cf-turnstile-response') as string | null
+    const turnstileResult = await verifyTurnstile(turnstileToken)
+    if (!turnstileResult.success) {
+      return {
+        success: false,
+        error: 'CAPTCHA verification failed. Please try again.',
+      }
+    }
+
     const rawData = {
       firstName: formData.get('firstName') as string,
       lastName: formData.get('lastName') as string,
@@ -47,13 +53,22 @@ export async function submitLeadForm(formData: FormData) {
 
     const validatedData: LeadFormData = leadSchema.parse(rawData)
 
-    if (!checkRateLimit(validatedData.email)) {
+    if (!(await checkRateLimit(validatedData.email))) {
       return {
         success: false,
         error: 'Too many submissions. Please try again later.',
       }
     }
 
+    // Spam detection
+    if (detectSpam(validatedData)) {
+      return {
+        success: false,
+        error: 'Submission rejected. Please ensure your message is appropriate.',
+      }
+    }
+
+    const fromEmail = process.env.FROM_EMAIL || 'The Torts Attorney <contact@thetortsattorney.com>'
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     const notificationEmail = process.env.CONTACT_NOTIFICATION_EMAIL
@@ -66,7 +81,7 @@ export async function submitLeadForm(formData: FormData) {
     }
 
     await resend.emails.send({
-      from: 'The Torts Attorney <contact@thetortsattorney.com>',
+      from: fromEmail,
       to: notificationEmail,
       subject: `New Lead: ${validatedData.firstName} ${validatedData.lastName}`,
       html: `

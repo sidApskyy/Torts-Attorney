@@ -133,9 +133,11 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Button variant="red" size="lg" className="text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
-              Talk Through a Campaign
-            </Button>
+            <Link href="/contact">
+              <Button variant="red" size="lg" className="text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
+                Talk Through a Campaign
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -210,9 +212,11 @@ export function Header() {
                 transition={{ delay: 0.1 + NAVIGATION.length * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="pt-3"
               >
-                <Button variant="red" size="lg" className="w-full text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
-                  Talk About My Campaign
-                </Button>
+                <Link href="/contact">
+                  <Button variant="red" size="lg" className="w-full text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
+                    Talk About My Campaign
+                  </Button>
+                </Link>
               </motion.div>
             </nav>
           </motion.div>

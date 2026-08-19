@@ -62,7 +62,7 @@ export function Solutions() {
   ]
 
   return (
-    <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="solutions-heading">
+    <section className="bg-[#F8F8F6] py-16 md:py-20 lg:py-24 relative overflow-hidden section-glow-gold" aria-labelledby="solutions-heading">
       {/* Background section number */}
       <SectionNumber number="03" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
 
@@ -72,7 +72,7 @@ export function Solutions() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
-          <div className="text-center mb-20 section-heading-glow">
+          <div className="text-center mb-12 section-heading-glow">
             <motion.span
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -224,7 +224,7 @@ export function Solutions() {
           </div>
 
           {/* 2 Secondary Solution Cards - compact row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {solutions.slice(4).map((solution, index) => (
               <motion.div
                 key={index}

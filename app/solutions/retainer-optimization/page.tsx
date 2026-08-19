@@ -4,6 +4,7 @@ import { RetainerOptimizationClient } from './retainer-optimization-client'
 export const metadata: Metadata = {
   title: 'Retainer & Conversion Optimization | The Torts Attorney - Retainer Support',
   description: 'Retainer and conversion optimization for plaintiff campaigns: document workflow support, retainer completion tracking, and conversion rate improvement strategies.',
+  alternates: { canonical: '/solutions/retainer-optimization' },
   openGraph: {
     title: 'Retainer & Conversion Optimization | The Torts Attorney - Retainer Support',
     description: 'Retainer and conversion optimization for plaintiff campaigns: document workflow support, retainer completion tracking, and conversion rate improvement strategies.',

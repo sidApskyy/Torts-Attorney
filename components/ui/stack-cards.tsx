@@ -163,7 +163,7 @@ function StackCardItemWrapper({
         zIndex: index,
         height: 'clamp(280px, 45vh, 500px)',
         transformStyle: 'preserve-3d',
-        perspective: '1200px',
+        transformPerspective: 1200,
       }}
       className="sticky flex items-center justify-center"
     >

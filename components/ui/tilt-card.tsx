@@ -64,6 +64,7 @@ export function TiltCard({
         rotateX,
         rotateY,
         transformStyle: 'preserve-3d',
+        transformPerspective: 1000,
       }}
       className={`relative ${className}`}
     >

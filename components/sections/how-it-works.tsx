@@ -31,7 +31,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden" aria-labelledby="how-it-works-heading">
+    <section className="bg-[#F5F7FA] py-16 md:py-20 lg:py-24 relative overflow-hidden" aria-labelledby="how-it-works-heading">
       {/* Background section number */}
       <SectionNumber number="02" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
 
@@ -42,7 +42,7 @@ export function HowItWorks() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Heading */}
-          <div className="mb-20">
+          <div className="mb-12">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8 bg-[#C6A24A]" />
               <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">

@@ -11,7 +11,7 @@ import { ParticleBurst } from '@/components/ui/particle-burst'
 
 export function FinalCTA() {
   return (
-    <section className="bg-[#F8F8F6] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="final-cta-heading">
+    <section className="bg-[#F8F8F6] py-16 md:py-20 lg:py-24 relative overflow-hidden section-glow-gold" aria-labelledby="final-cta-heading">
       {/* Subtle glow orbs */}
       <motion.div
         aria-hidden

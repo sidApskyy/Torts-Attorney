@@ -69,7 +69,7 @@ const lifecycleCards: MagicBentoCardData[] = [
 
 export function AcquisitionLifecycleDetail() {
   return (
-    <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold">
+    <section className="bg-[#F5F7FA] py-16 md:py-20 lg:py-24 relative overflow-hidden section-glow-gold">
       {/* Background section number */}
       <SectionNumber number="03" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
 
@@ -79,7 +79,7 @@ export function AcquisitionLifecycleDetail() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
-          <div className="text-center mb-20 section-heading-glow">
+          <div className="text-center mb-12 section-heading-glow">
             <motion.span
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}

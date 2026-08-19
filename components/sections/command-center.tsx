@@ -29,7 +29,7 @@ export function CommandCenter() {
   }))
 
   return (
-    <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden section-glow-gold" aria-labelledby="command-center-heading">
+    <section className="bg-[#F5F7FA] py-16 md:py-20 lg:py-24 relative overflow-hidden section-glow-gold" aria-labelledby="command-center-heading">
       {/* Background section number */}
       <SectionNumber number="04" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
 
@@ -43,7 +43,7 @@ export function CommandCenter() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20 section-heading-glow"
+            className="text-center mb-12 section-heading-glow"
           >
             <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Measure What the Firm Can Act On

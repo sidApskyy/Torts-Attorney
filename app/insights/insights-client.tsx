@@ -1,7 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { INSIGHT_CATEGORIES } from '@/lib/constants'
 
 const articles = [
@@ -9,51 +11,58 @@ const articles = [
     id: 1,
     title: 'Understanding Acquisition Economics in Mass Tort',
     category: 'Acquisition Economics',
-    date: 'TODO: EDITORIAL DATE',
+    date: 'June 12, 2025',
     excerpt: 'Acquisition economics determine the viability of mass tort campaigns. Understanding cost per qualified case is essential for strategic planning.',
   },
   {
     id: 2,
     title: 'Intake Operations: The Hidden Bottleneck in Plaintiff Acquisition',
     category: 'Intake Operations',
-    date: 'TODO: EDITORIAL DATE',
+    date: 'June 28, 2025',
     excerpt: 'Response delays and unstructured intake operations destroy lead value. Systematic intake processes are critical to maximizing conversion.',
   },
   {
     id: 3,
     title: 'Lead Quality vs. Lead Volume: The Strategic Trade-off',
-    category: 'Acquisition Strategy',
-    date: 'TODO: EDITORIAL DATE',
+    category: 'Acquisition Economics',
+    date: 'July 10, 2025',
     excerpt: 'Focusing on lead volume without quality metrics leads to wasted spend. Strategic acquisition balances both for optimal ROI.',
   },
   {
     id: 4,
     title: 'TCPA Compliance in Plaintiff Marketing: Essential Considerations',
     category: 'Compliance & Data',
-    date: 'TODO: EDITORIAL DATE',
+    date: 'July 22, 2025',
     excerpt: 'TCPA compliance is critical in plaintiff marketing. Understanding consent management and compliance requirements protects your firm.',
   },
   {
     id: 5,
     title: 'Qualification Workflows: Converting Leads into Qualified Cases',
-    category: 'Qualification',
-    date: 'TODO: EDITORIAL DATE',
+    category: 'Intake Operations',
+    date: 'August 1, 2025',
     excerpt: 'Systematic qualification workflows improve conversion rates and reduce acquisition costs. Design criteria aligned with campaign objectives.',
   },
   {
     id: 6,
     title: 'Retainer Optimization: Maximizing Qualified Case Conversion',
-    category: 'Conversion',
-    date: 'TODO: EDITORIAL DATE',
+    category: 'Acquisition Economics',
+    date: 'August 8, 2025',
     excerpt: 'Retainer drop-off destroys acquisition ROI. Systematic workflows and conversion optimization are critical to maximizing qualified cases.',
   },
 ]
 
+const allCategories = ['All', ...Object.values(INSIGHT_CATEGORIES)]
+
 export function InsightsClient() {
+  const [activeCategory, setActiveCategory] = useState('All')
+
+  const filteredArticles = activeCategory === 'All'
+    ? articles
+    : articles.filter((a) => a.category === activeCategory)
   return (
     <main>
         {/* Hero */}
-        <section className="relative bg-[#F8F8F6] py-24 md:py-32 overflow-hidden" aria-labelledby="insights-heading">
+        <section className="relative bg-[#F8F8F6] py-16 md:py-20 overflow-hidden" aria-labelledby="insights-heading">
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `
               linear-gradient(to right, #6B7280 1px, transparent 1px),
@@ -96,9 +105,11 @@ export function InsightsClient() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
-                  Start a Conversation
-                </Button>
+                <Link href="/contact">
+                  <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
+                    Start a Conversation
+                  </Button>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -108,25 +119,30 @@ export function InsightsClient() {
         <section className="bg-[#F1F3F5] py-12" aria-label="Article categories">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap gap-3">
-              <Button variant="outline" size="sm" className="bg-[#C6A24A] border-[#C6A24A] text-[#F8F8F6]">
-                All
-              </Button>
-              {Object.values(INSIGHT_CATEGORIES).map((category) => (
-                <Button key={category} variant="outline" size="sm" className="bg-[#F5F7FA] border-[rgba(32, 33, 36,0.28)] text-[#4B5563] hover:border-[#C6A24A] hover:text-[#C6A24A]">
+              {allCategories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`px-5 py-2.5 rounded-full text-sm font-medium border transition-all duration-300 ${
+                    activeCategory === category
+                      ? 'bg-[#C6A24A] border-[#C6A24A] text-[#F8F8F6] shadow-[0_4px_14px_rgba(198,162,74,0.12)]'
+                      : 'bg-[#F5F7FA] border-[rgba(32,33,36,0.28)] text-[#4B5563] hover:border-[#C6A24A] hover:text-[#C6A24A]'
+                  }`}
+                >
                   {category}
-                </Button>
+                </button>
               ))}
             </div>
           </div>
         </section>
 
         {/* Articles */}
-        <section className="bg-[#F1F3F5] py-24 md:py-32 section-glow-gold" aria-labelledby="articles-heading">
+        <section className="bg-[#F1F3F5] py-16 md:py-20 section-glow-gold" aria-labelledby="articles-heading">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <h2 id="articles-heading" className="font-serif text-3xl md:text-4xl font-semibold text-[#202124] mb-12 gold-accent-line">Latest Articles</h2>
               <div className="space-y-12">
-                {articles.map((article, index) => (
+                {filteredArticles.map((article, index) => (
                   <motion.div
                     key={article.id}
                     initial={{ opacity: 0, y: 20 }}
@@ -147,9 +163,10 @@ export function InsightsClient() {
                     <p className="text-base md:text-lg text-[#4B5563] leading-relaxed mb-6">
                       {article.excerpt}
                     </p>
-                    <a href="#" className="text-base text-[#C6A24A] hover:text-[#202124] transition-colors">
-                      Read more →
-                    </a>
+                    <Link href="/contact" className="text-base text-[#C6A24A] hover:text-[#202124] transition-colors inline-flex items-center gap-1 group">
+                      Discuss this topic
+                      <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
+                    </Link>
                   </motion.div>
                 ))}
               </div>
@@ -171,7 +188,7 @@ export function InsightsClient() {
         </section>
 
         {/* CTA */}
-        <section className="bg-[#F8F8F6] py-24 md:py-32" aria-labelledby="insights-cta">
+        <section className="bg-[#F8F8F6] py-16 md:py-20" aria-labelledby="insights-cta">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
               <motion.h2
@@ -200,9 +217,11 @@ export function InsightsClient() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                <Button variant="outline" size="lg" className="bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] text-base shadow-sm hover:shadow-[0_8px_24px_rgba(198, 162, 74,0.12)] transition-all duration-300">
-                  Start a Conversation
-                </Button>
+                <Link href="/contact">
+                  <Button variant="outline" size="lg" className="bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] text-base shadow-sm hover:shadow-[0_8px_24px_rgba(198, 162, 74,0.12)] transition-all duration-300">
+                    Start a Conversation
+                  </Button>
+                </Link>
               </motion.div>
             </div>
           </div>

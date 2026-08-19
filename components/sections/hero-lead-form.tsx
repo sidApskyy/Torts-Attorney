@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react'
 import { motion } from 'framer-motion'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button'
+import { Turnstile } from '@/components/ui/turnstile'
 import { submitLeadForm } from '@/app/actions/lead'
 
 const US_STATES = [
@@ -40,6 +41,7 @@ export function HeroLeadForm() {
   const [errors, setErrors] = useState<Partial<Record<keyof LeadFormData, string>>>({})
   const [isPending, startTransition] = useTransition()
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -74,6 +76,8 @@ export function HeroLeadForm() {
       Object.entries(formData).forEach(([key, value]) => {
         formDataObj.append(key, value)
       })
+
+      formDataObj.append('cf-turnstile-response', turnstileToken)
 
       const result = await submitLeadForm(formDataObj)
 
@@ -122,6 +126,18 @@ export function HeroLeadForm() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Honeypot field — hidden from users, catches bots */}
+        <input
+          type="text"
+          name="company_website"
+          value=""
+          onChange={() => {}}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="absolute opacity-0 pointer-events-none -z-10"
+          style={{ position: 'absolute', left: '-9999px' }}
+        />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label htmlFor="firstName" className="block text-sm font-medium text-[#202124] mb-2">
@@ -218,6 +234,7 @@ export function HeroLeadForm() {
         >
           {isPending ? 'Sending...' : 'Send'}
         </Button>
+        <Turnstile onVerify={setTurnstileToken} className="flex justify-center" />
       </form>
     </div>
   )

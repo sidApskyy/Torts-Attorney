@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false)
@@ -49,7 +50,11 @@ export function CookieConsent() {
                     Cookie Preferences
                   </h3>
                   <p className="text-sm text-[rgba(255,255,255,0.6)] leading-[1.6]">
-                    We use cookies to improve your experience and analyze site traffic. You can accept or decline non-essential cookies.
+                    We use cookies to improve your experience and analyze site traffic. You can accept or decline non-essential cookies. Read our{' '}
+                    <Link href="/legal/cookie-policy" className="text-[#C6A24A] hover:text-[#9B7830] underline underline-offset-2">
+                      Cookie Policy
+                    </Link>
+                    .
                   </p>
                 </div>
               </div>

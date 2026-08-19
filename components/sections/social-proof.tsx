@@ -34,7 +34,7 @@ export function SocialProof() {
   ]
 
   return (
-    <section className="bg-[#F5F7FA] py-24 md:py-32 lg:py-40 relative overflow-hidden">
+    <section className="bg-[#F5F7FA] py-16 md:py-20 lg:py-24 relative overflow-hidden">
       {/* Background section number */}
       <SectionNumber number="07" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
 

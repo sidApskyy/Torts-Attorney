@@ -1,15 +1,31 @@
 import Script from 'next/script'
+import { SOCIAL_LINKS, CONTACT_EMAIL, CONTACT_PHONE } from '@/lib/constants'
 
 export function JsonLd() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://thetortsattorney.com'
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'The Torts Attorney',
     description: 'Legal marketing and case-acquisition services for plaintiff law firms. Campaign strategy, intake operations, qualification workflows, retainer support, delivery, and transparent reporting.',
-    url: 'https://thetortsattorney.com',
+    url: siteUrl,
+    email: CONTACT_EMAIL,
+    telephone: CONTACT_PHONE,
     areaServed: 'United States',
     knowsAbout: ['Mass Tort Case Acquisition', 'Lead Generation', 'Intake Operations', 'Qualification Workflows', 'Retainer Management', 'Legal Marketing'],
-    sameAs: [],
+    sameAs: [SOCIAL_LINKS.linkedin, SOCIAL_LINKS.twitter].filter(Boolean),
+  }
+
+  const websiteData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'The Torts Attorney',
+    url: siteUrl,
+    publisher: {
+      '@type': 'Organization',
+      name: 'The Torts Attorney',
+    },
   }
 
   const serviceData = {
@@ -65,6 +81,11 @@ export function JsonLd() {
         id="ld-organization"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <Script
+        id="ld-website"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
       />
       <Script
         id="ld-service"
