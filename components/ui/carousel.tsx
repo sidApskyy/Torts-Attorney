@@ -69,6 +69,7 @@ export default function Carousel({
   pauseOnHover = false,
   loop = false,
   round = false,
+  reverse = false,
 }: {
   items: CarouselItem[]
   baseWidth?: number
@@ -77,6 +78,7 @@ export default function Carousel({
   pauseOnHover?: boolean
   loop?: boolean
   round?: boolean
+  reverse?: boolean
 }) {
   const containerPadding = 24
   const itemWidth = baseWidth - containerPadding * 2
@@ -115,11 +117,17 @@ export default function Carousel({
     if (pauseOnHover && isHovered) return undefined
 
     const timer = setInterval(() => {
-      setPosition((prev) => Math.min(prev + 1, itemsForRender.length - 1))
+      setPosition((prev) => {
+        if (reverse) {
+          const next = prev - 1
+          return next >= 0 ? next : itemsForRender.length - 1
+        }
+        return Math.min(prev + 1, itemsForRender.length - 1)
+      })
     }, autoplayDelay)
 
     return () => clearInterval(timer)
-  }, [autoplay, autoplayDelay, isHovered, pauseOnHover, itemsForRender.length])
+  }, [autoplay, autoplayDelay, isHovered, pauseOnHover, itemsForRender.length, reverse])
 
   useEffect(() => {
     const startingPosition = loop ? 1 : 0

@@ -1657,3 +1657,73 @@ html.lenis body {
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+/* Blink cursor for TypingText */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Shimmer sweep for cards and headings */
+@keyframes shimmer-sweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #202124 0%,
+    #202124 40%,
+    #C6A24A 50%,
+    #202124 60%,
+    #202124 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-sweep 4s ease-in-out infinite;
+}
+
+/* Gold pulse ring */
+@keyframes gold-pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(198, 162, 74, 0.4); }
+  70% { box-shadow: 0 0 0 12px rgba(198, 162, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(198, 162, 74, 0); }
+}
+
+.gold-pulse-ring {
+  animation: gold-pulse-ring 2.5s ease-out infinite;
+}
+
+/* Reveal up with blur — for premium section entrances */
+@keyframes reveal-up-blur {
+  0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.reveal-up-blur {
+  animation: reveal-up-blur 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Floating animation for decorative elements */
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+.gentle-float {
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+/* Gold line draw animation */
+@keyframes gold-line-draw {
+  0% { width: 0; opacity: 0; }
+  50% { opacity: 1; }
+  100% { width: 100%; opacity: 1; }
+}
+
+.gold-line-draw {
+  animation: gold-line-draw 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

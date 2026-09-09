@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, type ReactNode, type MouseEvent } from 'react'
+import { useEffect, useRef, useState, type ReactNode, type MouseEvent } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
@@ -26,8 +26,16 @@ export function MagneticButton({
   const y = useMotionValue(0)
   const springX = useSpring(x, { stiffness: 200, damping: 20, mass: 0.3 })
   const springY = useSpring(y, { stiffness: 200, damping: 20, mass: 0.3 })
+  const [enabled, setEnabled] = useState(false)
+
+  useEffect(() => {
+    const isTouch = window.matchMedia('(pointer: coarse)').matches
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    setEnabled(!isTouch && !reducedMotion)
+  }, [])
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!enabled) return
     const el = ref.current
     if (!el) return
     const rect = el.getBoundingClientRect()
@@ -57,7 +65,7 @@ export function MagneticButton({
       {...(onClick ? { onClick } : {})}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ x: springX, y: springY }}
+      style={{ x: enabled ? springX : 0, y: enabled ? springY : 0 }}
       className={cn('magnetic-button', className)}
       whileTap={{ scale: 0.97 }}
     >

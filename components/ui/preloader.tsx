@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 export function Preloader() {
   const [done, setDone] = useState(false)
@@ -33,16 +34,20 @@ export function Preloader() {
           />
 
           <div className="relative flex flex-col items-center">
-            {/* Monogram */}
+            {/* Logo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="mb-8"
             >
-              <span className="font-serif text-5xl md:text-6xl font-bold text-[#C6A24A]">
-                TA
-              </span>
+              <Image
+                src="/TTA_2@4x.webp"
+                alt="The Torts Attorney"
+                width={200}
+                height={200}
+                priority
+              />
             </motion.div>
 
             {/* Gold line sweep */}

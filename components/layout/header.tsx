@@ -29,16 +29,20 @@ export function Header() {
           // completes at ~0.45 * viewport height of scroll
           const heroThreshold = vh * 0.45
           const pastHero = currentScrollY > heroThreshold
+          const pastBuffer = currentScrollY > heroThreshold + 200
+          const delta = currentScrollY - lastScrollY
 
           setIsScrolled(pastHero)
 
-          // Hide when scrolling down (with 200px buffer past threshold),
-          // show when scrolling up or still near the threshold
-          if (pastHero && currentScrollY > heroThreshold + 200 && currentScrollY > lastScrollY) {
-            setIsHidden(true)
-          } else if (currentScrollY < lastScrollY) {
-            setIsHidden(false)
-          }
+          // Hide only after a meaningful scroll down past the buffer;
+          // show only after a meaningful scroll up. This prevents the
+          // header from flickering when the user pauses or reverses
+          // direction for a few pixels.
+          setIsHidden((prev) => {
+            if (pastBuffer && delta > 5) return true
+            if (delta < -10) return false
+            return prev
+          })
 
           lastScrollY = currentScrollY
           ticking = false
@@ -71,7 +75,7 @@ export function Header() {
       }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
+        'fixed top-0 left-0 right-0 z-50',
         isScrolled
           ? 'bg-[rgba(248,248,246,0.70)] backdrop-blur-[24px] border border-[rgba(198,162,74,0.12)] rounded-[18px] mx-2 mt-2 sm:mx-4 sm:mt-3 shadow-[0_8px_32px_rgba(32,33,36,0.08)]'
           : 'bg-transparent border border-transparent pointer-events-none'
@@ -79,13 +83,13 @@ export function Header() {
     >
       <div className="mx-auto px-3 sm:px-6 lg:px-8">
         <div className={cn(
-          'flex items-center justify-between transition-all duration-500',
+          'flex items-center justify-between',
           isScrolled ? 'h-14 sm:h-16 md:h-20' : 'h-16 sm:h-20 md:h-24'
         )}>
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
             <span className={cn(
-              'font-serif font-bold text-[#202124] tracking-tight transition-all duration-500 group-hover:text-[#C6A24A] whitespace-nowrap',
+              'font-serif font-bold text-[#202124] tracking-tight transition-colors duration-300 group-hover:text-[#C6A24A] whitespace-nowrap',
               isScrolled ? 'text-base sm:text-xl md:text-2xl' : 'text-lg sm:text-2xl md:text-3xl'
             )}>
               {SITE_NAME}

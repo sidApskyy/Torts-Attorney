@@ -1,10 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { INSIGHT_CATEGORIES } from '@/lib/constants'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
+import { GoldBeam } from '@/components/ui/gold-beam'
 
 const articles = [
   {
@@ -55,14 +57,30 @@ const allCategories = ['All', ...Object.values(INSIGHT_CATEGORIES)]
 
 export function InsightsClient() {
   const [activeCategory, setActiveCategory] = useState('All')
+  const [searchQuery, setSearchQuery] = useState('')
 
-  const filteredArticles = activeCategory === 'All'
-    ? articles
-    : articles.filter((a) => a.category === activeCategory)
+  const filteredArticles = useMemo(() => {
+    let result = articles
+    if (activeCategory !== 'All') {
+      result = result.filter((a) => a.category === activeCategory)
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase()
+      result = result.filter(
+        (a) =>
+          a.title.toLowerCase().includes(q) ||
+          a.excerpt.toLowerCase().includes(q) ||
+          a.category.toLowerCase().includes(q)
+      )
+    }
+    return result
+  }, [activeCategory, searchQuery])
   return (
     <main>
         {/* Hero */}
         <section className="relative bg-[#F8F8F6] py-16 md:py-20 overflow-hidden" aria-labelledby="insights-heading">
+          <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F5F7FA']} speed={16} />
+          <GoldBeam position="center" />
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `
               linear-gradient(to right, #6B7280 1px, transparent 1px),
@@ -115,6 +133,33 @@ export function InsightsClient() {
           </div>
         </section>
 
+        {/* Search Bar */}
+        <section className="bg-[#F1F3F5] pt-12" aria-label="Search articles">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl mx-auto">
+              <div className="relative">
+                <svg
+                  className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6B7280]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-4.3-4.3M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" />
+                </svg>
+                <input
+                  type="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search insights..."
+                  aria-label="Search insights"
+                  className="w-full pl-14 pr-5 py-4 bg-[#F5F7FA] border border-[rgba(32,33,36,0.15)] rounded-full text-[#202124] focus:outline-none focus:border-[#C6A24A] input-premium-focus text-base"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Category Filter */}
         <section className="bg-[#F1F3F5] py-12" aria-label="Article categories">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -141,6 +186,17 @@ export function InsightsClient() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <h2 id="articles-heading" className="font-serif text-3xl md:text-4xl font-semibold text-[#202124] mb-12 gold-accent-line">Latest Articles</h2>
+              {filteredArticles.length === 0 ? (
+                <div className="text-center py-16">
+                  <p className="text-lg text-[#6B7280] mb-4">No articles found matching your search.</p>
+                  <button
+                    onClick={() => { setSearchQuery(''); setActiveCategory('All') }}
+                    className="text-[#C6A24A] hover:text-[#9B7830] transition-colors font-medium"
+                  >
+                    Clear filters
+                  </button>
+                </div>
+              ) : (
               <div className="space-y-12">
                 {filteredArticles.map((article, index) => (
                   <motion.div
@@ -170,6 +226,7 @@ export function InsightsClient() {
                   </motion.div>
                 ))}
               </div>
+              )}
             </div>
           </div>
         </section>

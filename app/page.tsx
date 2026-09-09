@@ -4,6 +4,7 @@ import { Hero } from '@/components/sections/hero'
 import { TrustStrip } from '@/components/sections/trust-strip'
 import { Problem } from '@/components/sections/problem'
 import { MarqueeStrip } from '@/components/ui/marquee-strip'
+import { FaqJsonLd } from '@/components/seo/json-ld'
 
 const HowItWorks = dynamic(() => import('@/components/sections/how-it-works').then((m) => m.HowItWorks))
 const AcquisitionLifecycleDetail = dynamic(() => import('@/components/sections/acquisition-lifecycle-detail').then((m) => m.AcquisitionLifecycleDetail))
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex flex-col">
+      <FaqJsonLd />
       <div id="hero">
         <Hero />
       </div>

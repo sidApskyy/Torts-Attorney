@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Marquee } from '@/components/ui/marquee'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 
 export function TrustStrip() {
   const capabilities = [
@@ -30,6 +31,9 @@ export function TrustStrip() {
 
   return (
     <section className="bg-[#F5F7FA] py-16 md:py-20 relative overflow-hidden">
+      {/* Animated gradient mesh */}
+      <AnimatedGradientBackground colors={['#C6A24A', '#F5F7FA', '#E4E1D8']} speed={20} />
+
       {/* Ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] sm:w-[600px] sm:h-[300px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none" />
 
@@ -48,7 +52,7 @@ export function TrustStrip() {
         </motion.p>
       </div>
 
-      <Marquee speed={25} className="py-2">
+      <Marquee speed={25} className="py-2" reverse>
         {capabilities.map((capability, index) => (
           <MarqueeCard
             key={index}

@@ -17,11 +17,24 @@ interface ParticleFieldProps {
 }
 
 export function ParticleField({ count = 30, className = '' }: ParticleFieldProps) {
+  const [effectiveCount, setEffectiveCount] = useState(0)
+
+  useEffect(() => {
+    const isTouch = window.matchMedia('(pointer: coarse)').matches
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const lowPower = isTouch || reducedMotion
+    setEffectiveCount(lowPower ? 0 : count)
+  }, [count])
+
   const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
+    if (effectiveCount === 0) {
+      setParticles([])
+      return
+    }
     setParticles(
-      Array.from({ length: count }).map((_, i) => ({
+      Array.from({ length: effectiveCount }).map((_, i) => ({
         id: i,
         size: Math.random() * 3 + 1,
         left: Math.random() * 100,
@@ -30,7 +43,7 @@ export function ParticleField({ count = 30, className = '' }: ParticleFieldProps
         opacity: Math.random() * 0.4 + 0.1,
       }))
     )
-  }, [count])
+  }, [effectiveCount])
 
   if (particles.length === 0) return null
 

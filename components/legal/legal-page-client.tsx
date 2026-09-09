@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { GradientText } from '@/components/ui/gradient-text'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
+import { GoldBeam } from '@/components/ui/gold-beam'
 
 export interface LegalSection {
   heading: string
@@ -18,6 +20,8 @@ export function LegalPageClient({ title, lastUpdated, sections }: LegalPageClien
   return (
     <main className="bg-[#F8F8F6] min-h-screen">
       <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
+        <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F5F7FA']} speed={18} />
+        <GoldBeam position="center" />
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `
             linear-gradient(to right, #6B7280 1px, transparent 1px),

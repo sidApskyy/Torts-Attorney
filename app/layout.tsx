@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
@@ -37,6 +37,15 @@ const playfair = Playfair_Display({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F8F8F6" },
+    { media: "(prefers-color-scheme: dark)", color: "#1A1A1F" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "The Torts Attorney | Smarter Case Acquisition Starts Here",
@@ -57,6 +66,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  manifest: '/manifest.webmanifest',
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
     other: {
@@ -75,7 +85,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-US"
       className={`${manrope.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">

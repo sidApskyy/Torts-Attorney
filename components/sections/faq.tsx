@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
+import { GoldBeam } from '@/components/ui/gold-beam'
 
 const faqs = [
   {
@@ -62,6 +64,10 @@ export function FAQ() {
       {/* Background section number */}
       <SectionNumber number="08" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
 
+      {/* Animated gradient mesh */}
+      <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F5F7FA']} speed={18} />
+      <GoldBeam position="center" />
+
       {/* Ambient accents */}
       <div className="absolute top-1/4 right-0 w-[300px] h-[250px] sm:w-[500px] sm:h-[400px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
       <div className="absolute bottom-1/4 left-0 w-[250px] h-[200px] sm:w-[400px] sm:h-[300px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
@@ -100,7 +106,7 @@ export function FAQ() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search questions..."
-                className="w-full px-6 py-4 rounded-full border border-[#E4E1D8] bg-white text-sm text-[#202124] placeholder:text-[#6B7280] focus:border-[#C6A24A]/50 focus:outline-none transition-colors duration-300"
+                className="w-full px-6 py-4 rounded-full border border-[#E4E1D8] bg-white text-sm text-[#202124] placeholder:text-[#6B7280] focus:border-[#C6A24A]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C6A24A] focus-visible:ring-offset-2 transition-colors duration-300"
                 aria-label="Search FAQ"
               />
               <svg

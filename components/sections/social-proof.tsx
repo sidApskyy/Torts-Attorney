@@ -7,6 +7,8 @@ import { TextReveal } from '@/components/ui/text-reveal'
 import { AnimatedBorder } from '@/components/ui/animated-border'
 import { SectionNumber } from '@/components/ui/section-number'
 import { TestimonialCarousel } from '@/components/ui/testimonial-carousel'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
+import { GoldBeam } from '@/components/ui/gold-beam'
 
 export function SocialProof() {
   const testimonials = [
@@ -37,6 +39,11 @@ export function SocialProof() {
     <section className="bg-[#F5F7FA] py-16 md:py-20 lg:py-24 relative overflow-hidden">
       {/* Background section number */}
       <SectionNumber number="07" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+
+      {/* Animated gradient mesh background */}
+      <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F1F3F5']} speed={18} />
+      <GoldBeam position="left" />
+      <GoldBeam position="right" />
 
       {/* Ambient accents */}
       <div className="absolute top-1/4 left-0 w-[300px] h-[250px] sm:w-[500px] sm:h-[400px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
@@ -70,8 +77,9 @@ export function SocialProof() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="content-card p-8 text-center"
+                className="content-card p-8 text-center relative overflow-hidden group"
               >
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: 'radial-gradient(circle at center, rgba(198, 162, 74, 0.06), transparent 70%)' }} />
                 <p className="font-serif text-4xl md:text-5xl font-bold text-[#C6A24A] mb-3 tabular-nums">
                   {stat.format === 'decimal' ? (
                     <motion.span

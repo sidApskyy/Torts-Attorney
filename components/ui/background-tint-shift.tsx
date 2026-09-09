@@ -4,8 +4,15 @@ import { useEffect, useState } from 'react'
 
 export function BackgroundTintShift() {
   const [tint, setTint] = useState(0)
+  const [enabled, setEnabled] = useState(true)
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) setEnabled(false)
+  }, [])
+
+  useEffect(() => {
+    if (!enabled) return
     const handleScroll = () => {
       const scrollFraction = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)
       setTint(Math.min(1, Math.max(0, scrollFraction)))
@@ -13,9 +20,10 @@ export function BackgroundTintShift() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [enabled])
 
-  // Shift from warm gold (top) to cool blue-grey (middle) back to warm gold (bottom)
+  if (!enabled) return null
+
   const warmIntensity = tint < 0.5 ? 1 - tint * 0.6 : (tint - 0.5) * 1.2
   const coolIntensity = tint < 0.5 ? tint * 0.8 : 1 - (tint - 0.5) * 0.8
 

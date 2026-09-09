@@ -94,6 +94,39 @@ export async function submitLeadForm(formData: FormData) {
       `,
     })
 
+    // Send auto-reply confirmation to the lead
+    await resend.emails.send({
+      from: fromEmail,
+      to: validatedData.email,
+      subject: 'We received your request — The Torts Attorney',
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;">
+            <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #C6A24A, #9B7830); display: flex; align-items: center; justify-content: center;">
+              <span style="color: #FFFFFF; font-size: 22px; font-weight: 800; font-family: serif;">T</span>
+            </div>
+            <span style="font-size: 20px; font-weight: 700; font-family: serif; color: #202124;">The Torts Attorney</span>
+          </div>
+          <h1 style="font-size: 28px; font-family: serif; color: #202124; margin-bottom: 24px;">Thank you, ${validatedData.firstName}.</h1>
+          <p style="font-size: 16px; color: #4B5563; line-height: 1.7; margin-bottom: 24px;">
+            We have received your request and a member of our team will be in touch with you within one business day to discuss how we can help your firm build a smarter plaintiff acquisition pipeline.
+          </p>
+          <p style="font-size: 16px; color: #4B5563; line-height: 1.7; margin-bottom: 24px;">
+            If you need to reach us sooner, feel free to call us directly or reply to this email.
+          </p>
+          <div style="background: #F8F8F6; border-left: 4px solid #C6A24A; padding: 20px; border-radius: 8px; margin-bottom: 32px;">
+            <p style="margin: 0; font-size: 15px; color: #4B5563;">
+              <strong>Phone:</strong> (888) 555-0192<br>
+              <strong>Email:</strong> hello@thetortsattorney.com
+            </p>
+          </div>
+          <p style="font-size: 14px; color: #6B7280; line-height: 1.6;">
+            This is an automated confirmation. Please do not reply directly to this email with case-specific information.
+          </p>
+        </div>
+      `,
+    })
+
     return {
       success: true,
       message: 'Thank you. We will be in touch shortly.',

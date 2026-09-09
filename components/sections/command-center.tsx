@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { AnimatedCounter } from '@/components/ui/animated-counter'
 import { GradientText } from '@/components/ui/gradient-text'
@@ -10,6 +11,15 @@ import { BorderGlow } from '@/components/ui/border-glow'
 import { FunnelCounter } from '@/components/ui/funnel-counter'
 
 export function CommandCenter() {
+  const [baseWidth, setBaseWidth] = useState(520)
+
+  useEffect(() => {
+    const updateWidth = () => setBaseWidth(window.innerWidth < 640 ? 300 : 520)
+    updateWidth()
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
+  }, [])
+
   const metrics = [
     { label: 'Total Responses', value: 10000, change: '+12%', format: 'number' as const },
     { label: 'Qualified Opportunities', value: 7200, change: '+8%', format: 'number' as const },
@@ -73,12 +83,13 @@ export function CommandCenter() {
               <div style={{ height: 'clamp(320px, 60vh, 420px)', position: 'relative' }}>
                 <Carousel
                   items={carouselItems}
-                  baseWidth={typeof window !== 'undefined' && window.innerWidth < 640 ? 300 : 520}
+                  baseWidth={baseWidth}
                   autoplay={true}
                   autoplayDelay={3500}
                   pauseOnHover={true}
                   loop={true}
                   round={false}
+                  reverse={true}
                 />
               </div>
             </motion.div>

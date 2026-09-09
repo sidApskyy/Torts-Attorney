@@ -278,7 +278,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-8 px-4 py-3 md:px-6 md:py-4 glass-card text-xs md:text-sm text-[#FFFFFF] z-10 max-w-[200px] sm:max-w-[280px] md:max-w-none"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-8 px-4 py-3 md:px-6 md:py-4 glass-card text-xs md:text-sm text-[#4B5563] z-10 max-w-[200px] sm:max-w-[280px] md:max-w-none"
                     >
                       {stage.description}
                     </motion.div>

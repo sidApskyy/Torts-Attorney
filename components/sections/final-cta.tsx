@@ -8,10 +8,16 @@ import { MagneticButton } from '@/components/ui/magnetic-button'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { ParticleBurst } from '@/components/ui/particle-burst'
+import { GoldBeam } from '@/components/ui/gold-beam'
+import { ScrollTilt } from '@/components/ui/scroll-tilt'
 
 export function FinalCTA() {
   return (
     <section className="bg-[#F8F8F6] py-16 md:py-20 lg:py-24 relative overflow-hidden section-glow-gold" aria-labelledby="final-cta-heading">
+      {/* Gold beams */}
+      <GoldBeam position="left" />
+      <GoldBeam position="right" />
+
       {/* Subtle glow orbs */}
       <motion.div
         aria-hidden
@@ -37,6 +43,7 @@ export function FinalCTA() {
       {/* Premium top accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C6A24A]/20 to-transparent pointer-events-none" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <ScrollTilt rotateX={3} scale={1}>
         <motion.div
           initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
@@ -49,8 +56,9 @@ export function FinalCTA() {
           {/* Marble texture background at low opacity */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.08]">
             <Image
-              src="/image 4.png"
+              src="/marble.png"
               alt=""
+              aria-hidden="true"
               fill
               sizes="(max-width: 768px) 100vw, 56vw"
               className="object-cover"
@@ -122,6 +130,7 @@ export function FinalCTA() {
             The Torts Attorney provides legal marketing and case-acquisition services. We are not a law firm and do not provide legal advice or legal representation.
           </motion.p>
         </motion.div>
+        </ScrollTilt>
       </div>
     </section>
   )

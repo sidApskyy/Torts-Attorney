@@ -1,18 +1,27 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export function CursorSparkles() {
   const trailRef = useRef<HTMLDivElement>(null)
+  const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
+    const isTouch = window.matchMedia('(pointer: coarse)').matches
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (isTouch || reducedMotion) return
+    setEnabled(true)
+  }, [])
+
+  useEffect(() => {
+    if (!enabled) return
     let lastSpawn = 0
     let mounted = true
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!mounted) return
       const now = Date.now()
-      if (now - lastSpawn < 60) return
+      if (now - lastSpawn < 80) return
       lastSpawn = now
 
       // Only spawn sparkles when over dark sections
@@ -21,7 +30,6 @@ export function CursorSparkles() {
       const section = el.closest('section')
       if (!section) return
       const bg = window.getComputedStyle(section).backgroundColor
-      // Check if it's a dark background (low rgb values)
       const match = bg.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/)
       if (!match) return
       const brightness = (parseInt(match[1]) + parseInt(match[2]) + parseInt(match[3])) / 3
@@ -43,7 +51,7 @@ export function CursorSparkles() {
       mounted = false
       window.removeEventListener('mousemove', handleMouseMove)
     }
-  }, [])
+  }, [enabled])
 
   return null
 }

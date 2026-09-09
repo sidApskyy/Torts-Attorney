@@ -9,6 +9,8 @@ import { SectionNumber } from '@/components/ui/section-number'
 import { GlareHover } from '@/components/ui/glare-hover'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
+import { PageHero } from '@/components/layout/page-hero'
 
 const capabilities = [
   { title: 'Channel Strategy', description: 'Develop media channel strategy aligned with campaign objectives and target audience.' },
@@ -23,71 +25,26 @@ export function MediaAcquisitionClient() {
   return (
     <main>
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Solutions', href: '/solutions' }, { label: 'Media & Traffic Acquisition' }]} />
-        {/* Hero */}
-        <section className="relative bg-[#F8F8F6] py-16 md:py-20 lg:py-24 overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `
-              linear-gradient(to right, #6B7280 1px, transparent 1px),
-              linear-gradient(to bottom, #6B7280 1px, transparent 1px)
-            `,
-            backgroundSize: '100px 100px'
-          }} />
-          <div className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb" style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }} />
-          <div className="absolute bottom-[10%] right-[5%] w-[220px] h-[220px] sm:w-[400px] sm:h-[400px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb" style={{ background: 'radial-gradient(circle, rgba(32, 33, 36, 0.04), transparent 70%)', animationDelay: '4s' }} />
-
-          <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="inline-flex items-center gap-3 mb-6"
-              >
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: 32 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                  className="h-px bg-[#C6A24A]"
-                />
-                <span className="text-sm md:text-base font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">Solution</span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden"
-              >
-                <GradientText animationSpeed={5}>
-                  Media & Traffic Acquisition
-                </GradientText>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="text-base md:text-lg text-[#4B5563] max-w-2xl leading-relaxed mb-8"
-              >
-                Media buying, campaign deployment, and channel optimization across multiple platforms to drive qualified plaintiff leads.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <Link href="/contact">
-                  <MagneticButton strength={0.25} className="rounded-full">
-                    <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
-                      Start a Conversation
-                    </Button>
-                  </MagneticButton>
-                </Link>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Solution"
+          title={
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-[-0.02em] overflow-hidden">
+              <GradientText animationSpeed={5}>
+                Media & Traffic Acquisition
+              </GradientText>
+            </h1>
+          }
+          subtitle="Media buying, campaign deployment, and channel optimization across multiple platforms to drive qualified plaintiff leads."
+          cta={
+            <Link href="/contact">
+              <MagneticButton strength={0.25} className="rounded-full">
+                <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
+                  Start a Conversation
+                </Button>
+              </MagneticButton>
+            </Link>
+          }
+        />
 
         <div className="section-divider-animated" />
 
@@ -146,6 +103,7 @@ export function MediaAcquisitionClient() {
         {/* What We Do */}
         <section className="bg-[#F1F3F5] py-16 md:py-20 lg:py-24 section-glow-gold relative overflow-hidden">
           <SectionNumber number="02" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+          <AnimatedGradientBackground colors={['#C6A24A', '#F1F3F5', '#E4E1D8']} speed={20} />
           <div className="absolute top-1/3 left-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#C6A24A]/4 blur-3xl rounded-full pointer-events-none float-orb" />
           <div className="absolute bottom-1/4 right-0 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-[#F8F8F6] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '5s' }} />
 

@@ -8,6 +8,7 @@ import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
 import { WordReveal } from '@/components/ui/word-reveal'
+import { cn } from '@/lib/utils'
 
 export function Solutions() {
   const solutions = [
@@ -196,12 +197,18 @@ export function Solutions() {
                     </h3>
                     <div className="space-y-5">
                       <div>
-                        <p className="text-base text-[#4B5563] leading-[1.7]">
+                        <p className={cn(
+                          "text-base leading-[1.7]",
+                          (solution.title === 'Intake & Qualification' || solution.title === 'Retainer Workflow' || solution.title === 'Lead Nurturing & Reactivation') ? 'text-[#C6A24A]' : 'text-[#4B5563]'
+                        )}>
                           {solution.problem}
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs font-medium uppercase tracking-[0.1em] mb-2 text-[#C6A24A]">
+                        <p className={cn(
+                          "text-xs font-medium uppercase tracking-[0.1em] mb-2",
+                          (solution.title === 'Intake & Qualification' || solution.title === 'Retainer Workflow' || solution.title === 'Lead Nurturing & Reactivation') ? 'text-[#202124]' : 'text-[#C6A24A]'
+                        )}>
                           Our Capability
                         </p>
                         <p className="text-base text-[#4B5563] leading-[1.7]">

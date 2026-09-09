@@ -66,7 +66,7 @@ export function Proof() {
                   className="absolute inset-0"
                 >
                   <Image
-                    src="/image 2.png"
+                    src="/dashboard.png"
                     alt="Data dashboard with champagne gold charts"
                     fill
                     sizes="(max-width: 1024px) 100vw, 33vw"

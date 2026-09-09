@@ -14,6 +14,7 @@ interface FlowingMenuProps {
   items: FlowingMenuItem[]
   speed?: number
   borderColor?: string
+  theme?: 'light' | 'dark'
 }
 
 function FlowingMenuItemRow({
@@ -22,7 +23,8 @@ function FlowingMenuItemRow({
   description,
   speed,
   borderColor,
-}: FlowingMenuItem & { speed: number; borderColor: string }) {
+  theme,
+}: FlowingMenuItem & { speed: number; borderColor: string; theme: 'light' | 'dark' }) {
   const itemRef = useRef<HTMLDivElement>(null)
   const marqueeRef = useRef<HTMLDivElement>(null)
   const marqueeInnerRef = useRef<HTMLDivElement>(null)
@@ -117,7 +119,7 @@ function FlowingMenuItemRow({
 
   return (
     <div
-      className="flowing-menu__item"
+      className={`flowing-menu__item flowing-menu__item--${theme}`}
       ref={itemRef}
       style={{ ['--fm-border' as string]: borderColor }}
     >
@@ -149,6 +151,7 @@ export function FlowingMenu({
   items = [],
   speed = 15,
   borderColor = 'rgba(198, 162, 74, 0.15)',
+  theme = 'light',
 }: FlowingMenuProps) {
   return (
     <div className="flowing-menu-wrap">
@@ -159,6 +162,7 @@ export function FlowingMenu({
             {...item}
             speed={speed}
             borderColor={borderColor}
+            theme={theme}
           />
         ))}
       </nav>

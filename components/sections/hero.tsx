@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { RollingCounter } from '@/components/ui/rolling-counter'
 import { ScrollExpand } from '@/components/ui/scroll-expand'
@@ -9,6 +10,8 @@ import { MoltenMetal } from '@/components/ui/molten-metal'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { GradientText } from '@/components/ui/gradient-text'
 import { ProgressRing } from '@/components/ui/progress-ring'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
+import { GoldBeam } from '@/components/ui/gold-beam'
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion()
@@ -48,11 +51,14 @@ export function Hero() {
         <ScrollExpand
           mediaContent={
             <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-              <img
-                src="/background hero.png"
+              <Image
+                src="/hero-background.png"
                 alt="Lady Justice with columns and law book"
+                fill
+                priority
+                sizes="100vw"
                 draggable={false}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
               />
               <MoltenMetal
                 color1="#F5F7FA"
@@ -159,8 +165,10 @@ export function Hero() {
       </div>
 
       {/* ── Stats strip — sits below the ScrollExpand, clean and spacious ── */}
-      <div className="relative z-[3] bg-[#F8F8F6] border-t border-[#E4E1D8]">
-        <div className="max-w-5xl mx-auto px-6 sm:px-8 py-12 md:py-16">
+      <div className="relative z-[3] bg-[#F8F8F6] border-t border-[#E4E1D8] overflow-hidden">
+        <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F5F7FA']} speed={15} />
+        <GoldBeam position="center" />
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 py-12 md:py-16 relative z-10">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
             <motion.div
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
@@ -169,11 +177,13 @@ export function Hero() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="text-center sm:text-left flex flex-col items-center sm:items-start"
             >
+              <div className="gold-pulse-ring rounded-full">
               <ProgressRing value={97} max={100} size={110} strokeWidth={3} delay={0.2}>
                 <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#202124] tabular-nums">
                   <RollingCounter value={9712} duration={3.5} />
                 </p>
               </ProgressRing>
+              </div>
               <p className="text-base md:text-lg text-[#4B5563] mt-3">Responses Processed</p>
             </motion.div>
 

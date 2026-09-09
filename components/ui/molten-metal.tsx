@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Renderer, Program, Mesh, Triangle } from 'ogl'
 import './molten-metal.css'
 
@@ -156,6 +156,20 @@ export function MoltenMetal({
     program: Program
     mesh: Mesh
   } | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const isTouch = window.matchMedia('(pointer: coarse)').matches
+    const smallScreen = window.innerWidth < 768
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    setIsMobile(isTouch || smallScreen || reducedMotion)
+  }, [])
+
+  const effectiveDetail = isMobile ? 2 : detail
+  const effectiveBrightness = isMobile ? brightness * 0.85 : brightness
+  const effectiveMouseInteraction = isMobile ? false : mouseInteraction
+  const effectiveMouseStrength = isMobile ? 0 : mouseStrength
+  const effectiveSpeed = isMobile ? speed * 0.6 : speed
 
   useEffect(() => {
     const container = containerRef.current
@@ -184,22 +198,22 @@ export function MoltenMetal({
       uniforms: {
         iTime: { value: 0 },
         iResolution: { value: new Float32Array([1, 1]) },
-        uSpeed: { value: speed },
+        uSpeed: { value: effectiveSpeed },
         uScale: { value: scale },
-        uDetail: { value: detail },
+        uDetail: { value: effectiveDetail },
         uGlow: { value: glow },
         uCoreSize: { value: Math.max(coreSize, 0.001) },
         uSwirl: { value: swirl },
         uFold: { value: fold },
         uBlackPoint: { value: blackPoint },
-        uBrightness: { value: brightness },
+        uBrightness: { value: effectiveBrightness },
         uColorMode: { value: colorModeToFloat(colorMode) },
         uGrain: { value: grain ? 1 : 0 },
         uGrainIntensity: { value: grainIntensity },
         uOpacity: { value: opacity },
         uMouse: { value: new Float32Array([0.5, 0.5]) },
-        uMouseStrength: { value: mouseStrength },
-        uEnableMouse: { value: mouseInteraction },
+        uMouseStrength: { value: effectiveMouseStrength },
+        uEnableMouse: { value: effectiveMouseInteraction },
         uColor1: { value: new Float32Array(hexToRgb(color1)) },
         uColor2: { value: new Float32Array(hexToRgb(color2)) },
         uColor3: { value: new Float32Array(hexToRgb(color3)) },
@@ -305,21 +319,21 @@ export function MoltenMetal({
     if (!ctx) return
     const u = ctx.program.uniforms
 
-    u.uSpeed.value = speed
+    u.uSpeed.value = effectiveSpeed
     u.uScale.value = scale
-    u.uDetail.value = detail
+    u.uDetail.value = effectiveDetail
     u.uGlow.value = glow
     u.uCoreSize.value = Math.max(coreSize, 0.001)
     u.uSwirl.value = swirl
     u.uFold.value = fold
     u.uBlackPoint.value = blackPoint
-    u.uBrightness.value = brightness
+    u.uBrightness.value = effectiveBrightness
     u.uColorMode.value = colorModeToFloat(colorMode)
     u.uGrain.value = grain ? 1 : 0
     u.uGrainIntensity.value = grainIntensity
     u.uOpacity.value = opacity
-    u.uMouseStrength.value = mouseStrength
-    u.uEnableMouse.value = mouseInteraction
+    u.uMouseStrength.value = effectiveMouseStrength
+    u.uEnableMouse.value = effectiveMouseInteraction
 
     const c1 = hexToRgb(color1)
     const c2 = hexToRgb(color2)
@@ -331,9 +345,9 @@ export function MoltenMetal({
     uc2[0] = c2[0]; uc2[1] = c2[1]; uc2[2] = c2[2]
     uc3[0] = c3[0]; uc3[1] = c3[1]; uc3[2] = c3[2]
   }, [
-    color1, color2, color3, speed, scale, detail, glow, coreSize,
-    swirl, fold, blackPoint, brightness, colorMode, grain,
-    grainIntensity, mouseInteraction, mouseStrength, opacity,
+    color1, color2, color3, effectiveSpeed, scale, effectiveDetail, glow, coreSize,
+    swirl, fold, blackPoint, effectiveBrightness, colorMode, grain,
+    grainIntensity, effectiveMouseInteraction, effectiveMouseStrength, opacity,
   ])
 
   return (

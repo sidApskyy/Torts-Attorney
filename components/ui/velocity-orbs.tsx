@@ -1,16 +1,26 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useVelocity, useSpring, useTransform } from 'framer-motion'
 
-export function VelocityOrbs() {
+function VelocityOrbsImpl() {
   const ref = useRef<HTMLDivElement>(null)
+  const [lowPower, setLowPower] = useState(false)
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    setLowPower(reducedMotion)
+  }, [])
+
   const { scrollY } = useScroll()
   const velocity = useVelocity(scrollY)
   const smoothVelocity = useSpring(velocity, { damping: 50, stiffness: 200 })
-  const skewX = useTransform(smoothVelocity, [-2000, 2000], [-3, 3])
-  const scaleX = useTransform(smoothVelocity, [-2000, 2000], [1.05, 0.95])
-  const opacity = useTransform(smoothVelocity, [0, 1000], [0.5, 0.8])
+  const range = lowPower ? 1.5 : 3
+  const skewX = useTransform(smoothVelocity, [-2000, 2000], [-range, range])
+  const scaleX = useTransform(smoothVelocity, [-2000, 2000], [1.02, 0.98])
+  const opacity = useTransform(smoothVelocity, [0, 1000], [0.35, 0.6])
+  const skewX2 = useTransform(smoothVelocity, [-2000, 2000], [range, -range])
+  const scaleX2 = useTransform(smoothVelocity, [-2000, 2000], [0.98, 1.02])
 
   return (
     <div ref={ref} className="fixed inset-0 pointer-events-none z-0" aria-hidden>
@@ -27,8 +37,8 @@ export function VelocityOrbs() {
         className="absolute top-[50%] right-[10%] w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] rounded-full blur-[120px] sm:blur-[140px] animate-orb-2"
         style={{
           background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)',
-          skewX: useTransform(smoothVelocity, [-2000, 2000], [3, -3]),
-          scaleX: useTransform(smoothVelocity, [-2000, 2000], [0.95, 1.05]),
+          skewX: skewX2,
+          scaleX: scaleX2,
           opacity,
         }}
       />
@@ -44,4 +54,19 @@ export function VelocityOrbs() {
       />
     </div>
   )
+}
+
+export function VelocityOrbs() {
+  const [enabled, setEnabled] = useState(false)
+
+  useEffect(() => {
+    const isTouch = window.matchMedia('(pointer: coarse)').matches
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const smallScreen = window.innerWidth < 768
+    setEnabled(!isTouch && !reducedMotion && !smallScreen)
+  }, [])
+
+  if (!enabled) return null
+
+  return <VelocityOrbsImpl />
 }

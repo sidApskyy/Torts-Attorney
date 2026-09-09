@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
-import { ImageReveal } from '@/components/ui/image-reveal'
 import { FlowingMenu, type FlowingMenuItem } from '@/components/ui/flowing-menu'
 
 export function WhyUs() {
@@ -83,51 +82,52 @@ export function WhyUs() {
             </p>
           </motion.div>
 
-          {/* Full-width architectural panorama */}
+          {/* Full-width architectural panorama as background with content overlay */}
           <motion.div
             ref={imageRef}
             initial={{ opacity: 0, scale: 1.02 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-12 relative w-full overflow-hidden rounded-2xl shadow-[0_20px_60px_-15px_rgba(32,33,36,0.15)] group"
-            style={{ aspectRatio: '16/9' }}
+            className="relative w-full overflow-hidden rounded-2xl shadow-[0_20px_60px_-15px_rgba(32,33,36,0.15)] group"
           >
-            <ImageReveal direction="bottom" delay={0.2} className="absolute inset-0">
+            {/* Background image */}
+            <div className="absolute inset-0">
+              <motion.div
+                style={{ y: prefersReducedMotion ? 0 : imageY }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src="/library.png"
+                  alt="Grand classical law library interior"
+                  fill
+                  sizes="100vw"
+                  className="object-cover object-center"
+                />
+              </motion.div>
+              {/* Dark overlay for content legibility */}
+              <div className="absolute inset-0 bg-[#1A1A1F]/85 pointer-events-none" />
+              {/* Subtle gold tint overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-[#C6A24A]/8 via-transparent to-[#1A1A1F]/50 pointer-events-none" />
+              {/* Inner border */}
+              <div className="absolute inset-0 rounded-2xl ring-1 ring-[#C6A24A]/15 pointer-events-none" />
+            </div>
+
+            {/* Differentiators — FlowingMenu overlaid on image */}
             <motion.div
-              style={{ y: prefersReducedMotion ? 0 : imageY }}
-              className="absolute inset-0"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 p-2 sm:p-4"
             >
-              <Image
-                src="/image 3.png"
-                alt="Grand classical law library interior"
-                fill
-                sizes="100vw"
-                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              <FlowingMenu
+                items={differentiators}
+                speed={12}
+                borderColor="rgba(198, 162, 74, 0.15)"
+                theme="dark"
               />
             </motion.div>
-            </ImageReveal>
-            {/* Subtle gold tint overlay — top */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#C6A24A]/8 via-transparent to-transparent pointer-events-none" />
-            {/* Bottom fade for text legibility if needed */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#F8F8F6]/40 via-transparent to-transparent pointer-events-none" />
-            {/* Inner border */}
-            <div className="absolute inset-0 rounded-2xl ring-1 ring-[#C6A24A]/15 pointer-events-none" />
-          </motion.div>
-
-          {/* Differentiators — FlowingMenu: titles stay visible, descriptions flow on hover */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="content-card p-2 sm:p-4"
-          >
-            <FlowingMenu
-              items={differentiators}
-              speed={12}
-              borderColor="rgba(198, 162, 74, 0.15)"
-            />
           </motion.div>
         </div>
       </div>

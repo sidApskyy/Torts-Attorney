@@ -1,14 +1,22 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import { usePathname } from 'next/navigation'
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null)
   const pathname = usePathname()
+  const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) return
+    setEnabled(true)
+  }, [])
+
+  useEffect(() => {
+    if (!enabled) return
     const lenis = new Lenis({
       duration: 0.8,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -32,12 +40,14 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       lenis.destroy()
       lenisRef.current = null
     }
-  }, [])
+  }, [enabled])
 
   // Scroll to top on route change
   useEffect(() => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo(0, 0)
     }
   }, [pathname])
 

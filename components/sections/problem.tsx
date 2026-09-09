@@ -45,6 +45,8 @@ export function Problem() {
   const bgLayer2Opacity = useTransform(sectionProgress, [0.3, 0.5, 0.7], [0, 1, 0.5])
   const bgLayer3Opacity = useTransform(sectionProgress, [0.6, 0.8, 1], [0, 0.5, 1])
 
+  const imageParallaxY = useTransform(sectionProgress, [0, 1], ['-3%', '3%'])
+
   return (
     <section ref={sectionRef} className="bg-[#1A1A1F] py-16 md:py-20 lg:py-24 relative overflow-hidden" aria-labelledby="problem-heading">
       {/* Ambient gradient — opacity crossfade between 3 static layers (GPU-accelerated) */}
@@ -146,15 +148,19 @@ export function Problem() {
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative w-full overflow-hidden rounded-3xl group"
-                style={{ aspectRatio: '4/5' }}
+                style={{
+                  aspectRatio: '4/5',
+                  WebkitMaskImage: 'radial-gradient(ellipse 95% 95% at 50% 50%, black 60%, transparent 100%)',
+                  maskImage: 'radial-gradient(ellipse 95% 95% at 50% 50%, black 60%, transparent 100%)',
+                }}
               >
                 <ImageReveal direction="circle" delay={0.3} className="absolute inset-0">
                 <motion.div
-                  style={{ y: prefersReducedMotion ? 0 : useTransform(sectionProgress, [0, 1], ['-3%', '3%']) }}
+                  style={{ y: prefersReducedMotion ? 0 : imageParallaxY }}
                   className="absolute inset-0"
                 >
                   <Image
-                    src="/image 1.png"
+                    src="/courthouse.png"
                     alt="Classical courthouse columns at dusk"
                     fill
                     sizes="(max-width: 1024px) 0px, 40vw"
@@ -163,10 +169,12 @@ export function Problem() {
                   />
                 </motion.div>
                 </ImageReveal>
-                {/* Gold tint overlay */}
+                {/* Gold tint overlay — fades to background at edges */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1F]/60 via-transparent to-[#C6A24A]/10 pointer-events-none" />
-                {/* Subtle inner border */}
-                <div className="absolute inset-0 rounded-3xl ring-1 ring-[#C6A24A]/20 pointer-events-none" />
+                {/* Edge feather overlay — blends corners into section background */}
+                <div className="absolute inset-0 pointer-events-none" style={{
+                  background: 'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 55%, #1A1A1F 100%)',
+                }} />
               </motion.div>
             </div>
           </div>

@@ -57,8 +57,12 @@
   transition: color 0.3s ease;
 }
 
+.flowing-menu__item--dark .flowing-menu__item-title {
+  color: #F8F8F6;
+}
+
 .flowing-menu__item:hover .flowing-menu__item-title {
-  color: #9B7830;
+  color: #C6A24A;
 }
 
 .flowing-menu__marquee {
@@ -101,8 +105,12 @@
   font-weight: 600;
   line-height: 1;
   padding: 0 2rem;
-  color: #202124;
+  color: #9B7830;
   letter-spacing: -0.01em;
+}
+
+.flowing-menu__item--dark .flowing-menu__marquee-text {
+  color: #C6A24A;
 }
 
 .flowing-menu__marquee-dot {

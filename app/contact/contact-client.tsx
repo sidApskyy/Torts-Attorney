@@ -10,6 +10,8 @@ import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { Turnstile } from '@/components/ui/turnstile'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
+import { GoldBeam } from '@/components/ui/gold-beam'
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -103,6 +105,9 @@ export function ContactClient() {
     <main>
         {/* Hero */}
         <section className="relative bg-[#F8F8F6] py-16 md:py-20 lg:py-24 overflow-hidden">
+          {/* Animated gradient mesh */}
+          <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F5F7FA']} speed={16} />
+          <GoldBeam position="center" />
           {/* Architectural grid overlay */}
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `
@@ -156,6 +161,70 @@ export function ContactClient() {
             </div>
           </div>
         </section>
+
+        <div className="section-divider-animated" />
+
+        {/* Schedule a Call — Calendly */}
+        {process.env.NEXT_PUBLIC_CALENDLY_URL && (
+          <section className="bg-[#F8F8F6] py-16 md:py-20" aria-labelledby="schedule-heading">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-4xl mx-auto text-center mb-12">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-flex items-center gap-3 mb-6"
+                >
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 32 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="h-px bg-[#C6A24A]"
+                  />
+                  <span className="text-sm md:text-base font-medium tracking-widest uppercase text-[#C6A24A]">
+                    Schedule
+                  </span>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 32 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="h-px bg-[#C6A24A]"
+                  />
+                </motion.div>
+                <motion.h2
+                  id="schedule-heading"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-serif text-3xl md:text-4xl font-semibold text-[#202124] mb-4"
+                >
+                  Prefer to pick a time?
+                </motion.h2>
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-lg text-[#4B5563] max-w-2xl mx-auto"
+                >
+                  Schedule a discovery call directly on our calendar. Choose a time that works for you.
+                </motion.p>
+              </div>
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-premium bg-white">
+                <iframe
+                  src={process.env.NEXT_PUBLIC_CALENDLY_URL}
+                  className="w-full min-h-[700px] border-0"
+                  title="Schedule a call with The Torts Attorney"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </section>
+        )}
 
         <div className="section-divider-animated" />
 

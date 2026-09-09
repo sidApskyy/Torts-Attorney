@@ -8,6 +8,8 @@ import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
 import { GlareHover } from '@/components/ui/glare-hover'
 import { MagneticButton } from '@/components/ui/magnetic-button'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
+import { PageHero } from '@/components/layout/page-hero'
 
 const metrics = [
   { label: 'Campaign Spend', value: '$125,000', change: '+12%', positive: true },
@@ -25,76 +27,26 @@ const campaigns = [
 export function CampaignIntelligenceClient() {
   return (
     <main>
-        {/* Hero */}
-        <section className="relative bg-[#F8F8F6] py-16 md:py-20 lg:py-24 overflow-hidden" aria-labelledby="intelligence-heading">
-          {/* Architectural grid overlay */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `
-              linear-gradient(to right, #6B7280 1px, transparent 1px),
-              linear-gradient(to bottom, #6B7280 1px, transparent 1px)
-            `,
-            backgroundSize: '100px 100px'
-          }} />
-          {/* Ambient orbs */}
-          <div className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb" style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }} />
-          <div className="absolute bottom-[5%] right-[10%] w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] rounded-full blur-[120px] pointer-events-none float-orb" style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.04), transparent 70%)', animationDelay: '4s' }} />
-
-          <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="flex items-center gap-3 mb-8"
-              >
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: 32 }}
-                  transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="h-px bg-[#C6A24A]"
-                />
-                <span className="text-sm md:text-base font-medium tracking-widest uppercase text-[#C6A24A]">
-                  Campaign Intelligence
-                </span>
-              </motion.div>
-
-              <motion.h1
-                id="intelligence-heading"
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]"
-              >
-                <GradientText animationSpeed={5}>
-                  Acquisition Command Center
-                </GradientText>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="text-lg md:text-xl text-[#4B5563] max-w-2xl leading-[1.7] mb-10"
-              >
-                Campaign visibility, funnel monitoring, lead quality tracking, and operational intelligence for plaintiff acquisition.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <Link href="/contact">
-                  <MagneticButton strength={0.25} className="rounded-full">
-                    <Button variant="red" size="lg" className="text-base">
-                      Start a Conversation
-                    </Button>
-                  </MagneticButton>
-                </Link>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Campaign Intelligence"
+          title={
+            <h1 id="intelligence-heading" className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.02em]">
+              <GradientText animationSpeed={5}>
+                Acquisition Command Center
+              </GradientText>
+            </h1>
+          }
+          subtitle="Campaign visibility, funnel monitoring, lead quality tracking, and operational intelligence for plaintiff acquisition."
+          cta={
+            <Link href="/contact">
+              <MagneticButton strength={0.25} className="rounded-full">
+                <Button variant="red" size="lg" className="text-base">
+                  Start a Conversation
+                </Button>
+              </MagneticButton>
+            </Link>
+          }
+        />
 
         <div className="section-divider-animated" />
 
@@ -110,6 +62,7 @@ export function CampaignIntelligenceClient() {
         {/* Dashboard Preview */}
         <section className="bg-[#F1F3F5] py-16 md:py-20 lg:py-24 section-glow-gold relative overflow-hidden" aria-labelledby="dashboard-heading">
           <SectionNumber number="01" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+          <AnimatedGradientBackground colors={['#C6A24A', '#F1F3F5', '#E4E1D8']} speed={20} />
           {/* Ambient accents */}
           <div className="absolute top-1/4 right-0 w-[300px] h-[250px] sm:w-[500px] sm:h-[400px] bg-[#C6A24A]/5 blur-3xl rounded-full pointer-events-none float-orb" />
           <div className="absolute bottom-1/4 left-0 w-[250px] h-[200px] sm:w-[400px] sm:h-[300px] bg-[#F8F8F6] blur-3xl rounded-full pointer-events-none float-orb" style={{ animationDelay: '6s' }} />
