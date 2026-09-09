@@ -1,6 +1,22 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+
+function useSSRReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setPrefersReducedMotion(media.matches)
+    update()
+    const listener = () => update()
+    media.addEventListener('change', listener)
+    return () => media.removeEventListener('change', listener)
+  }, [])
+
+  return prefersReducedMotion
+}
 
 interface AnimatedGradientBackgroundProps {
   className?: string
@@ -15,7 +31,7 @@ export function AnimatedGradientBackground({
   speed = 12,
   blur = true,
 }: AnimatedGradientBackgroundProps) {
-  const prefersReducedMotion = useReducedMotion()
+  const prefersReducedMotion = useSSRReducedMotion()
 
   if (prefersReducedMotion) {
     return (

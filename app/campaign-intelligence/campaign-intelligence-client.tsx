@@ -24,6 +24,48 @@ const campaigns = [
   { name: 'Personal Injury C', status: 'Limited', leads: 377, qualified: 268, retained: 98 },
 ]
 
+const activeMassTortCampaigns = [
+  { name: "Camp Lejeune", description: "Water contamination claims for veterans and families stationed at Camp Lejeune." },
+  { name: "AFFF", description: "Firefighting foam exposure linked to cancer and serious health conditions." },
+  { name: "Roundup", description: "Weedkiller exposure claims for non-Hodgkin lymphoma and related cancers." },
+  { name: "Ozempic", description: "GLP-1 receptor agonist claims for gastroparesis and severe digestive injuries." },
+  { name: "NEC", description: "Baby formula claims for necrotizing enterocolitis in premature infants." },
+  { name: "Depo Provera", description: "Contraceptive injection claims linked to meningioma brain tumors." },
+  { name: "PFAS", description: "Forever chemical contamination claims from drinking water and consumer products." },
+  { name: "Suboxone", description: "Sublingual film claims for severe dental decay and tooth loss." },
+  { name: "Bard PowerPort", description: "Implantable port catheter claims for device fracture and migration injuries." },
+  { name: "Hair Relaxer", description: "Chemical hair straightener claims linked to uterine cancer and fibroids." },
+  { name: "Oxbryta", description: "Sickle cell disease drug claims following market withdrawal for safety concerns." },
+  { name: "Hernia Mesh", description: "Surgical mesh implant claims for chronic pain, infection, and mesh failure." },
+  { name: "Zantac", description: "Heartburn medication claims for cancer caused by NDMA contamination." },
+  { name: "Dacthal", description: "Pesticide exposure claims linked to thyroid damage and developmental harm." },
+  { name: "Rideshare", description: "Assault and safety claims against rideshare companies for passenger injuries." },
+  { name: "Risperdal", description: "Antipsychotic medication claims for gynecomastia and hormonal side effects." },
+  { name: "Olympus Scope", description: "Duodenoscope and endoscope infection claims including CRE superbug outbreaks and the 2025 MAJ-891 recall." },
+  { name: "Social Media Addiction", description: "MDL 3047 claims against Meta, TikTok, Snap, YouTube, and Discord for adolescent mental health harms — bellwether trials approaching." },
+  { name: "Sports Betting Addiction", description: "Consumer protection claims against DraftKings, FanDuel, BetMGM, Caesars — predatory VIP targeting and self-exclusion failures." },
+  { name: "Video Game Addiction", description: "Roblox, Fortnite, and loot-box claims — variable-reinforcement design defects and unauthorized child microtransactions." },
+  { name: "Benzene Exposure", description: "Occupational and consumer-product benzene claims — AML, CML, NHL, MDS from refinery work or recalled sunscreens, antiperspirants, and dry shampoos." },
+  { name: "Talcum Powder", description: "Johnson & Johnson talc claims linked to ovarian cancer and mesothelioma — MDL 2738, active in 2026." },
+  { name: "Tepezza", description: "Thyroid eye disease infusion claims for permanent hearing loss and tinnitus — MDL 3079." },
+  { name: "Taxotere", description: "Docetaxel chemotherapy claims for permanent hair loss and tear-duct eye injuries — MDL 2740/3023." },
+  { name: "Silicosis", description: "Engineered-stone countertop worker claims for silicosis — 560+ confirmed CA cases, early-stage litigation with plaintiff verdicts." },
+  { name: "Paraquat", description: "Herbicide exposure claims for Parkinson's disease — MDL 3004, ~6,600 federal plaintiffs, new claims still filed in 2026." },
+  { name: "Paragard", description: "Copper IUD breakage claims for surgical retrieval and related injuries — MDL 2974, ~4,000 federal cases." },
+  { name: "Wildfire", description: "Eaton and Palisades fire claims against Southern California Edison — SOL deadlines begin January 2027." },
+  { name: "IVC Filter", description: "Retrievable vena cava filter claims for fracture, migration, and perforation — Cook MDL 2570, ~6,500 cases pending and still open." },
+  { name: "Mesothelioma", description: "Asbestos exposure claims for mesothelioma and lung cancer — state court dockets plus 60+ bankruptcy trusts holding $30B+." },
+  { name: "Allergan Breast Implant", description: "Recalled BIOCELL textured implant claims for BIA-ALCL and explant surgery — MDL 2921, first bellwether October 2026." },
+  { name: "Valsartan", description: "NDMA-contaminated blood pressure medication claims for cancer — MDL 2875, personal injury track still in active litigation." },
+  { name: "Exactech", description: "Recalled knee, hip, and ankle implant claims for revision surgery — MDL 3044, currently stayed by Chapter 11 bankruptcy." },
+  { name: "Philips CPAP", description: "PE-PUR foam degradation claims from recalled sleep devices — MDL 3014, settlement registration closed January 2025." },
+  { name: "Motor Vehicle Accidents", description: "Exclusive motor vehicle accident leads — live transfers, qualified forms, and data leads with TCPA and DPPA compliance baked in." },
+  { name: "Transvaginal Mesh (TVM)", description: "Pelvic mesh erosion, chronic pain, and revision-surgery claims from POP and SUI implants." },
+  { name: "Premises Liability", description: "Slip and fall, negligent security, and dangerous-condition claims against property owners." },
+  { name: "CA Juvenile Detention Abuse", description: "Survivors of staff sexual abuse in California juvenile halls and probation camps, under the AB 218 revival window." },
+  { name: "CA Women's Prison Abuse", description: "Women sexually abused by correctional staff in California state and federal women's facilities." },
+]
+
 export function CampaignIntelligenceClient() {
   return (
     <main>
@@ -310,6 +352,82 @@ export function CampaignIntelligenceClient() {
         </section>
 
         <div className="section-divider-animated" />
+
+        {/* Active Mass Tort Campaigns */}
+        <section className="bg-[#F5F7FA] py-16 md:py-20 lg:py-24 relative overflow-hidden" aria-labelledby="active-campaigns-heading">
+          <SectionNumber number="03" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12 section-heading-glow">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-flex items-center gap-3 mb-6"
+                >
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 32 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="h-px bg-[#C6A24A]"
+                  />
+                  <span className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">
+                    Active Campaigns
+                  </span>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 32 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="h-px bg-[#C6A24A]"
+                  />
+                </motion.div>
+                <h2 id="active-campaigns-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                  <TextReveal as="span" delay={0.1}>
+                    <GradientText animationSpeed={5}>
+                      Mass Tort Campaigns We Support
+                    </GradientText>
+                  </TextReveal>
+                </h2>
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-lg md:text-xl text-[#4B5563] max-w-3xl mx-auto leading-[1.7]"
+                >
+                  Plaintiff acquisition experience across the most active mass tort litigations today.
+                </motion.p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {activeMassTortCampaigns.map((campaign, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ delay: index * 0.015, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="h-full"
+                  >
+                    <div className="content-card p-5 h-full relative overflow-hidden">
+                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C6A24A] to-transparent" />
+                      <h3 className="font-serif text-lg font-bold text-[#202124] mb-2 leading-tight">
+                        {campaign.name}
+                      </h3>
+                      <p className="text-sm text-[#4B5563] leading-[1.6]">
+                        {campaign.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* CTA */}
         <section className="bg-[#F8F8F6] py-16 md:py-20 lg:py-24 relative overflow-hidden section-glow-gold" aria-labelledby="intelligence-cta">
