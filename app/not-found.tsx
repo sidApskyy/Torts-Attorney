@@ -11,7 +11,7 @@ export default function NotFound() {
   }))
 
   return (
-    <section className="min-h-screen bg-[#F8F8F6] flex items-center justify-center relative overflow-hidden px-4">
+    <section className="min-h-svh bg-[#F8F8F6] flex items-center justify-center relative overflow-hidden px-4">
       {/* Gold particle field — CSS animated */}
       {particles.map((p) => (
         <div

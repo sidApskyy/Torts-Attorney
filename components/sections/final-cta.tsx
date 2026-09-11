@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MagneticButton } from '@/components/ui/magnetic-button'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { ParticleBurst } from '@/components/ui/particle-burst'
@@ -93,18 +92,14 @@ export function FinalCTA() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link href="/contact">
-              <MagneticButton strength={0.25} className="rounded-full">
-                <Button variant="red" size="lg" className="w-full sm:w-auto text-base">
-                  Talk Through the Pipeline
-                </Button>
-              </MagneticButton>
+              <Button variant="red" size="lg" className="w-full sm:w-auto text-base">
+                Talk Through the Pipeline
+              </Button>
             </Link>
             <Link href="/contact">
-              <MagneticButton strength={0.25} className="rounded-full">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto text-base">
-                  Send Us the Campaign
-                </Button>
-              </MagneticButton>
+              <Button variant="outline" size="lg" className="w-full sm:w-auto text-base">
+                Send Us the Campaign
+              </Button>
             </Link>
           </motion.div>
           

@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { useRole } from '@/components/providers/role-provider'
 import { Button } from '@/components/ui/button'
 import { MoltenMetal } from '@/components/ui/molten-metal'
-import { MagneticButton } from '@/components/ui/magnetic-button'
 import { GradientText } from '@/components/ui/gradient-text'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 import { GoldBeam } from '@/components/ui/gold-beam'
@@ -111,7 +110,7 @@ export function Hero() {
       />
 
       {/* Hero */}
-      <div className="relative z-[2] min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="relative z-[2] min-h-svh flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/hero-background.png"
@@ -170,7 +169,7 @@ export function Hero() {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-[-0.02em] mb-5 sm:mb-6 lg:mb-8"
+              className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-[-0.02em] mb-5 sm:mb-6 lg:mb-8"
             >
               <GradientText animationSpeed={5}>
                 Bring More of the Right<br />
@@ -195,18 +194,14 @@ export function Hero() {
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <Link href="/contact">
-                <MagneticButton strength={0.25} className="rounded-full">
-                  <Button variant="red" size="lg" className="text-base">
-                    Talk Through a Campaign
-                  </Button>
-                </MagneticButton>
+                <Button variant="red" size="lg" className="text-base">
+                  Talk Through a Campaign
+                </Button>
               </Link>
               <Link href="/campaign-intelligence">
-                <MagneticButton strength={0.25} className="rounded-full">
-                  <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830]">
-                    See Current Campaigns
-                  </Button>
-                </MagneticButton>
+                <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830]">
+                  See Current Campaigns
+                </Button>
               </Link>
             </motion.div>
             </div>
@@ -292,12 +287,10 @@ export function Hero() {
             className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link href="/campaign-intelligence">
-              <MagneticButton strength={0.25} className="rounded-full">
-                <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830] group">
-                  See all campaigns
-                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </MagneticButton>
+              <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830] group">
+                See all campaigns
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Button>
             </Link>
           </motion.div>
         </div>

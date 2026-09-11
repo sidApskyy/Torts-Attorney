@@ -15,7 +15,7 @@ export default function Error({
   }, [error])
 
   return (
-    <div className="min-h-screen bg-[#F8F8F6] flex items-center justify-center px-4">
+    <div className="min-h-svh bg-[#F8F8F6] flex items-center justify-center px-4">
       <div className="text-center max-w-2xl mx-auto">
         <p className="font-serif text-8xl md:text-9xl font-bold text-[#C6A24A]/15 leading-none mb-4 tabular-nums">
           500

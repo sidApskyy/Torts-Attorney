@@ -227,13 +227,14 @@ export function Problem() {
                       className="h-full rounded-[12px] shimmer-sweep relative overflow-hidden flex items-center justify-center"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 rounded-[12px]" />
-                      {/* Value — blur-to-focus, inside the fill bar */}
+                      {/* Value — blur-to-focus, inside the fill bar.
+                          Hidden on mobile: narrow bars can't fit the number. */}
                       <motion.span
                         initial={prefersReducedMotion ? { opacity: 1, filter: 'blur(0px)' } : { opacity: 0, filter: 'blur(12px)' }}
                         whileInView={{ opacity: 1, filter: 'blur(0px)' }}
                         viewport={{ once: true, margin: '-30px' }}
                         transition={{ delay: 0.5 + index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="text-xs sm:text-sm md:text-base font-semibold text-[#202124] drop-shadow-sm tabular-nums relative z-10 whitespace-nowrap"
+                        className="hidden sm:inline text-xs sm:text-sm md:text-base font-semibold text-[#202124] drop-shadow-sm tabular-nums relative z-10 whitespace-nowrap"
                       >
                         <FunnelCounter value={stage.value} duration={1.5} />
                       </motion.span>
@@ -241,14 +242,24 @@ export function Problem() {
                     </div>
                   </div>
 
-                  {/* Percentage + drop-off — fade in from right */}
+                  {/* Percentage + drop-off — fade in from right.
+                      On mobile the value lives here instead of inside the bar. */}
                   <div className="w-16 sm:w-24 md:w-32 flex-shrink-0 text-right flex flex-col items-end">
                     <motion.p
                       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: 15 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: '-30px' }}
                       transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
-                      className="text-xs sm:text-sm md:text-base font-medium text-[rgba(255,255,255,0.85)] tabular-nums"
+                      className="text-xs font-semibold text-white tabular-nums sm:hidden"
+                    >
+                      {stage.value}
+                    </motion.p>
+                    <motion.p
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: 15 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: '-30px' }}
+                      transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
+                      className="hidden sm:block text-xs sm:text-sm md:text-base font-medium text-[rgba(255,255,255,0.85)] tabular-nums"
                     >
                       {stage.width}
                     </motion.p>
@@ -276,15 +287,17 @@ export function Problem() {
               transition={{ delay: 1.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="mt-8 flex items-center gap-4 md:gap-6"
             >
-              <div className="w-20 sm:w-36 md:w-48 flex-shrink-0" />
+              {/* Side spacers align the callout with the bar column on
+                  sm+; hidden on mobile where they'd squeeze out the text */}
+              <div className="hidden sm:block w-20 sm:w-36 md:w-48 flex-shrink-0" />
               <div className="flex-1 flex items-center gap-3">
                 <div className="h-px flex-1 bg-gradient-to-r from-[#C6A24A]/40 to-[#C6A24A]/10" />
-                <span className="text-base sm:text-lg md:text-xl font-semibold text-[#C6A24A] tabular-nums whitespace-nowrap">
+                <span className="text-sm sm:text-lg md:text-xl font-semibold text-[#C6A24A] tabular-nums whitespace-nowrap">
                   84% of leads never become retainers
                 </span>
                 <div className="h-px flex-1 bg-gradient-to-l from-[#C6A24A]/40 to-[#C6A24A]/10" />
               </div>
-              <div className="w-16 sm:w-24 md:w-32 flex-shrink-0" />
+              <div className="hidden sm:block w-16 sm:w-24 md:w-32 flex-shrink-0" />
             </motion.div>
 
             {/* Disclosure */}

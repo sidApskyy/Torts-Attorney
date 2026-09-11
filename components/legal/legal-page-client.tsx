@@ -18,7 +18,7 @@ interface LegalPageClientProps {
 
 export function LegalPageClient({ title, lastUpdated, sections }: LegalPageClientProps) {
   return (
-    <main className="bg-[#F8F8F6] min-h-screen">
+    <main className="bg-[#F8F8F6] min-h-svh">
       <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
         <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F5F7FA']} speed={18} />
         <GoldBeam position="center" />

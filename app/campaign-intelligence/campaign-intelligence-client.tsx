@@ -72,7 +72,7 @@ export function CampaignIntelligenceClient() {
         <PageHero
           eyebrow="Campaign Intelligence"
           title={
-            <h1 id="intelligence-heading" className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.02em]">
+            <h1 id="intelligence-heading" className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.02em]">
               <GradientText animationSpeed={5}>
                 Acquisition Command Center
               </GradientText>

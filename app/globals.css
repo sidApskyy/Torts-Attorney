@@ -234,19 +234,27 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
     background:
       radial-gradient(circle at 15% 10%, rgba(198, 162, 74, 0.04), transparent 38%),
       radial-gradient(circle at 85% 40%, rgba(107, 143, 214, 0.03), transparent 30%),
       #F8F8F6;
     background-attachment: fixed;
   }
-  
+
   html {
     @apply font-sans;
     /* Lenis handles smooth scrolling — disable native to avoid conflict */
     scroll-behavior: auto;
     -webkit-text-size-adjust: 100%;
+  }
+
+  /* Prevent horizontal scroll from animation transforms — must be set on
+     html too (body-only clipping doesn't constrain the viewport scroller on
+     iOS). `clip` avoids creating a scroll container, so position:sticky and
+     scrollIntoView keep working. */
+  html, body {
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Momentum touch scrolling on iOS */
@@ -257,6 +265,14 @@
   /* Prevent horizontal scroll from animation transforms */
   html, body {
     max-width: 100%;
+  }
+
+  /* Form controls under 16px trigger auto-zoom on iOS focus — enforce a
+     16px floor on small/touch viewports only */
+  @media (max-width: 767px) {
+    input, select, textarea {
+      font-size: 16px;
+    }
   }
 
   /* Selection color */
@@ -1622,15 +1638,14 @@ select:focus-visible {
   to { width: 2rem; }
 }
 
-/* GPU acceleration hint for animated elements */
-[data-framer-motion] {
-  will-change: transform, opacity;
-}
-
-/* Skip rendering/painting offscreen sections during scroll */
-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
+/* Skip rendering/painting offscreen sections during scroll.
+   Desktop only — on mobile the 800px intrinsic-size estimate causes
+   scrollbar jumps and mis-measured anchor scrolls as sections render in. */
+@media (min-width: 1024px) {
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+  }
 }
 
 /* Contain layout for animated background orbs to prevent reflow */

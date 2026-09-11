@@ -11,7 +11,10 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reducedMotion) return
+    // Skip Lenis on touch devices — syncTouch hijacks native momentum
+    // scrolling, which reads as laggy on mobile and fights scrollIntoView.
+    const touch = window.matchMedia('(pointer: coarse)').matches
+    if (reducedMotion || touch) return
     setEnabled(true)
   }, [])
 

@@ -43,7 +43,7 @@ export function AboutClient() {
         <PageHero
           eyebrow="About"
           title={
-            <h1 id="about-heading" className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.02em]">
+            <h1 id="about-heading" className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.02em]">
               <GradientText animationSpeed={5}>
                 Plaintiff Acquisition Intelligence
               </GradientText>

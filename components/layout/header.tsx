@@ -14,6 +14,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileViewport, setIsMobileViewport] = useState(false)
   const pathname = usePathname()
   const { role, setRole } = useRole()
 
@@ -59,6 +60,16 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [role])
 
+  // On mobile the header must stay visible at the top of the page —
+  // the hamburger is the only way to reach navigation there.
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    const update = () => setIsMobileViewport(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
   useEffect(() => {
     setIsMobileMenuOpen(false)
   }, [pathname])
@@ -67,21 +78,26 @@ export function Header() {
     if (isHidden) setIsMobileMenuOpen(false)
   }, [isHidden])
 
+  const headerVisible = isScrolled || isMobileViewport
+
   return (
     <motion.header
       initial={{ y: -120, opacity: 0 }}
       animate={{
-        y: isScrolled
+        y: headerVisible
           ? (isHidden && !isMobileMenuOpen ? -120 : 0)
           : -120,
-        opacity: isScrolled ? 1 : 0,
+        opacity: headerVisible ? 1 : 0,
       }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50',
         isScrolled
           ? 'bg-[rgba(248,248,246,0.70)] backdrop-blur-[24px] border border-[rgba(198,162,74,0.12)] rounded-[18px] mx-2 mt-2 sm:mx-4 sm:mt-3 shadow-[0_8px_32px_rgba(32,33,36,0.08)]'
-          : 'bg-transparent border border-transparent pointer-events-none'
+          : isMobileViewport && isMobileMenuOpen
+            ? 'bg-[rgba(248,248,246,0.95)] backdrop-blur-[20px] border-b border-[#E4E1D8]'
+            : 'bg-transparent border border-transparent',
+        !headerVisible && 'pointer-events-none'
       )}
     >
       <div className="mx-auto px-3 sm:px-6 lg:px-8">
@@ -89,8 +105,15 @@ export function Header() {
           'flex items-center justify-between',
           isScrolled ? 'h-14 sm:h-16 md:h-20' : 'h-16 sm:h-20 md:h-24'
         )}>
-          {/* Logo */}
-          <Link href="/" className="flex items-center group relative">
+          {/* Logo — always lands on the attorney experience */}
+          <Link
+            href="/"
+            onClick={() => {
+              setRole('attorney')
+              setIsMobileMenuOpen(false)
+            }}
+            className="flex items-center group relative"
+          >
             <img
               src="/3a2bdbe9-8afd-458b-a3a3-4a336a6d28b4.jpg"
               alt="The Torts Attorney"
