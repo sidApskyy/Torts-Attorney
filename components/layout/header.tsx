@@ -6,7 +6,8 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { NAVIGATION, SITE_NAME } from '@/lib/constants'
+import { useRole } from '@/components/providers/role-provider'
+import { NAVIGATION } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 export function Header() {
@@ -14,6 +15,7 @@ export function Header() {
   const [isHidden, setIsHidden] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const { role, setRole } = useRole()
 
   useEffect(() => {
     let lastScrollY = window.scrollY
@@ -32,13 +34,14 @@ export function Header() {
           const pastBuffer = currentScrollY > heroThreshold + 200
           const delta = currentScrollY - lastScrollY
 
-          setIsScrolled(pastHero)
+          setIsScrolled(pastHero || !role || role === 'victim')
 
           // Hide only after a meaningful scroll down past the buffer;
           // show only after a meaningful scroll up. This prevents the
           // header from flickering when the user pauses or reverses
           // direction for a few pixels.
           setIsHidden((prev) => {
+            if (!role) return false
             if (pastBuffer && delta > 5) return true
             if (delta < -10) return false
             return prev
@@ -54,7 +57,7 @@ export function Header() {
     // Also check on mount in case page loads scrolled
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [role])
 
   useEffect(() => {
     setIsMobileMenuOpen(false)
@@ -87,14 +90,15 @@ export function Header() {
           isScrolled ? 'h-14 sm:h-16 md:h-20' : 'h-16 sm:h-20 md:h-24'
         )}>
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
-            <span className={cn(
-              'font-serif font-bold text-[#202124] tracking-tight transition-colors duration-300 group-hover:text-[#C6A24A] whitespace-nowrap',
-              isScrolled ? 'text-base sm:text-xl md:text-2xl' : 'text-lg sm:text-2xl md:text-3xl'
-            )}>
-              {SITE_NAME}
-            </span>
-            <span className="absolute -bottom-0.5 left-0 h-px bg-gradient-to-r from-[#C6A24A] to-transparent w-0 group-hover:w-full transition-all duration-700 ease-out" />
+          <Link href="/" className="flex items-center group relative">
+            <img
+              src="/3a2bdbe9-8afd-458b-a3a3-4a336a6d28b4.jpg"
+              alt="The Torts Attorney"
+              className={cn(
+                'h-8 sm:h-10 md:h-12 w-auto object-contain transition-all duration-300 group-hover:opacity-80 group-hover:scale-[1.02]',
+                isScrolled ? 'h-7 sm:h-9 md:h-10' : 'h-8 sm:h-10 md:h-12'
+              )}
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -130,18 +134,46 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Audience selector */}
           <motion.div
-            className="hidden md:block"
+            className="hidden md:flex items-center gap-3"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Link href="/contact">
-              <Button variant="red" size="lg" className="text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
-                Talk Through a Campaign
-              </Button>
-            </Link>
+            <div className="flex items-center p-1 rounded-full border border-[#C6A24A]/20 bg-[#E4E1D8]/30">
+              <button
+                type="button"
+                onClick={() => setRole('attorney')}
+                className={cn(
+                  'px-3 py-1.5 text-xs font-semibold rounded-full transition-all',
+                  role === 'attorney'
+                    ? 'bg-[#C6A24A] text-white shadow-sm'
+                    : 'text-[#4B5563] hover:text-[#C6A24A]'
+                )}
+              >
+                Attorney
+              </button>
+              <button
+                type="button"
+                onClick={() => setRole('victim')}
+                className={cn(
+                  'px-3 py-1.5 text-xs font-semibold rounded-full transition-all',
+                  role === 'victim'
+                    ? 'bg-[#C6A24A] text-white shadow-sm'
+                    : 'text-[#4B5563] hover:text-[#C6A24A]'
+                )}
+              >
+                Victim
+              </button>
+            </div>
+            {role === 'attorney' && (
+              <Link href="/contact">
+                <Button variant="red" size="lg" className="text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
+                  Talk Through a Campaign
+                </Button>
+              </Link>
+            )}
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -190,6 +222,32 @@ export function Header() {
             className="md:hidden border-t border-[#E4E1D8] bg-[rgba(248,248,246,0.95)] backdrop-blur-[20px] overflow-hidden rounded-b-[18px]"
           >
             <nav className="px-3 sm:px-6 py-3 space-y-1.5">
+              <div className="grid grid-cols-2 gap-2 pb-3 border-b border-[#E4E1D8] mb-2">
+                <button
+                  type="button"
+                  onClick={() => { setRole('attorney'); setIsMobileMenuOpen(false) }}
+                  className={cn(
+                    'py-2.5 rounded-xl text-sm font-semibold transition-colors',
+                    role === 'attorney'
+                      ? 'bg-[#C6A24A] text-white'
+                      : 'bg-[#ECEFF2] text-[#4B5563] hover:bg-[#E4E1D8]'
+                  )}
+                >
+                  Attorney
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setRole('victim'); setIsMobileMenuOpen(false) }}
+                  className={cn(
+                    'py-2.5 rounded-xl text-sm font-semibold transition-colors',
+                    role === 'victim'
+                      ? 'bg-[#C6A24A] text-white'
+                      : 'bg-[#ECEFF2] text-[#4B5563] hover:bg-[#E4E1D8]'
+                  )}
+                >
+                  Victim
+                </button>
+              </div>
               {NAVIGATION.map((item, index) => (
                 <motion.div
                   key={item.name}
@@ -218,7 +276,7 @@ export function Header() {
               >
                 <Link href="/contact">
                   <Button variant="red" size="lg" className="w-full text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]">
-                    Talk About My Campaign
+                    {role === 'attorney' ? 'Talk About My Campaign' : 'Contact Us'}
                   </Button>
                 </Link>
               </motion.div>

@@ -14,6 +14,8 @@ import { SectionRail } from "@/components/ui/section-rail";
 import { BackgroundTintShift } from "@/components/ui/background-tint-shift";
 import { CookieConsent } from "@/components/ui/cookie-consent";
 import { AnimatedFavicon } from "@/components/ui/animated-favicon";
+import { RoleProvider } from "@/components/providers/role-provider";
+import { RoleGate } from "@/components/providers/role-gate";
 import { SectionLabel } from "@/components/ui/section-label";
 import { CursorSparkles } from "@/components/ui/cursor-sparkles";
 import { VelocityOrbs } from "@/components/ui/velocity-orbs";
@@ -105,21 +107,23 @@ export default function RootLayout({
         </div>
         <CursorGlow />
         <Preloader />
-        <SmoothScroll>
-          <ScrollProgress />
-          <SectionRail />
-          <Header />
-          <main id="main-content" className="flex-1">
-            <PageTransition>
-              {children}
-            </PageTransition>
-          </main>
-          <Footer />
-          <ScrollToTop />
-          <SectionLabel />
-          <CursorSparkles />
-          <CookieConsent />
-        </SmoothScroll>
+        <RoleProvider>
+          <SmoothScroll>
+            <ScrollProgress />
+            <SectionRail />
+            <Header />
+            <main id="main-content" className="flex-1">
+              <PageTransition>
+                <RoleGate>{children}</RoleGate>
+              </PageTransition>
+            </main>
+            <Footer />
+            <ScrollToTop />
+            <SectionLabel />
+            <CursorSparkles />
+            <CookieConsent />
+          </SmoothScroll>
+        </RoleProvider>
         <Analytics />
         <JsonLd />
       </body>

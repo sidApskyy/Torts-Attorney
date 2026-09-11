@@ -332,7 +332,7 @@ export function CampaignIntelligenceClient() {
                       className="glass-card"
                       style={{ padding: '1.5rem', position: 'relative', boxSizing: 'border-box' }}
                     >
-                      <div style={{ position: 'relative', zIndex: 2 }}>
+                      <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
                         <div className="flex items-center gap-3 mb-3">
                           <span className="w-7 h-7 rounded-lg bg-[#C6A24A]/10 flex items-center justify-center border border-[#C6A24A]/20">
                             <span className="text-[#C6A24A] font-serif text-xs font-bold">
@@ -341,7 +341,16 @@ export function CampaignIntelligenceClient() {
                           </span>
                         </div>
                         <h3 className="font-serif text-xl md:text-2xl font-bold text-[#202124] mb-3">{capability.title}</h3>
-                        <p className="text-base text-[#4B5563] leading-[1.7]">{capability.description}</p>
+                        <p className="text-base text-[#4B5563] leading-[1.7] mb-4">{capability.description}</p>
+                        <Link href="/contact" className="mt-auto block">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A]"
+                          >
+                            Check Your Eligibility
+                          </Button>
+                        </Link>
                       </div>
                     </GlareHover>
                   </motion.div>
@@ -413,14 +422,23 @@ export function CampaignIntelligenceClient() {
                     transition={{ delay: index * 0.015, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     className="h-full"
                   >
-                    <div className="content-card p-5 h-full relative overflow-hidden">
+                    <div className="content-card p-5 h-full relative overflow-hidden flex flex-col">
                       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C6A24A] to-transparent" />
                       <h3 className="font-serif text-lg font-bold text-[#202124] mb-2 leading-tight">
                         {campaign.name}
                       </h3>
-                      <p className="text-sm text-[#4B5563] leading-[1.6]">
+                      <p className="text-sm text-[#4B5563] leading-[1.6] mb-4">
                         {campaign.description}
                       </p>
+                      <Link href="/contact" className="mt-auto block">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A]"
+                        >
+                          Check Your Eligibility
+                        </Button>
+                      </Link>
                     </div>
                   </motion.div>
                 ))}

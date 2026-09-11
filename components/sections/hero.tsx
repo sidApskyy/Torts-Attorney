@@ -3,18 +3,82 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRole } from '@/components/providers/role-provider'
 import { Button } from '@/components/ui/button'
-import { RollingCounter } from '@/components/ui/rolling-counter'
-import { ScrollExpand } from '@/components/ui/scroll-expand'
 import { MoltenMetal } from '@/components/ui/molten-metal'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { GradientText } from '@/components/ui/gradient-text'
-import { ProgressRing } from '@/components/ui/progress-ring'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 import { GoldBeam } from '@/components/ui/gold-beam'
+import {
+  Flame,
+  ArrowRight,
+  Sparkles,
+  Pill,
+  Car,
+  CarFront,
+  Gamepad2,
+  Building2,
+} from 'lucide-react'
+
+const TORTS = [
+  {
+    title: 'Talcum',
+    description: 'Claims involving serious diagnoses linked to long-term talcum powder use.',
+    icon: Sparkles,
+  },
+  {
+    title: 'Depo',
+    description: 'Injuries and brain tumor claims related to Depo-Provera injections.',
+    icon: Pill,
+  },
+  {
+    title: 'Rideshare',
+    description: 'Accidents and injuries occurring in Uber, Lyft, and other rideshare trips.',
+    icon: Car,
+  },
+  {
+    title: 'Motor Vehicle',
+    description: 'Crashes involving cars, trucks, motorcycles, and commercial vehicles.',
+    icon: CarFront,
+  },
+  {
+    title: 'Roblox',
+    description: 'Concerns about extended platform use and reported physical or psychological harm.',
+    icon: Gamepad2,
+  },
+  {
+    title: 'WTC',
+    description: 'Health conditions and VCF claims for 9/11 responders and survivors.',
+    icon: Building2,
+  },
+]
+
+const containerVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 28, scale: 0.96 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  },
+}
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion()
+  const { setRole } = useRole()
+
+  const checkEligibility = () => {
+    setRole('victim')
+    if (typeof window !== 'undefined') {
+      window.location.hash = 'victim-form'
+    }
+  }
 
   return (
     <section aria-labelledby="hero-heading" className="relative bg-[#F8F8F6]">
@@ -46,58 +110,44 @@ export function Hero() {
         }}
       />
 
-      {/* ── ScrollExpand hero ── */}
-      <div className="relative z-[2]">
-        <ScrollExpand
-          mediaContent={
-            <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-              <Image
-                src="/hero-background.png"
-                alt="Lady Justice with columns and law book"
-                fill
-                priority
-                sizes="100vw"
-                draggable={false}
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
-              />
-              <MoltenMetal
-                color1="#F5F7FA"
-                color2="#C6A24A"
-                color3="#FFFFFF"
-                speed={0.3}
-                scale={5}
-                detail={4}
-                glow={2.2}
-                coreSize={0.14}
-                swirl={1.5}
-                fold={-0.3}
-                blackPoint={0.04}
-                brightness={1.6}
-                colorMode="molten"
-                grain={true}
-                grainIntensity={0.03}
-                mouseInteraction={true}
-                mouseStrength={0.35}
-                opacity={0.85}
-                className="molten-overlay"
-              />
-            </div>
-          }
-          scrollHint="Scroll"
-          startWidth={55}
-          startHeight={80}
-          startRadius={24}
-          endRadius={0}
-          mediaZoom={1.2}
-          scrollDistance={0.45}
-          holdDistance={0.15}
-          smoothing={0}
-          overlayScrim={0.88}
-          useWindowScroll
-          className="scroll-expand-hero"
-        >
-          {/* Overlay — only the essential hero message */}
-          <div className="max-w-2xl mx-auto px-4 sm:px-8 relative" style={{ textShadow: '0 2px 24px rgba(32,33,36,0.5)' }}>
+      {/* Hero */}
+      <div className="relative z-[2] min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/hero-background.png"
+            alt="Lady Justice with columns and law book"
+            fill
+            priority
+            sizes="100vw"
+            draggable={false}
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
+          <MoltenMetal
+            color1="#F5F7FA"
+            color2="#C6A24A"
+            color3="#FFFFFF"
+            speed={0.3}
+            scale={5}
+            detail={4}
+            glow={2.2}
+            coreSize={0.14}
+            swirl={1.5}
+            fold={-0.3}
+            blackPoint={0.04}
+            brightness={1.6}
+            colorMode="molten"
+            grain={true}
+            grainIntensity={0.03}
+            mouseInteraction={true}
+            mouseStrength={0.35}
+            opacity={0.85}
+            className="molten-overlay absolute inset-0"
+          />
+          <div className="absolute inset-0 bg-[rgba(248,248,246,0.35)]" />
+        </div>
+
+        {/* Overlay — only the essential hero message */}
+        <div className="relative max-w-2xl mx-auto px-4 sm:px-8 py-24" style={{ textShadow: '0 2px 24px rgba(32,33,36,0.5)' }}>
             {/* Dedicated text backdrop — guarantees readability over any shader state */}
             <div className="absolute inset-0 -mx-4 -my-6 sm:-mx-8 rounded-[24px] pointer-events-none"
               style={{
@@ -161,72 +211,95 @@ export function Hero() {
             </motion.div>
             </div>
           </div>
-        </ScrollExpand>
-      </div>
+        </div>
 
-      {/* ── Stats strip — sits below the ScrollExpand, clean and spacious ── */}
+      {/* ── Hot Torts campaign cards ── */}
       <div className="relative z-[3] bg-[#F8F8F6] border-t border-[#E4E1D8] overflow-hidden">
-        <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F5F7FA']} speed={15} />
-        <GoldBeam position="center" />
-        <div className="max-w-5xl mx-auto px-6 sm:px-8 py-12 md:py-16 relative z-10">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
-            <motion.div
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 py-16 md:py-24 relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <motion.h2
+              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
+              viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="text-center sm:text-left flex flex-col items-center sm:items-start"
+              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-center"
             >
-              <div className="gold-pulse-ring rounded-full">
-              <ProgressRing value={97} max={100} size={110} strokeWidth={3} delay={0.2}>
-                <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#202124] tabular-nums">
-                  <RollingCounter value={9712} duration={3.5} />
-                </p>
-              </ProgressRing>
-              </div>
-              <p className="text-base md:text-lg text-[#4B5563] mt-3">Responses Processed</p>
-            </motion.div>
-
-            <motion.div
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+              <GradientText animationSpeed={5}>Hot Torts</GradientText>
+            </motion.h2>
+            <motion.p
+              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
+              viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-center sm:text-left flex flex-col items-center sm:items-start"
+              className="text-base md:text-lg text-[#4B5563] text-center max-w-2xl mx-auto"
             >
-              <ProgressRing value={16} max={100} size={110} strokeWidth={3} delay={0.4} color="#C6A24A">
-                <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#C6A24A] tabular-nums">
-                  <RollingCounter value={16} duration={3.5} format="percent" />
-                </p>
-              </ProgressRing>
-              <p className="text-base md:text-lg text-[#4B5563] mt-3">Retainer Completion Rate</p>
-            </motion.div>
-
-            <motion.div
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-center sm:text-left flex flex-col items-center sm:items-start"
-            >
-              <ProgressRing value={100} max={100} size={110} strokeWidth={3} delay={0.6}>
-                <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#202124] tabular-nums">
-                  <RollingCounter value={10} duration={3.5} />
-                </p>
-              </ProgressRing>
-              <p className="text-base md:text-lg text-[#4B5563] mt-3">Pipeline Stages Tracked</p>
-            </motion.div>
+              Active legal reviews and campaigns where injured people may be able to connect with plaintiff law firms.
+            </motion.p>
           </div>
 
-          <motion.p
-            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-sm md:text-base text-[#6B7280] max-w-lg leading-[1.7] mt-10 mx-auto sm:mx-0 text-center sm:text-left"
+          <motion.div
+            variants={containerVariants}
+            initial={prefersReducedMotion ? 'show' : 'hidden'}
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            The Torts Attorney provides legal marketing and case-acquisition services. We are not a law firm and do not provide legal advice or legal representation.
-          </motion.p>
+            {TORTS.map(({ title, description, icon: Icon }) => (
+              <motion.div
+                key={title}
+                variants={cardVariants}
+                whileHover={prefersReducedMotion ? undefined : { y: -8, scale: 1.02, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-[#F8F8F6] to-[#F8F8F6] border border-[rgba(198,162,74,0.12)] p-6 shadow-[0_8px_32px_rgba(32,33,36,0.04)] transition-colors duration-300 hover:border-[rgba(198,162,74,0.35)] hover:shadow-[0_24px_60px_rgba(198,162,74,0.12)]"
+              >
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C6A24A]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#C6A24A]/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <Icon className="absolute -bottom-3 -right-3 w-24 h-24 text-[#C6A24A]/[0.05] rotate-12 group-hover:scale-110 group-hover:text-[#C6A24A]/[0.08] transition-all duration-500 pointer-events-none" />
+
+                <div className="relative z-10">
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-[#C6A24A]/10 to-[#C6A24A]/5 text-[#C6A24A] shadow-sm">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#C6A24A]/10 text-[#C6A24A] text-[10px] font-bold uppercase tracking-wide">
+                      <Flame className="w-3 h-3" />
+                      Hot
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-xl font-bold text-[#202124] mb-2">{title}</h3>
+                  <p className="text-sm text-[#4B5563] leading-relaxed mb-5">{description}</p>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full text-xs border-[#E4E1D8] text-[#202124] hover:bg-[#202124] hover:border-[#C6A24A]/50 hover:text-[#C6A24A] group/btn"
+                    onClick={checkEligibility}
+                  >
+                    See if this may fit
+                    <ArrowRight className="w-3.5 h-3.5 ml-auto transition-transform group-hover/btn:translate-x-0.5" />
+                  </Button>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <Link href="/campaign-intelligence">
+              <MagneticButton strength={0.25} className="rounded-full">
+                <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830] group">
+                  See all campaigns
+                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </MagneticButton>
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>
