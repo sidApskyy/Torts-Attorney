@@ -454,7 +454,7 @@ export function VictimLanding() {
                             className={cn(fieldClass, 'min-h-[96px] py-2.5 h-auto')}
                           />
                         </Field>
-                        <label className="flex items-start gap-3 text-sm text-[#4B5563] cursor-pointer group">
+                        <label className="flex items-start gap-3 cursor-pointer group rounded-xl border border-[#E4E1D8] bg-[#F8F8F6]/70 p-3.5 transition-colors duration-200 hover:border-[#C6A24A]/50 has-checked:border-[#C6A24A]/60 has-checked:bg-[#C6A24A]/[0.06]">
                           <input
                             required
                             type="checkbox"
@@ -462,10 +462,9 @@ export function VictimLanding() {
                             onChange={(e) => setForm({ ...form, consent: e.target.checked })}
                             className="mt-0.5 w-4 h-4 shrink-0 accent-[#C6A24A] cursor-pointer"
                           />
-                          <span className="leading-relaxed">
-                            I agree to the{' '}
-                            <Link href="/legal/privacy" className="underline text-[#9B7830] hover:text-[#202124]">Privacy Policy</Link>
-                            {' '}and consent to be contacted. Submitting this form does not create an attorney-client relationship.
+                          <span className="text-xs leading-relaxed text-[#4B5563]">
+                            By checking the box, you agree to be contacted about your potential case or promotional legal offers sent by or on behalf of{' '}
+                            <span className="font-semibold text-[#202124]">The Torts Attorney</span>, Tortlinks and/or participating law firms. You may receive live calls, automated calls, emails or text messages even if you are on a national or state &ldquo;Do Not Call&rdquo; list. This includes contact even if you are on a Do Not Call registry. Consent is not a condition of any purchase. Contact may include automated dialing or prerecorded messages.
                           </span>
                         </label>
                         <motion.div
