@@ -6,11 +6,23 @@ import Image from 'next/image'
 
 export function Preloader() {
   const [done, setDone] = useState(false)
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => setDone(true), 1800)
+    // Show the brand moment once per session — not on every refresh.
+    // Skip entirely for reduced-motion users.
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced || sessionStorage.getItem('ta-preloaded')) {
+      setDone(true)
+      return
+    }
+    sessionStorage.setItem('ta-preloaded', '1')
+    setShow(true)
+    const timer = setTimeout(() => setDone(true), 1400)
     return () => clearTimeout(timer)
   }, [])
+
+  if (!show) return null
 
   return (
     <AnimatePresence>
@@ -18,8 +30,9 @@ export function Preloader() {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="fixed inset-0 z-[100] bg-[#F8F8F6] flex items-center justify-center"
+          aria-hidden="true"
         >
           {/* Grid overlay */}
           <div

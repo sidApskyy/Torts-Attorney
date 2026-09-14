@@ -1,15 +1,22 @@
 import Link from 'next/link'
 
-export default function NotFound() {
-  const particles = Array.from({ length: 14 }).map((_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: 2 + Math.random() * 3,
-    delay: Math.random() * 3,
-    duration: 5 + Math.random() * 4,
-  }))
+// Deterministic pseudo-random — Math.random during render violates
+// component purity and produces hydration-mismatch-prone output
+const seeded = (i: number, salt: number) => {
+  const x = Math.sin(i * 127.1 + salt * 311.7) * 43758.5453
+  return x - Math.floor(x)
+}
 
+const particles = Array.from({ length: 14 }).map((_, i) => ({
+  id: i,
+  x: seeded(i, 1) * 100,
+  y: seeded(i, 2) * 100,
+  size: 2 + seeded(i, 3) * 3,
+  delay: seeded(i, 4) * 3,
+  duration: 5 + seeded(i, 5) * 4,
+}))
+
+export default function NotFound() {
   return (
     <section className="min-h-svh bg-[#F8F8F6] flex items-center justify-center relative overflow-hidden px-4">
       {/* Gold particle field — CSS animated */}

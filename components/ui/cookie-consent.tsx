@@ -33,7 +33,7 @@ export function CookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 120, opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-[60]"
+          className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] right-[max(1rem,env(safe-area-inset-right))] sm:left-6 sm:right-auto sm:max-w-md z-[60]"
         >
           <div className="bg-[#1A1A1F] border border-[#C6A24A]/20 rounded-2xl shadow-[0_20px_60px_-15px_rgba(32,33,36,0.3)] backdrop-blur-xl overflow-hidden">
             {/* Gold top accent */}

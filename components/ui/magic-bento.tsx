@@ -158,6 +158,9 @@ const ParticleCard = ({
     if (disableAnimations || !cardRef.current) return
 
     const element = cardRef.current
+    // Tilt/magnetism/hover particles need a real pointer — synthesized
+    // mouse events on touch fire mid-scroll and leave cards stuck tilted
+    const isFinePointer = window.matchMedia('(pointer: fine)').matches
 
     // Reusable quickTo tweens — no new tween objects per mousemove
     if (enableTilt) gsap.set(element, { transformPerspective: 1000 })
@@ -285,9 +288,12 @@ const ParticleCard = ({
       )
     }
 
-    element.addEventListener('mouseenter', handleMouseEnter)
-    element.addEventListener('mouseleave', handleMouseLeave)
-    element.addEventListener('mousemove', handleMouseMove)
+    if (isFinePointer) {
+      element.addEventListener('mouseenter', handleMouseEnter)
+      element.addEventListener('mouseleave', handleMouseLeave)
+      element.addEventListener('mousemove', handleMouseMove)
+    }
+    // Click ripple stays — it reads as tap feedback on touch
     element.addEventListener('click', handleClick)
 
     return () => {
@@ -331,6 +337,8 @@ const GlobalSpotlight = ({
 
   useEffect(() => {
     if (disableAnimations || !gridRef?.current || !enabled) return
+    // No cursor on touch — a document-level mousemove spotlight is pure cost
+    if (window.matchMedia('(pointer: coarse)').matches) return
 
     const spotlight = document.createElement('div')
     spotlight.className = 'global-spotlight'

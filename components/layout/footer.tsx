@@ -1,10 +1,13 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useRole } from '@/components/providers/role-provider'
 import { NAVIGATION, SITE_NAME, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_ADDRESS, SOCIAL_LINKS } from '@/lib/constants'
 
 export function Footer() {
+  const { setRole } = useRole()
   return (
     <footer className="bg-[#1A1A1F] border-t border-[rgba(198,162,74,0.15)] relative overflow-hidden">
       {/* Gold top-border gradient */}
@@ -21,15 +24,22 @@ export function Footer() {
           className="mb-16 pb-12 border-b border-[rgba(255,255,255,0.08)]"
         >
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              {/* Monogram with pulsing glow */}
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#C6A24A] to-[#9B7830] flex items-center justify-center flex-shrink-0 monogram-glow">
-                <span className="font-serif text-2xl font-bold text-white">T</span>
-              </div>
-              <div>
-                <h3 className="font-serif text-2xl font-bold text-white">{SITE_NAME}</h3>
-                <p className="text-sm text-[rgba(255,255,255,0.5)] mt-1">Where Better Cases Begin With Better Acquisition.</p>
-              </div>
+            <div>
+              <Link
+                href="/"
+                onClick={() => setRole('attorney')}
+                className="inline-block"
+                aria-label="The Torts Attorney — home"
+              >
+                <Image
+                  src="/TTA_2@4x.webp"
+                  alt="The Torts Attorney"
+                  width={1600}
+                  height={799}
+                  className="h-12 md:h-14 w-auto object-contain"
+                />
+              </Link>
+              <p className="text-sm text-[rgba(255,255,255,0.5)] mt-4">Where Better Cases Begin With Better Acquisition.</p>
             </div>
             <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#C6A24A] text-white text-sm font-semibold hover:bg-[#9B7830] transition-colors duration-300">
               Talk Through a Campaign

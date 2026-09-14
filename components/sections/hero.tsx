@@ -7,8 +7,6 @@ import { useRole } from '@/components/providers/role-provider'
 import { Button } from '@/components/ui/button'
 import { MoltenMetal } from '@/components/ui/molten-metal'
 import { GradientText } from '@/components/ui/gradient-text'
-import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
-import { GoldBeam } from '@/components/ui/gold-beam'
 import {
   Flame,
   ArrowRight,
@@ -164,7 +162,7 @@ export function Hero() {
               PLAINTIFF ACQUISITION, BUILT AROUND THE WAY YOUR FIRM WORKS
             </motion.p>
 
-            <motion.h2
+            <motion.h1
               id="hero-heading"
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -175,7 +173,7 @@ export function Hero() {
                 Bring More of the Right<br />
                 Opportunities to Your Firm.
               </GradientText>
-            </motion.h2>
+            </motion.h1>
 
             <motion.p
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
@@ -191,15 +189,15 @@ export function Hero() {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4"
             >
-              <Link href="/contact">
-                <Button variant="red" size="lg" className="text-base">
+              <Link href="/contact" className="w-full sm:w-auto">
+                <Button variant="red" size="lg" className="text-base w-full sm:w-auto">
                   Talk Through a Campaign
                 </Button>
               </Link>
-              <Link href="/campaign-intelligence">
-                <Button variant="outline" size="lg" className="text-base border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830]">
+              <Link href="/campaign-intelligence" className="w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="text-base w-full sm:w-auto border-[#E4E1D8] text-[#202124] hover:bg-[rgba(32,33,36,0.95)] hover:border-[#C6A24A]/50 hover:text-[#9B7830]">
                   See Current Campaigns
                 </Button>
               </Link>

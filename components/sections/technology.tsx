@@ -54,7 +54,7 @@ export function Technology() {
             <h3 className="font-serif text-lg font-semibold text-[#202124] mb-6">
               The Record Flow
             </h3>
-            <div className="flex items-center justify-between gap-2 md:gap-4 overflow-x-auto pb-4">
+            <div className="flex items-center gap-2 md:gap-4 md:justify-between overflow-x-auto pb-4 -mx-6 px-6 md:mx-0 md:px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {flowStages.map((stage, index) => (
                 <div key={index} className="flex items-center flex-shrink-0">
                   <div className={cn(

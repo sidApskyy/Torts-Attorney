@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, ReactNode } from 'react'
+import { useEffect, useRef, useState, ReactNode } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 interface TiltCardProps {
@@ -18,6 +18,13 @@ export function TiltCard({
 }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [isHovering, setIsHovering] = useState(false)
+  // Touch taps fire synthesized mouseenter/mousemove without a matching
+  // mouseleave — the card would stick tilted. Tilt only on real pointers.
+  const [tiltEnabled, setTiltEnabled] = useState(false)
+
+  useEffect(() => {
+    setTiltEnabled(window.matchMedia('(pointer: fine)').matches)
+  }, [])
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -57,9 +64,9 @@ export function TiltCard({
   return (
     <motion.div
       ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={handleMouseLeave}
+      onMouseMove={tiltEnabled ? handleMouseMove : undefined}
+      onMouseEnter={tiltEnabled ? () => setIsHovering(true) : undefined}
+      onMouseLeave={tiltEnabled ? handleMouseLeave : undefined}
       style={{
         rotateX,
         rotateY,

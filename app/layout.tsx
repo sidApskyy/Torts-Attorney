@@ -46,6 +46,8 @@ export const viewport: Viewport = {
   ],
   width: "device-width",
   initialScale: 1,
+  // Required for env(safe-area-inset-*) to return non-zero on notched iPhones
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {

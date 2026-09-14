@@ -3,6 +3,21 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+// Deterministic pseudo-random — stable across renders (Math.random in
+// render would reshuffle particle geometry on every re-render)
+const seeded = (i: number, salt: number) => {
+  const x = Math.sin(i * 127.1 + salt * 311.7) * 43758.5453
+  return x - Math.floor(x)
+}
+
+const particles = Array.from({ length: 24 }).map((_, i) => ({
+  id: i,
+  angle: (i / 24) * Math.PI * 2,
+  distance: 80 + seeded(i, 1) * 120,
+  size: 3 + seeded(i, 2) * 4,
+  delay: seeded(i, 3) * 0.3,
+}))
+
 export function ParticleBurst() {
   const [triggered, setTriggered] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -22,14 +37,6 @@ export function ParticleBurst() {
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [triggered])
-
-  const particles = Array.from({ length: 24 }).map((_, i) => ({
-    id: i,
-    angle: (i / 24) * Math.PI * 2,
-    distance: 80 + Math.random() * 120,
-    size: 3 + Math.random() * 4,
-    delay: Math.random() * 0.3,
-  }))
 
   return (
     <div ref={ref} className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">

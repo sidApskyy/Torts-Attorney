@@ -19,8 +19,8 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
   const [introductionComplete, setIntroductionComplete] = useState(false)
   const [autoCycleStage, setAutoCycleStage] = useState(0)
   const [pulseStage, setPulseStage] = useState(0)
+  const [userInteracted, setUserInteracted] = useState(false)
   const prefersReducedMotion = useReducedMotion()
-  const userInteractedRef = useRef(false)
   const autoCycleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -34,7 +34,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
     if (prefersReducedMotion || !introductionComplete) return
 
     const cycle = () => {
-      if (!userInteractedRef.current) {
+      if (!userInteracted) {
         setAutoCycleStage((prev) => (prev + 1) % visibleStages.length)
       }
       autoCycleTimerRef.current = setTimeout(cycle, AUTO_CYCLE_INTERVAL)
@@ -45,7 +45,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
     return () => {
       if (autoCycleTimerRef.current) clearTimeout(autoCycleTimerRef.current)
     }
-  }, [introductionComplete, prefersReducedMotion, visibleStages.length])
+  }, [introductionComplete, prefersReducedMotion, visibleStages.length, userInteracted])
 
   // Pulse ring travels along stages
   useEffect(() => {
@@ -84,7 +84,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
 
   const handleStageHover = (stageId: string) => {
     if (!interactive) return
-    userInteractedRef.current = true
+    setUserInteracted(true)
     if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
     setActiveStage(stageId)
   }
@@ -94,19 +94,19 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
     setActiveStage(null)
     // Resume auto-cycle after a delay
     resumeTimerRef.current = setTimeout(() => {
-      userInteractedRef.current = false
+      setUserInteracted(false)
     }, 3000)
   }
 
   const handleStageClick = (stageId: string) => {
     if (!interactive) return
-    userInteractedRef.current = true
+    setUserInteracted(true)
     if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
     setActiveStage(activeStage === stageId ? null : stageId)
   }
 
   const isStageActive = (stageId: string, index: number) =>
-    activeStage === stageId || (!userInteractedRef.current && autoCycleStage === index)
+    activeStage === stageId || (!userInteracted && autoCycleStage === index)
 
   return (
     <div className="relative">

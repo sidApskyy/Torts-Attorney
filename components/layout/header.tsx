@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -78,9 +79,18 @@ export function Header() {
     if (isHidden) setIsMobileMenuOpen(false)
   }, [isHidden])
 
+  // Lock page scroll while the mobile menu is open
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = prev }
+  }, [isMobileMenuOpen])
+
   const headerVisible = isScrolled || isMobileViewport
 
   return (
+    <>
     <motion.header
       initial={{ y: -120, opacity: 0 }}
       animate={{
@@ -91,7 +101,7 @@ export function Header() {
       }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        'fixed top-0 left-0 right-0 z-50',
+        'fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)]',
         isScrolled
           ? 'bg-[rgba(248,248,246,0.70)] backdrop-blur-[24px] border border-[rgba(198,162,74,0.12)] rounded-[18px] mx-2 mt-2 sm:mx-4 sm:mt-3 shadow-[0_8px_32px_rgba(32,33,36,0.08)]'
           : isMobileViewport && isMobileMenuOpen
@@ -114,9 +124,12 @@ export function Header() {
             }}
             className="flex items-center group relative"
           >
-            <img
-              src="/3a2bdbe9-8afd-458b-a3a3-4a336a6d28b4.jpg"
+            <Image
+              src="/TTA_2@4x.webp"
               alt="The Torts Attorney"
+              width={160}
+              height={80}
+              priority
               className={cn(
                 'h-8 sm:h-10 md:h-12 w-auto object-contain transition-all duration-300 group-hover:opacity-80 group-hover:scale-[1.02]',
                 isScrolled ? 'h-7 sm:h-9 md:h-10' : 'h-8 sm:h-10 md:h-12'
@@ -308,5 +321,25 @@ export function Header() {
         )}
       </AnimatePresence>
     </motion.header>
+
+    {/* Backdrop — tap anywhere outside the menu to close.
+        Sibling of the header (the header's transform would trap a fixed
+        child inside its own box). z-[45] sits above the victim sticky
+        CTA (z-40) and below the header (z-50). */}
+    <AnimatePresence>
+      {isMobileMenuOpen && (
+        <motion.div
+          key="mobile-nav-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="fixed inset-0 z-[45] bg-[#202124]/35 backdrop-blur-[2px] md:hidden"
+          aria-hidden="true"
+        />
+      )}
+    </AnimatePresence>
+    </>
   )
 }

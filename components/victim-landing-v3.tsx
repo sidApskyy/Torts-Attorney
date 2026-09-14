@@ -354,6 +354,7 @@ export function VictimLanding() {
                               name="firstName"
                               required
                               autoComplete="given-name"
+                              enterKeyHint="next"
                               placeholder="Jane"
                               value={form.firstName}
                               onChange={(e) => setForm({ ...form, firstName: e.target.value })}
@@ -366,6 +367,7 @@ export function VictimLanding() {
                               name="lastName"
                               required
                               autoComplete="family-name"
+                              enterKeyHint="next"
                               placeholder="Doe"
                               value={form.lastName}
                               onChange={(e) => setForm({ ...form, lastName: e.target.value })}
@@ -381,6 +383,7 @@ export function VictimLanding() {
                               required
                               type="tel"
                               autoComplete="tel"
+                              enterKeyHint="next"
                               placeholder="(555) 555-5555"
                               value={form.phone}
                               onChange={(e) => setForm({ ...form, phone: e.target.value })}
@@ -394,6 +397,7 @@ export function VictimLanding() {
                               required
                               type="email"
                               autoComplete="email"
+                              enterKeyHint="next"
                               placeholder="you@example.com"
                               value={form.email}
                               onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -409,6 +413,7 @@ export function VictimLanding() {
                               required
                               autoComplete="postal-code"
                               inputMode="numeric"
+                              enterKeyHint="next"
                               placeholder="12345"
                               value={form.zip}
                               onChange={(e) => setForm({ ...form, zip: e.target.value })}
@@ -442,6 +447,7 @@ export function VictimLanding() {
                           <Textarea
                             id="vf-notes"
                             name="notes"
+                            enterKeyHint="done"
                             placeholder="Briefly describe what happened"
                             value={form.notes}
                             onChange={(e) => setForm({ ...form, notes: e.target.value })}

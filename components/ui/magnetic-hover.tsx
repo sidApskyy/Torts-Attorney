@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 interface MagneticHoverProps {
@@ -15,9 +15,16 @@ export function MagneticHover({ children, strength = 0.3, className = '' }: Magn
   const y = useMotionValue(0)
   const springX = useSpring(x, { damping: 20, stiffness: 300 })
   const springY = useSpring(y, { damping: 20, stiffness: 300 })
+  // Synthesized mousemove on touch would make elements stick to the
+  // last tap point — only enable on real pointers
+  const [enabled, setEnabled] = useState(false)
+
+  useEffect(() => {
+    setEnabled(window.matchMedia('(pointer: fine)').matches)
+  }, [])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return
+    if (!enabled || !ref.current) return
     const rect = ref.current.getBoundingClientRect()
     const relX = e.clientX - rect.left - rect.width / 2
     const relY = e.clientY - rect.top - rect.height / 2

@@ -241,6 +241,14 @@
     background-attachment: fixed;
   }
 
+  /* iOS doesn't support background-attachment: fixed — it scales the
+     background to the full document height (blurry + repaint cost) */
+  @media (pointer: coarse) {
+    body {
+      background-attachment: scroll;
+    }
+  }
+
   html {
     @apply font-sans;
     /* Lenis handles smooth scrolling — disable native to avoid conflict */
@@ -272,6 +280,25 @@
   @media (max-width: 767px) {
     input, select, textarea {
       font-size: 16px;
+    }
+    /* Better line-breaking on narrow screens */
+    h1, h2, h3 { text-wrap: balance; }
+    p { text-wrap: pretty; }
+  }
+
+  /* Remove the 300ms double-tap delay + the gray flash on tap */
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  a, button, [role='button'], label {
+    touch-action: manipulation;
+  }
+
+  /* Lenis handles smooth scroll on desktop; on touch devices anchors
+     would otherwise jump instantly */
+  @media (pointer: coarse) {
+    html {
+      scroll-behavior: smooth;
     }
   }
 
