@@ -5,18 +5,26 @@ import { GradientText } from '@/components/ui/gradient-text'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 import { GoldBeam } from '@/components/ui/gold-beam'
 
+export interface LegalListItem {
+  label?: string
+  text: string
+}
+
 export interface LegalSection {
   heading: string
-  paragraphs: string[]
+  paragraphs?: string[]
+  list?: LegalListItem[]
+  closingParagraphs?: string[]
 }
 
 interface LegalPageClientProps {
   title: string
   lastUpdated: string
+  intro?: string[]
   sections: LegalSection[]
 }
 
-export function LegalPageClient({ title, lastUpdated, sections }: LegalPageClientProps) {
+export function LegalPageClient({ title, lastUpdated, intro, sections }: LegalPageClientProps) {
   return (
     <main className="bg-[#F8F8F6] min-h-svh">
       <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
@@ -80,6 +88,21 @@ export function LegalPageClient({ title, lastUpdated, sections }: LegalPageClien
               </p>
             </motion.div>
 
+            {intro && intro.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="mb-12"
+              >
+                {intro.map((paragraph, index) => (
+                  <p key={index} className="text-base text-[#4B5563] leading-[1.8] mb-4">
+                    {paragraph}
+                  </p>
+                ))}
+              </motion.div>
+            )}
+
             <div className="space-y-12">
               {sections.map((section, index) => (
                 <motion.div
@@ -92,8 +115,26 @@ export function LegalPageClient({ title, lastUpdated, sections }: LegalPageClien
                   <h2 className="font-serif text-xl md:text-2xl font-bold text-[#202124] mb-4">
                     {section.heading}
                   </h2>
-                  {section.paragraphs.map((paragraph, pIndex) => (
+                  {section.paragraphs?.map((paragraph, pIndex) => (
                     <p key={pIndex} className="text-base text-[#4B5563] leading-[1.8] mb-4">
+                      {paragraph}
+                    </p>
+                  ))}
+                  {section.list && (
+                    <ul className="space-y-3 mb-4 ml-1">
+                      {section.list.map((item, lIndex) => (
+                        <li key={lIndex} className="flex gap-3 text-base text-[#4B5563] leading-[1.8]">
+                          <span className="mt-[0.72em] h-1.5 w-1.5 shrink-0 rounded-full bg-[#C6A24A]" aria-hidden />
+                          <span>
+                            {item.label && <strong className="text-[#202124]">{item.label} </strong>}
+                            {item.text}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {section.closingParagraphs?.map((paragraph, cIndex) => (
+                    <p key={cIndex} className="text-base text-[#4B5563] leading-[1.8] mb-4">
                       {paragraph}
                     </p>
                   ))}

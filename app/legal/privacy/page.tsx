@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { LegalPageClient, LegalSection } from '@/components/legal/legal-page-client'
+import { CONTACT_EMAIL } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | The Torts Attorney',
@@ -8,58 +9,110 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 }
 
+const intro: string[] = [
+  'At The Torts Attorney, accessible from https://thetortsattorney.com, safeguarding the privacy of our visitors is one of our top priorities. This Privacy Policy document outlines the types of information collected and recorded by The Torts Attorney and how we use it.',
+  `If you have any further questions or need more information about our Privacy Policy, please don\u2019t hesitate to contact us at ${CONTACT_EMAIL}.`,
+  'This Privacy Policy applies only to our online activities and is valid for visitors to our website regarding the information they share and/or we collect at The Torts Attorney. This policy does not apply to information collected offline or through other channels outside this website.',
+]
+
 const sections: LegalSection[] = [
   {
-    heading: '1. Information We Collect',
+    heading: '1. Consent',
     paragraphs: [
-      'We collect information that you provide directly to us when you fill out our contact form, including your name, company name, email address, phone number, website (if provided), primary acquisition challenge, and any additional message content you choose to share.',
-      'We also automatically collect certain technical information when you visit our website, including your IP address, browser type, device type, operating system, referring URLs, pages viewed, and the date and time of your visit. This information is collected through cookies and similar tracking technologies as described in our Cookie Policy.',
+      'By using our website, you hereby consent to our Privacy Policy and agree to its terms.',
     ],
   },
   {
-    heading: '2. How We Use Your Information',
+    heading: '2. Information We Collect',
     paragraphs: [
-      'We use the information you provide to respond to your inquiries, schedule consultations, and communicate with you about our services. We may use your contact information to send you information about our services, updates, or marketing communications, provided you have given us consent to do so.',
-      'We use automatically collected technical information to analyze website usage patterns, improve our website functionality, monitor for security issues, and optimize user experience. This data is aggregated and does not identify individual users.',
+      'The personal information you are asked to provide, along with the reasons why you are asked to provide it, will be made clear to you when we request it.',
+      'If you contact us directly, we may collect additional information such as your name, email address, phone number, the contents of the message and/or any attachments you send us, and any other details you choose to provide.',
+      'When you register for an account, we may ask for contact information such as your name, company name, address, email address, and phone number.',
     ],
   },
   {
-    heading: '3. How We Share Your Information',
+    heading: '3. How We Use Your Information',
     paragraphs: [
-      'We do not sell, rent, or trade your personal information to third parties. We may share your information with service providers who perform services on our behalf, such as email delivery services (e.g., Resend), analytics providers, and hosting providers. These service providers are contractually obligated to protect your information and are prohibited from using it for any other purpose.',
-      'We may also disclose your information when required by law, court order, or government regulation, or when we believe in good faith that disclosure is necessary to protect our rights, your safety, or the safety of others.',
+      'We use the information we collect in various ways, including to:',
+    ],
+    list: [
+      { text: 'Provide, operate, and maintain our website' },
+      { text: 'Improve, personalize, and expand our website' },
+      { text: 'Understand and analyze how you use our website' },
+      { text: 'Develop new products, services, features, and functionality' },
+      { text: 'Communicate with you, either directly or through our partners, including for customer service, updates, and marketing purposes' },
+      { text: 'Send you emails and SMS messages' },
+      { text: 'Prevent fraud' },
     ],
   },
   {
-    heading: '4. Data Security',
+    heading: '4. Log Files',
     paragraphs: [
-      'We implement reasonable technical, administrative, and physical safeguards designed to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include encrypted data transmission (TLS/SSL), access controls, and regular security assessments.',
-      'However, no method of transmission over the internet or electronic storage is 100% secure. While we strive to protect your personal information, we cannot guarantee absolute security, and you acknowledge that you provide your information at your own risk.',
+      'The Torts Attorney follows a standard practice of using log files. These files log visitors when they visit websites, which is standard for all hosting companies as part of their analytics. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamps, referring/exit pages, and possibly the number of clicks. This information is not linked to any personally identifiable information and is used for trend analysis, site administration, user movement tracking, and demographic insights.',
     ],
   },
   {
-    heading: '5. Your Rights',
+    heading: '5. Cookies and Web Beacons',
     paragraphs: [
-      'Depending on your location, you may have certain rights regarding your personal information, including the right to access, correct, delete, or restrict the processing of your data. You may also have the right to data portability and the right to object to certain types of processing.',
-      'To exercise any of these rights, please contact us at hello@thetortsattorney.com. We will respond to your request within 30 days, as required by applicable law.',
+      'Like many websites, The Torts Attorney uses \u2018cookies\u2019 to store information about visitors\u2019 preferences and the pages they visited on the site. This information is used to optimize the user experience by customizing web content based on the visitor\u2019s browser type and other relevant data.',
     ],
   },
   {
-    heading: '6. Cookies and Tracking Technologies',
+    heading: '6. Advertising Partners Privacy Policies',
     paragraphs: [
-      'We use cookies and similar tracking technologies to track activity on our website and store certain information. Cookies are small data files that may be placed on your device. For more information about how we use cookies and your choices regarding cookies, please review our Cookie Policy.',
+      'You may consult this list to find the Privacy Policy for each of the advertising partners of The Torts Attorney.',
+      'Third-party ad servers or networks use technologies like cookies, JavaScript, or web beacons in their respective advertisements and links that appear on The Torts Attorney, which are sent directly to your browser. They automatically receive your IP address when this happens. These technologies are used to measure the effectiveness of advertising campaigns and to personalize the ads you see on other websites.',
+      'Note that The Torts Attorney has no access to or control over these cookies used by third-party advertisers.',
     ],
   },
   {
-    heading: '7. Children\u2019s Privacy',
+    heading: '7. Third-Party Privacy Policies',
     paragraphs: [
-      'Our website is not directed to individuals under the age of 18, and we do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us so we can promptly delete it.',
+      'The Torts Attorney does not share or sell your subscriber information to any third parties.',
     ],
   },
   {
-    heading: '8. Changes to This Privacy Policy',
+    heading: '8. CCPA Privacy Rights (Do Not Sell My Personal Information)',
     paragraphs: [
-      'We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at the top of this page. We encourage you to review this Privacy Policy periodically to stay informed about how we protect your information.',
+      'Under the California Consumer Privacy Act (CCPA), California consumers have specific rights, including:',
+    ],
+    list: [
+      { text: 'Requesting that a business disclose the categories and specific pieces of personal data it has collected.' },
+      { text: 'Requesting that a business delete any personal data collected about the consumer.' },
+      { text: 'Requesting that a business that sells personal data stop doing so.' },
+    ],
+    closingParagraphs: [
+      `If you wish to exercise any of these rights, please contact us at ${CONTACT_EMAIL}. We have one month to respond to your request.`,
+    ],
+  },
+  {
+    heading: '9. GDPR Data Protection Rights',
+    paragraphs: [
+      'We want to ensure you are fully aware of all your data protection rights. Every user is entitled to the following:',
+    ],
+    list: [
+      { label: 'Right to Access:', text: 'You have the right to request copies of your personal data. We may charge a small fee for this service.' },
+      { label: 'Right to Rectification:', text: 'You have the right to request that we correct any information you believe is inaccurate or incomplete.' },
+      { label: 'Right to Erasure:', text: 'You have the right to request that we erase your personal data under certain conditions.' },
+      { label: 'Right to Restrict Processing:', text: 'You have the right to request that we restrict the processing of your personal data under certain conditions.' },
+      { label: 'Right to Object to Processing:', text: 'You have the right to object to our processing of your personal data under certain conditions.' },
+      { label: 'Right to Data Portability:', text: 'You have the right to request that we transfer your data to another organization, or directly to you, under certain conditions.' },
+    ],
+    closingParagraphs: [
+      `If you would like to exercise any of these rights, please contact us at ${CONTACT_EMAIL}. We have one month to respond to your request.`,
+    ],
+  },
+  {
+    heading: '10. Children\u2019s Information',
+    paragraphs: [
+      'Protecting children online is another priority for us. We encourage parents and guardians to monitor and guide their children\u2019s internet activity.',
+      `The Torts Attorney does not knowingly collect any personally identifiable information from children under the age of 13. If you believe that your child provided this kind of information on our website, please contact us immediately at ${CONTACT_EMAIL}, and we will make every effort to promptly remove such information from our records.`,
+    ],
+  },
+  {
+    heading: '11. Changes to This Policy',
+    paragraphs: [
+      'This policy is subject to updates. We recommend checking this page periodically for any changes.',
     ],
   },
 ]
@@ -69,6 +122,7 @@ export default function PrivacyPage() {
     <LegalPageClient
       title="Privacy Policy"
       lastUpdated="August 2025"
+      intro={intro}
       sections={sections}
     />
   )

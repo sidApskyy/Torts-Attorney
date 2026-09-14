@@ -1,11 +1,19 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { VictimLanding } from '@/components/victim-landing-v3'
 import { useRole } from './role-provider'
 
 export function RoleGate({ children }: { children: React.ReactNode }) {
   const { role, setRole } = useRole()
+  const pathname = usePathname()
+
+  // The role gate only controls the landing experience at '/'.
+  // Every other route (legal pages, about, contact, …) must render
+  // its own content regardless of the stored role — otherwise links
+  // like the footer Privacy Policy are unreachable in victim mode.
+  if (pathname !== '/') return <>{children}</>
 
   if (role === 'attorney') return <>{children}</>
 
