@@ -1,9 +1,19 @@
 'use server'
 
 import { z } from 'zod'
-import { Resend } from 'resend'
 import { checkRateLimit } from '@/lib/rate-limiter'
 import { verifyTurnstile } from '@/lib/turnstile'
+import { sendMail } from '@/lib/mailer'
+
+// Escape user-supplied values before interpolating into email HTML
+function esc(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -76,9 +86,6 @@ export async function submitContactForm(formData: FormData) {
       }
     }
 
-    const fromEmail = process.env.FROM_EMAIL || 'The Torts Attorney <contact@thetortsattorney.com>'
-    const resend = new Resend(process.env.RESEND_API_KEY)
-    
     const notificationEmail = process.env.CONTACT_NOTIFICATION_EMAIL
     if (!notificationEmail) {
       console.error('CONTACT_NOTIFICATION_EMAIL environment variable is not set')
@@ -88,27 +95,26 @@ export async function submitContactForm(formData: FormData) {
       }
     }
 
-    await resend.emails.send({
-      from: fromEmail,
+    await sendMail({
       to: notificationEmail,
-      subject: `New Contact Form Submission: ${validatedData.company}`,
+      replyTo: validatedData.email,
+      subject: `New Contact Form Submission: ${esc(validatedData.company)}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${validatedData.name}</p>
-        <p><strong>Company:</strong> ${validatedData.company}</p>
-        <p><strong>Email:</strong> ${validatedData.email}</p>
-        <p><strong>Phone:</strong> ${validatedData.phone}</p>
-        <p><strong>Website:</strong> ${validatedData.website || 'Not provided'}</p>
+        <p><strong>Name:</strong> ${esc(validatedData.name)}</p>
+        <p><strong>Company:</strong> ${esc(validatedData.company)}</p>
+        <p><strong>Email:</strong> ${esc(validatedData.email)}</p>
+        <p><strong>Phone:</strong> ${esc(validatedData.phone)}</p>
+        <p><strong>Website:</strong> ${validatedData.website ? esc(validatedData.website) : 'Not provided'}</p>
         <h3>Primary Challenge</h3>
-        <p>${validatedData.challenge}</p>
+        <p>${esc(validatedData.challenge)}</p>
         <h3>Message</h3>
-        <p>${validatedData.message}</p>
+        <p>${esc(validatedData.message)}</p>
       `,
     })
 
     // Send auto-reply confirmation to the submitter
-    await resend.emails.send({
-      from: fromEmail,
+    await sendMail({
       to: validatedData.email,
       subject: 'We received your message — The Torts Attorney',
       html: `
@@ -119,7 +125,7 @@ export async function submitContactForm(formData: FormData) {
             </div>
             <span style="font-size: 20px; font-weight: 700; font-family: serif; color: #202124;">The Torts Attorney</span>
           </div>
-          <h1 style="font-size: 28px; font-family: serif; color: #202124; margin-bottom: 24px;">Thank you, ${validatedData.name}.</h1>
+          <h1 style="font-size: 28px; font-family: serif; color: #202124; margin-bottom: 24px;">Thank you, ${esc(validatedData.name)}.</h1>
           <p style="font-size: 16px; color: #4B5563; line-height: 1.7; margin-bottom: 24px;">
             We have received your inquiry and a member of our team will be in touch with you within one business day. We review every submission carefully to understand how we can best support your firm's acquisition goals.
           </p>
@@ -128,7 +134,7 @@ export async function submitContactForm(formData: FormData) {
           </p>
           <div style="background: #F8F8F6; border-left: 4px solid #C6A24A; padding: 20px; border-radius: 8px; margin-bottom: 32px;">
             <p style="margin: 0; font-size: 15px; color: #4B5563;">
-              <strong>Phone:</strong> (888) 555-0192<br>
+              <strong>Phone:</strong> 3025868230<br>
               <strong>Email:</strong> hello@thetortsattorney.com
             </p>
           </div>

@@ -51,7 +51,7 @@ const sections: LegalSection[] = [
   {
     heading: '7. Contact Information',
     paragraphs: [
-      'If you have questions about these disclosures or our services, please contact us at hello@thetortsattorney.com or (888) 555-0192. Our mailing address is 1801 Market Street, Suite 2100, Philadelphia, PA 19103.',
+      'If you have questions about these disclosures or our services, please contact us at hello@thetortsattorney.com or 3025868230.',
     ],
   },
 ]

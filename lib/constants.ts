@@ -5,7 +5,7 @@ export const SITE_DESCRIPTION = 'Campaign strategy, intake operations, qualifica
 
 // Contact Information
 export const CONTACT_EMAIL = 'hello@thetortsattorney.com'
-export const CONTACT_PHONE = '(888) 555-0192'
+export const CONTACT_PHONE = '3025868230'
 export const CONTACT_ADDRESS = '1801 Market Street, Suite 2100, Philadelphia, PA 19103'
 
 // Social Links

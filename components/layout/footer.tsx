@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useRole } from '@/components/providers/role-provider'
-import { NAVIGATION, SITE_NAME, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_ADDRESS, SOCIAL_LINKS } from '@/lib/constants'
+import { NAVIGATION, SITE_NAME, CONTACT_EMAIL, CONTACT_PHONE, SOCIAL_LINKS } from '@/lib/constants'
 
 export function Footer() {
   const { setRole } = useRole()
@@ -62,7 +62,6 @@ export function Footer() {
               Where Better Cases Begin With Better Acquisition.
             </p>
             <div className="space-y-3 text-sm text-[rgba(255,255,255,0.4)]">
-              <p>{CONTACT_ADDRESS}</p>
               <p><a href={`mailto:${CONTACT_EMAIL}`} className="footer-link">{CONTACT_EMAIL}</a></p>
               <p><a href={`tel:${CONTACT_PHONE}`} className="footer-link">{CONTACT_PHONE}</a></p>
             </div>

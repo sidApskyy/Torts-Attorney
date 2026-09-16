@@ -1,10 +1,17 @@
+import Image from 'next/image'
+
 export default function Loading() {
   return (
     <div className="min-h-svh bg-[#F8F8F6] flex items-center justify-center">
       <div className="flex flex-col items-center gap-6">
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#C6A24A] to-[#9B7830] flex items-center justify-center animate-pulse">
-          <span className="font-serif text-2xl font-bold text-white">T</span>
-        </div>
+        <Image
+          src="/TTA_2@4x.webp"
+          alt="The Torts Attorney"
+          width={160}
+          height={80}
+          priority
+          className="h-16 sm:h-20 w-auto object-contain animate-pulse"
+        />
         <div className="flex gap-2">
           <div className="w-2 h-2 rounded-full bg-[#C6A24A] animate-bounce" style={{ animationDelay: '0ms' }} />
           <div className="w-2 h-2 rounded-full bg-[#C6A24A] animate-bounce" style={{ animationDelay: '150ms' }} />

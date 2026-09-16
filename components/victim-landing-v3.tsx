@@ -16,6 +16,7 @@ import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-ba
 import { GoldBeam } from '@/components/ui/gold-beam'
 import { GradientText } from '@/components/ui/gradient-text'
 import { cn } from '@/lib/utils'
+import { submitVictimLeadForm } from '@/app/actions/lead'
 import {
   ArrowRight,
   Baby,
@@ -45,6 +46,26 @@ const spring = { type: 'spring' as const, stiffness: 300, damping: 20 }
 
 const fieldClass =
   'h-11 rounded-xl border-[#E4E1D8] bg-white px-3.5 text-[#202124] placeholder:text-[#9CA3AF] transition-all duration-200 hover:border-[#C6A24A]/40 focus-visible:border-[#C6A24A]/70 focus-visible:ring-[#C6A24A]/15 focus-visible:shadow-[0_0_0_3px_rgba(198,162,74,0.12)]'
+
+// TrustedForm Certify Web SDK — injects a hidden xxTrustedFormCertUrl
+// field into the form and records the session for TCPA consent proof.
+// The SDK requires the form to already exist in the DOM when it loads,
+// so this component mounts inside the <form> itself.
+function TrustedFormLoader() {
+  useEffect(() => {
+    if (document.querySelector('script[data-trustedform]')) return
+    const tf = document.createElement('script')
+    tf.type = 'text/javascript'
+    tf.async = true
+    tf.dataset.trustedform = 'true'
+    tf.src =
+      'https://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=' +
+      Date.now() +
+      Math.random()
+    document.body.appendChild(tf)
+  }, [])
+  return null
+}
 
 const campaigns = [
   { label: 'Depo Provera', description: 'Possible brain tumor link', hot: true, icon: Syringe },
@@ -147,6 +168,7 @@ export function VictimLanding() {
 
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [scrolledPast, setScrolledPast] = useState(false)
   const [formInView, setFormInView] = useState(true)
@@ -214,14 +236,30 @@ export function VictimLanding() {
     document.getElementById('victim-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (submitting) return
+    setSubmitError(null)
+
+    const fd = new FormData(e.currentTarget)
+    // Checkbox is controlled — sync it into the payload explicitly
+    fd.set('consent', String(form.consent))
+    // TrustedForm injects this hidden field after page load — read it at
+    // submit time so the certificate URL travels with the lead
+    fd.set(
+      'trustedFormCertUrl',
+      document.querySelector<HTMLInputElement>('input[name="xxTrustedFormCertUrl"]')?.value ?? ''
+    )
+
     setSubmitting(true)
-    window.setTimeout(() => {
-      setSubmitting(false)
+    const result = await submitVictimLeadForm(fd)
+    setSubmitting(false)
+
+    if (result.success) {
       setSubmitted(true)
-    }, 700)
+    } else {
+      setSubmitError(result.error ?? 'Something went wrong. Please try again.')
+    }
   }
 
   const showStickyCta = scrolledPast && !formInView && !submitted
@@ -346,7 +384,17 @@ export function VictimLanding() {
                           No obligation
                         </span>
                       </div>
-                      <form onSubmit={handleSubmit} className="space-y-4">
+                      <form onSubmit={handleSubmit} className="space-y-4" data-tf-element-role="offer">
+                        <TrustedFormLoader />
+                        {/* Honeypot — bots fill it, humans never see it */}
+                        <input
+                          type="text"
+                          name="company_website"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                          aria-hidden="true"
+                        />
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <Field id="vf-first-name" label="First name">
                             <Input
@@ -454,19 +502,31 @@ export function VictimLanding() {
                             className={cn(fieldClass, 'min-h-[96px] py-2.5 h-auto')}
                           />
                         </Field>
-                        <label className="flex items-start gap-3 cursor-pointer group rounded-xl border border-[#E4E1D8] bg-[#F8F8F6]/70 p-3.5 transition-colors duration-200 hover:border-[#C6A24A]/50 has-checked:border-[#C6A24A]/60 has-checked:bg-[#C6A24A]/[0.06]">
+                        <label
+                          data-tf-element-role="consent-language"
+                          className="flex items-start gap-3 cursor-pointer group rounded-xl border border-[#E4E1D8] bg-[#F8F8F6]/70 p-3.5 transition-colors duration-200 hover:border-[#C6A24A]/50 has-checked:border-[#C6A24A]/60 has-checked:bg-[#C6A24A]/[0.06]"
+                        >
                           <input
                             required
                             type="checkbox"
                             checked={form.consent}
                             onChange={(e) => setForm({ ...form, consent: e.target.checked })}
+                            data-tf-element-role="consent-opt-in"
                             className="mt-0.5 w-4 h-4 shrink-0 accent-[#C6A24A] cursor-pointer"
                           />
                           <span className="text-xs leading-relaxed text-[#4B5563]">
                             By checking the box, you agree to be contacted about your potential case or promotional legal offers sent by or on behalf of{' '}
-                            <span className="font-semibold text-[#202124]">The Torts Attorney</span>, Tortlinks and/or participating law firms. You may receive live calls, automated calls, emails or text messages even if you are on a national or state &ldquo;Do Not Call&rdquo; list. This includes contact even if you are on a Do Not Call registry. Consent is not a condition of any purchase. Contact may include automated dialing or prerecorded messages.
+                            <span data-tf-element-role="consent-advertiser-name" className="font-semibold text-[#202124]">The Torts Attorney</span>, Tortlinks and/or participating law firms. You may receive live calls, automated calls, emails or text messages even if you are on a national or state &ldquo;Do Not Call&rdquo; list. This includes contact even if you are on a Do Not Call registry. Consent is not a condition of any purchase. Contact may include automated dialing or prerecorded messages.
                           </span>
                         </label>
+                        {submitError && (
+                          <p
+                            role="alert"
+                            className="text-sm text-[#B85C5C] bg-[#B85C5C]/10 border border-[#B85C5C]/30 rounded-xl px-3.5 py-2.5"
+                          >
+                            {submitError}
+                          </p>
+                        )}
                         <motion.div
                           whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
                           whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
@@ -477,6 +537,7 @@ export function VictimLanding() {
                             variant="red"
                             size="lg"
                             disabled={submitting}
+                            data-tf-element-role="submit"
                             className="w-full text-sm shadow-[0_4px_14px_rgba(198,162,74,0.12)] hover:shadow-[0_8px_24px_rgba(198,162,74,0.18)]"
                           >
                             {submitting ? (
