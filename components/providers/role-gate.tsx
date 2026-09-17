@@ -46,11 +46,11 @@ export function RoleGate({ children }: { children: React.ReactNode }) {
           Who are you?
         </h1>
         <p className="text-lg text-[#4B5563] mb-8">
-          Select your audience to view the attorney resources or victim support area.
+          Select your audience to view the law firm resources or victim support area.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button onClick={() => setRole('attorney')} size="lg">
-            Attorney
+            Law Firm
           </Button>
           <Button onClick={() => setRole('victim')} variant="outline" size="lg">
             Victim

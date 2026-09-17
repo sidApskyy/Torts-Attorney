@@ -188,7 +188,7 @@ export function Header() {
                     : 'text-[#4B5563] hover:text-[#C6A24A]'
                 )}
               >
-                Attorney
+                Law Firm
               </button>
               <button
                 type="button"
@@ -269,7 +269,7 @@ export function Header() {
                       : 'bg-[#ECEFF2] text-[#4B5563] hover:bg-[#E4E1D8]'
                   )}
                 >
-                  Attorney
+                  Law Firm
                 </button>
                 <button
                   type="button"
