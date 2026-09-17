@@ -33,18 +33,16 @@ export function Header() {
           // completes at ~0.45 * viewport height of scroll
           const heroThreshold = vh * 0.45
           const pastHero = currentScrollY > heroThreshold
-          const pastBuffer = currentScrollY > heroThreshold + 200
           const delta = currentScrollY - lastScrollY
 
           setIsScrolled(pastHero || !role || role === 'victim')
 
-          // Hide only after a meaningful scroll down past the buffer;
-          // show only after a meaningful scroll up. This prevents the
-          // header from flickering when the user pauses or reverses
-          // direction for a few pixels.
+          // Hide on scroll down once past the top of the page;
+          // show again on scroll up. Direction deltas keep it
+          // from flickering on tiny scrolls.
           setIsHidden((prev) => {
-            if (!role) return false
-            if (pastBuffer && delta > 5) return true
+            if (currentScrollY <= 80) return false
+            if (delta > 5) return true
             if (delta < -10) return false
             return prev
           })
@@ -87,7 +85,9 @@ export function Header() {
     return () => { document.body.style.overflow = prev }
   }, [isMobileMenuOpen])
 
-  const headerVisible = isScrolled || isMobileViewport
+  // Header is always mounted — visible on page load, then isHidden
+  // drives the hide-on-scroll-down / show-on-scroll-up behavior.
+  const headerVisible = true
 
   return (
     <>
@@ -107,7 +107,7 @@ export function Header() {
           : isMobileViewport && isMobileMenuOpen
             ? 'bg-[rgba(248,248,246,0.95)] backdrop-blur-[20px] border-b border-[#E4E1D8]'
             : 'bg-transparent border border-transparent',
-        !headerVisible && 'pointer-events-none'
+        (!headerVisible || (isHidden && !isMobileMenuOpen)) && 'pointer-events-none'
       )}
     >
       <div className="mx-auto px-3 sm:px-6 lg:px-8">

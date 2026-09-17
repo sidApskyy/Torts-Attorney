@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 import { VictimLanding } from '@/components/victim-landing-v3'
 import { useRole } from './role-provider'
 
@@ -22,8 +23,25 @@ export function RoleGate({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-[60vh] flex items-center justify-center px-4">
-      <div className="max-w-xl text-center">
+    <div className="relative min-h-svh flex items-center justify-center px-4 overflow-hidden bg-[#F8F8F6]">
+      {/* Marble texture backdrop */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-cover bg-center opacity-40"
+        style={{ backgroundImage: "url('/marble.png')" }}
+      />
+      {/* Animated gold/cream gradient orbs */}
+      <AnimatedGradientBackground colors={['#C6A24A', '#F5F7FA', '#E4E1D8']} speed={24} />
+      {/* Cream vignette so the copy stays readable over the texture */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, rgba(248,248,246,0.45) 30%, rgba(248,248,246,0.92) 100%)',
+        }}
+      />
+      <div className="relative max-w-xl text-center">
         <h1 className="font-serif text-3xl md:text-5xl font-bold text-[#202124] mb-6">
           Who are you?
         </h1>
