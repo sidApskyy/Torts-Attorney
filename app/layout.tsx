@@ -13,7 +13,6 @@ import { Preloader } from "@/components/ui/preloader";
 import { SectionRail } from "@/components/ui/section-rail";
 import { BackgroundTintShift } from "@/components/ui/background-tint-shift";
 import { CookieConsent } from "@/components/ui/cookie-consent";
-import { AnimatedFavicon } from "@/components/ui/animated-favicon";
 import { RoleProvider } from "@/components/providers/role-provider";
 import { RoleGate } from "@/components/providers/role-gate";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -99,7 +98,6 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <AnimatedFavicon />
         <BackgroundTintShift />
         {/* Ambient live animations — scroll velocity parallax orbs */}
         <VelocityOrbs />
