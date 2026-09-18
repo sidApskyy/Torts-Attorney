@@ -25,11 +25,10 @@ export function RoleGate({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative min-h-svh flex items-center justify-center px-4 overflow-hidden bg-[#F8F8F6]">
-      {/* Same layered backdrop as the law-firm hero:
-          image → molten shader → cream wash */}
+      {/* Marble texture → molten shader → cream wash */}
       <div className="absolute inset-0" aria-hidden>
         <Image
-          src="/hero-background.png"
+          src="/marble.png"
           alt=""
           fill
           priority
