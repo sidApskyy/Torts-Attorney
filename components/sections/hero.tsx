@@ -247,15 +247,17 @@ export function Hero() {
               >
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C6A24A]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute inset-0 bg-gradient-to-br from-[#C6A24A]/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                <Icon className="absolute -bottom-3 -right-3 w-24 h-24 text-[#C6A24A]/[0.05] rotate-12 group-hover:scale-110 group-hover:text-[#C6A24A]/[0.08] transition-all duration-500 pointer-events-none" />
+                {/* Shine sweep across the card on hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
+                <Icon className="absolute -bottom-3 -right-3 w-24 h-24 text-[#C6A24A]/[0.05] rotate-12 group-hover:scale-110 group-hover:rotate-6 group-hover:text-[#C6A24A]/[0.08] transition-all duration-500 pointer-events-none" />
 
                 <div className="relative z-10">
                   <div className="flex items-start justify-between mb-5">
-                    <div className="p-3 rounded-2xl bg-gradient-to-br from-[#C6A24A]/10 to-[#C6A24A]/5 text-[#C6A24A] shadow-sm">
-                      <Icon className="w-5 h-5" />
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-[#C6A24A]/10 to-[#C6A24A]/5 text-[#C6A24A] shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6 group-hover:from-[#C6A24A]/25 group-hover:to-[#C6A24A]/15 group-hover:shadow-[0_0_24px_rgba(198,162,74,0.35)]">
+                      <Icon className="w-5 h-5 transition-transform duration-500 group-hover:scale-125 group-hover:rotate-[20deg]" />
                     </div>
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#C6A24A]/10 text-[#C6A24A] text-[10px] font-bold uppercase tracking-wide">
-                      <Flame className="w-3 h-3" />
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#C6A24A]/10 text-[#C6A24A] text-[10px] font-bold uppercase tracking-wide transition-all duration-300 group-hover:bg-[#C6A24A] group-hover:text-white">
+                      <Flame className="w-3 h-3 transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-12" />
                       Hot
                     </span>
                   </div>
