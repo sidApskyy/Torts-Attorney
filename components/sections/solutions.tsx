@@ -99,7 +99,7 @@ export function Solutions() {
                 className="h-px bg-[#C6A24A]"
               />
             </motion.span>
-            <h2 id="solutions-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+            <h2 id="solutions-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
               <WordReveal text="Solutions Built for the Full Pipeline" as="span" delay={0.1} className="inline" />
             </h2>
             <motion.p
@@ -135,8 +135,8 @@ export function Solutions() {
                   glareAngle={-30}
                   glareSize={400}
                   transitionDuration={800}
-                  className="glass-card"
-                  style={{ padding: '2.5rem', position: 'relative', boxSizing: 'border-box' }}
+                  className="glass-card p-6 sm:p-8 md:p-10"
+                  style={{ position: 'relative', boxSizing: 'border-box' }}
                 >
                   <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <div className="flex items-center gap-3 mb-5">
@@ -175,7 +175,7 @@ export function Solutions() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: index * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="h-full"
+                className={cn('h-full', index === 1 && 'solutions-middle-card')}
               >
                 <GlareHover
                   width="100%"

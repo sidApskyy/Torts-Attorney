@@ -608,6 +608,22 @@
     animation: icon-jiggle 0.9s ease-in-out infinite;
   }
 
+  /* Solutions middle card auto-rotate on mobile */
+  @keyframes solutions-middle-rotate {
+    0% { transform: perspective(1000px) rotateY(0deg); }
+    25% { transform: perspective(1000px) rotateY(-8deg); }
+    50% { transform: perspective(1000px) rotateY(0deg); }
+    75% { transform: perspective(1000px) rotateY(8deg); }
+    100% { transform: perspective(1000px) rotateY(0deg); }
+  }
+
+  @media (max-width: 767px) {
+    .solutions-middle-card {
+      animation: solutions-middle-rotate 6s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+  }
+
   /* Motion States - Hover */
   .motion-hover-lift:hover {
     transform: translateY(-4px);
@@ -1227,7 +1243,8 @@
     .motion-clip-reveal-right,
     .motion-stagger-fade-up,
     .group:hover .tort-card-icon,
-    .group:hover .tort-card-emoji {
+    .group:hover .tort-card-emoji,
+    .solutions-middle-card {
       animation: none;
       opacity: 1;
       transform: none;

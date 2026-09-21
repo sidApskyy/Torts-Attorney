@@ -269,7 +269,6 @@ export function Hero() {
 
                   <Button
                     variant="outline"
-                    size="sm"
                     className="w-full text-xs border-[#E4E1D8] text-[#202124] hover:bg-[#202124] hover:border-[#C6A24A]/50 hover:text-[#C6A24A] group/btn"
                     onClick={checkEligibility}
                   >

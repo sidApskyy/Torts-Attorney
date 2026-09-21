@@ -49,7 +49,7 @@ export function HowItWorks() {
                 From Conversation to Campaign
               </p>
             </div>
-            <h2 id="how-it-works-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-3xl overflow-hidden">
+            <h2 id="how-it-works-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-3xl overflow-hidden pb-2">
               <TextReveal as="span" delay={0.1}>
                 <GradientText animationSpeed={5}>
                   Three steps. No black boxes.

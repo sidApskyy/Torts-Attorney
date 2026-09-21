@@ -115,7 +115,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
         <div className="relative py-12">
           {/* Main path line - architectural */}
           <motion.div
-            className="absolute top-1/2 left-0 right-0 h-0.5 -translate-y-1/2 bg-gradient-to-r from-[rgba(255, 255, 255,0.28)] via-[rgba(255, 255, 255,0.28)] to-[rgba(255, 255, 255,0.28)]"
+            className="absolute top-1/2 left-0 right-0 h-0.5 -translate-y-1/2 bg-gradient-to-r from-[rgba(32, 33, 36, 0.15)] via-[rgba(32, 33, 36, 0.15)] to-[rgba(32, 33, 36, 0.15)]"
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
@@ -203,7 +203,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
                   className={cn(
                     "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0.5 transition-all duration-300",
                     isPrimaryStage(index) ? "h-14" : "h-10",
-                    isActive ? "bg-[#C6A24A]" : "bg-[rgba(255, 255, 255,0.28)]",
+                    isActive ? "bg-[#C6A24A]" : "bg-[rgba(32, 33, 36, 0.15)]",
                     "group-hover:bg-[#C6A24A]/60"
                   )}
                   animate={{
@@ -323,7 +323,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
                     "absolute left-4 top-10 w-0.5 transition-colors duration-300",
                     isActive || isStageActive(visibleStages[index + 1].id, index + 1)
                       ? "bg-gradient-to-b from-[#C6A24A] to-[#9B7830]"
-                      : "bg-[rgba(255, 255, 255,0.28)]"
+                      : "bg-[rgba(32, 33, 36, 0.15)]"
                   )}
                   style={{ height: '40px' }}
                   initial={{ scaleY: 0 }}
@@ -354,7 +354,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
                   className={cn(
                     "w-0.5 transition-all duration-300",
                     isPrimaryStage(index) ? "h-10" : "h-8",
-                    isActive ? "bg-[#C6A24A]" : "bg-[rgba(255, 255, 255,0.28)]",
+                    isActive ? "bg-[#C6A24A]" : "bg-[rgba(32, 33, 36, 0.15)]",
                     "group-hover:bg-[#C6A24A]/60"
                   )}
                   initial={{ scaleY: 0 }}
@@ -369,7 +369,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
                       className={cn(
                         "font-medium transition-colors",
                         isPrimaryStage(index) ? "text-base" : "text-sm",
-                        isActive ? "text-[#C6A24A]" : "text-[#FFFFFF]",
+                        isActive ? "text-[#C6A24A]" : "text-[#202124]",
                         "group-hover:text-[#C6A24A]"
                       )}
                       animate={{
@@ -421,7 +421,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
               animate={{ opacity: [0.3, 0.6, 0.3] }}
               transition={{ delay: 1.5, duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <div className="w-0.5 h-12 border-l border-dashed border-[rgba(255, 255, 255,0.28)]" />
+              <div className="w-0.5 h-12 border-l border-dashed border-[rgba(32, 33, 36, 0.2)]" />
               <p className="text-sm text-[#6B7280]">↺ Optimization feeds back to Strategy</p>
             </motion.div>
           )}

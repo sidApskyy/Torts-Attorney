@@ -58,7 +58,7 @@ export function CommandCenter() {
             <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.15em] text-[#C6A24A] mb-4">
               Measure What the Firm Can Act On
             </p>
-            <h2 id="command-center-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+            <h2 id="command-center-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
               <TextReveal as="span" delay={0.1}>
                 <GradientText animationSpeed={5}>
                   See the Pipeline, Not Just the Lead Count.

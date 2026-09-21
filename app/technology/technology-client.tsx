@@ -188,7 +188,7 @@ export function TechnologyClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 id="data-flow-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 id="data-flow-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Data Flow Architecture
@@ -328,7 +328,7 @@ export function TechnologyClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 id="systems-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 id="systems-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Acquisition Systems
@@ -542,7 +542,7 @@ export function TechnologyClient() {
                 className="content-card p-6 sm:p-12 md:p-16 relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C6A24A] to-transparent rounded-t-xl" />
-                <h2 id="technology-cta" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 id="technology-cta" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Discuss Your Technology Needs

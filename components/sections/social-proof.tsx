@@ -59,7 +59,7 @@ export function SocialProof() {
                 What Partners See
               </p>
             </div>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-3xl overflow-hidden">
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-3xl overflow-hidden pb-2">
               <TextReveal as="span" delay={0.1}>
                 <GradientText animationSpeed={5}>
                   Results that show up in the pipeline.
@@ -102,7 +102,7 @@ export function SocialProof() {
           </div>
 
           {/* Testimonials — 3D coverflow carousel */}
-          <div className="relative px-12">
+          <div className="relative px-0 sm:px-12">
             <TestimonialCarousel testimonials={testimonials} autoPlay={true} interval={5000} />
           </div>
 

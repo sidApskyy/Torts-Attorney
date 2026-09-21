@@ -30,7 +30,7 @@ export function Turnstile({ onVerify, className }: TurnstileProps) {
     widgetIdRef.current = window.turnstile.render(containerRef.current, {
       sitekey: siteKey,
       theme: 'light',
-      size: 'normal',
+      size: 'flexible',
       callback: (token: string) => onVerify(token),
       'expired-callback': () => onVerify(''),
       'error-callback': () => onVerify(''),

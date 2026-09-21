@@ -323,7 +323,7 @@ export function Problem() {
                 transformPerspective: 1000,
               }}
             >
-              <div className="max-w-4xl mx-auto p-10 md:p-16 relative overflow-hidden rounded-2xl border border-[rgba(198,162,74,0.15)] bg-[rgba(255,255,255,0.03)] backdrop-blur-sm">
+              <div className="max-w-4xl mx-auto p-6 sm:p-10 md:p-16 relative overflow-hidden rounded-2xl border border-[rgba(198,162,74,0.15)] bg-[rgba(255,255,255,0.03)] backdrop-blur-sm">
                 {/* Accent bar — scroll-driven grow from top */}
                 <motion.div
                   className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-[#C6A24A] to-[#9B7830] origin-top"

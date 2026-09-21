@@ -28,7 +28,7 @@ export function LeadQualificationClient() {
         <PageHero
           eyebrow="Solution"
           title={
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-[-0.02em] overflow-hidden">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
               <GradientText animationSpeed={5}>
                 Lead Qualification
               </GradientText>

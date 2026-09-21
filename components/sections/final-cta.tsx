@@ -70,7 +70,7 @@ export function FinalCTA() {
             Where Is the Pipeline Losing Value?
           </p>
           {/* Headline */}
-          <h2 id="final-cta-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+          <h2 id="final-cta-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
             <TextReveal as="span" delay={0.1}>
               <GradientText animationSpeed={5}>
                 Let's find the point where good opportunities are getting lost.
@@ -91,12 +91,12 @@ export function FinalCTA() {
             transition={{ delay: 0.1 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link href="/contact">
+            <Link href="/contact" className="w-full sm:w-auto">
               <Button variant="red" size="lg" className="w-full sm:w-auto text-base">
                 Talk Through the Pipeline
               </Button>
             </Link>
-            <Link href="/contact">
+            <Link href="/contact" className="w-full sm:w-auto">
               <Button variant="outline" size="lg" className="w-full sm:w-auto text-base">
                 Send Us the Campaign
               </Button>

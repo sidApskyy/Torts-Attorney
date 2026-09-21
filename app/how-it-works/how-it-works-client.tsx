@@ -126,7 +126,7 @@ export function HowItWorksClient() {
         <div className="section-divider-animated" />
 
         {/* Lifecycle Connection */}
-        <section className="bg-[#F5F7FA] pt-16 md:pt-20 lg:pt-24 pb-40 md:pb-44 lg:pb-48 relative overflow-hidden" aria-labelledby="lifecycle-heading">
+        <section className="bg-[#F5F7FA] pt-16 md:pt-20 lg:pt-24 pb-24 sm:pb-40 md:pb-44 lg:pb-48 relative overflow-hidden" aria-labelledby="lifecycle-heading">
           <SectionNumber number="01" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
           <AnimatedGradientBackground colors={['#C6A24A', '#F5F7FA', '#E4E1D8']} speed={20} />
           {/* Ambient accents */}
@@ -161,7 +161,7 @@ export function HowItWorksClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 id="lifecycle-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 id="lifecycle-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Connected to the Acquisition Lifecycle
@@ -221,7 +221,7 @@ export function HowItWorksClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 id="process-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 id="process-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       7-Stage Operating Model
@@ -363,7 +363,7 @@ export function HowItWorksClient() {
                 className="content-card p-6 sm:p-12 md:p-16 relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C6A24A] to-transparent rounded-t-xl" />
-                <h2 id="how-it-works-cta" className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 id="how-it-works-cta" className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Start Building Your Acquisition System

@@ -33,23 +33,25 @@
   z-index: 1;
 }
 
-.glare-hover:hover {
-  cursor: pointer;
-}
-
-.glare-hover:hover::before {
-  background-position:
-    100% 100%,
-    0 0;
-}
-
 .glare-hover--play-once::before {
   transition: none;
 }
 
-.glare-hover--play-once:hover::before {
-  transition: var(--gh-duration) ease;
-  background-position:
-    100% 100%,
-    0 0;
+@media (hover: hover) {
+  .glare-hover:hover {
+    cursor: pointer;
+  }
+
+  .glare-hover:hover::before {
+    background-position:
+      100% 100%,
+      0 0;
+  }
+
+  .glare-hover--play-once:hover::before {
+    transition: var(--gh-duration) ease;
+    background-position:
+      100% 100%,
+      0 0;
+  }
 }

@@ -35,7 +35,7 @@ export function Proof() {
                 Let the Numbers Show the Work
               </p>
             </div>
-            <h2 id="proof-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-4xl overflow-hidden">
+            <h2 id="proof-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-left max-w-4xl overflow-hidden pb-2">
               <TextReveal as="span" delay={0.1}>
                 <GradientText animationSpeed={5}>
                   Reporting should answer questions, not create more.
@@ -155,7 +155,7 @@ export function Proof() {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <div className="content-card-accent p-10 md:p-14 relative overflow-hidden">
+              <div className="content-card-accent p-6 sm:p-10 md:p-14 relative overflow-hidden">
                 {/* Subtle gradient sheen */}
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#C6A24A]/2 to-transparent pointer-events-none" />
 

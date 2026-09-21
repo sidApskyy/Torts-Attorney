@@ -105,7 +105,7 @@ export function AcquisitionLifecycleDetail() {
                 className="h-px bg-[#C6A24A]"
               />
             </motion.span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
               <WordReveal text="From the first response to the firm's next decision." as="span" delay={0.1} className="inline" />
             </h2>
             <motion.p

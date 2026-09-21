@@ -30,6 +30,7 @@ function FlowingMenuItemRow({
   const marqueeInnerRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<gsap.core.Tween | null>(null)
   const [repetitions, setRepetitions] = useState(4)
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
 
   const animationDefaults = { duration: 0.6, ease: 'expo' as const }
 
@@ -117,6 +118,10 @@ function FlowingMenuItemRow({
       .to(marqueeInnerRef.current, { y: edge === 'top' ? '101%' : '-101%' }, 0)
   }
 
+  const handleTapToggle = () => {
+    setIsMobileOpen((prev) => !prev)
+  }
+
   return (
     <div
       className={`flowing-menu__item flowing-menu__item--${theme}`}
@@ -127,6 +132,7 @@ function FlowingMenuItemRow({
         className="flowing-menu__item-link"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handleTapToggle}
       >
         {label && <span className="flowing-menu__item-num">{label}</span>}
         <span className="flowing-menu__item-title">{title}</span>
@@ -143,6 +149,12 @@ function FlowingMenuItemRow({
           </div>
         </div>
       </div>
+      {/* Mobile description — visible on tap */}
+      {isMobileOpen && (
+        <div className="flowing-menu__mobile-desc">
+          <p>{description}</p>
+        </div>
+      )}
     </div>
   )
 }

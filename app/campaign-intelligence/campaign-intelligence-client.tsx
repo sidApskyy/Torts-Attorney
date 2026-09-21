@@ -147,7 +147,7 @@ export function CampaignIntelligenceClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 id="dashboard-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 id="dashboard-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Campaign Intelligence Dashboard
@@ -293,7 +293,7 @@ export function CampaignIntelligenceClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 id="capabilities-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 id="capabilities-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Intelligence Capabilities
@@ -355,7 +355,6 @@ export function CampaignIntelligenceClient() {
                         <Link href="/contact" className="mt-auto block">
                           <Button
                             variant="outline"
-                            size="sm"
                             className="w-full bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A]"
                           >
                             Check Your Eligibility
@@ -404,7 +403,7 @@ export function CampaignIntelligenceClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 id="active-campaigns-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 id="active-campaigns-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Mass Tort Campaigns We Support
@@ -461,7 +460,6 @@ export function CampaignIntelligenceClient() {
                       >
                         <Button
                           variant="outline"
-                          size="sm"
                           className="w-full bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] transition-all duration-300 group-hover:shadow-sm"
                         >
                           Check Your Eligibility

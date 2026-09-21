@@ -226,7 +226,7 @@ export function Header() {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 sm:p-3 rounded-full hover:bg-[#ECEFF2] transition-colors text-[#202124] min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] relative z-50"
+            className="md:hidden p-2 sm:p-3 rounded-full hover:bg-[#ECEFF2] transition-colors text-[#202124] min-h-[44px] min-w-[44px] relative z-50"
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
             whileTap={{ scale: 0.95 }}
@@ -266,7 +266,7 @@ export function Header() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden border-t border-[#E4E1D8] bg-[rgba(248,248,246,0.95)] backdrop-blur-[20px] overflow-hidden rounded-b-[18px]"
+            className="md:hidden border-t border-[#E4E1D8] bg-[rgba(248,248,246,0.95)] backdrop-blur-[20px] overflow-hidden rounded-b-[18px] max-h-[calc(100dvh-5rem)] overflow-y-auto"
           >
             <nav className="px-3 sm:px-6 py-3 space-y-1.5">
               <div className="grid grid-cols-2 gap-2 pb-3 border-b border-[#E4E1D8] mb-2">

@@ -268,7 +268,7 @@ export function ContactClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Schedule a Consultation
@@ -320,7 +320,7 @@ export function ContactClient() {
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
-              <Card className="glass-card bg-[#F1F3F5] border-[rgba(198, 162, 74, 0.15)] p-10 md:p-12 shadow-premium-lg border-sheen relative overflow-hidden">
+              <Card className="glass-card bg-[#F1F3F5] border-[rgba(198, 162, 74, 0.15)] p-6 sm:p-10 md:p-12 shadow-premium-lg border-sheen relative overflow-hidden">
                 <form onSubmit={handleSubmit} className="space-y-8">
                   {/* Honeypot field — hidden from users, catches bots */}
                   <input

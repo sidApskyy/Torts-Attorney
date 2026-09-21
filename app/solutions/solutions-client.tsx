@@ -13,53 +13,78 @@ import { MagneticButton } from '@/components/ui/magnetic-button'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 import { GoldBeam } from '@/components/ui/gold-beam'
 import { PageHero } from '@/components/layout/page-hero'
+import {
+  Target,
+  Megaphone,
+  PhoneCall,
+  Filter,
+  FileCheck,
+  PenTool,
+  Send,
+  BarChart3,
+  type LucideIcon,
+} from 'lucide-react'
 
-const solutions = [
+const solutions: Array<{
+  id: string
+  title: string
+  icon: LucideIcon
+  description: string
+  href: string
+}> = [
   {
     id: 'campaign-strategy',
     title: 'Campaign Strategy',
+    icon: Target,
     description: 'Strategic campaign planning, media strategy, and operational design tailored to your firm\'s capacity and acquisition goals.',
     href: '/solutions/campaign-strategy',
   },
   {
     id: 'media-acquisition',
     title: 'Media & Traffic Acquisition',
+    icon: Megaphone,
     description: 'Media buying, campaign deployment, and channel optimization across multiple platforms to drive qualified plaintiff leads.',
     href: '/solutions/media-acquisition',
   },
   {
     id: 'lead-response',
     title: 'Lead Response & Intake',
+    icon: PhoneCall,
     description: 'Rapid lead response management, structured intake operations, and campaign-specific qualification workflows.',
     href: '/solutions/lead-response',
   },
   {
     id: 'lead-qualification',
     title: 'Lead Qualification',
+    icon: Filter,
     description: 'Comprehensive lead qualification, screening, and dispositioning based on campaign criteria and firm requirements.',
     href: '/solutions/lead-qualification',
   },
   {
     id: 'documentation',
     title: 'Documentation & Compliance',
+    icon: FileCheck,
     description: 'Document collection, review, and management throughout the qualification process with compliance oversight.',
     href: '/solutions/documentation',
   },
   {
     id: 'retainer-optimization',
     title: 'Retainer & Conversion Optimization',
+    icon: PenTool,
     description: 'Retainer workflow support, document completion tracking, signature management, and conversion optimization.',
     href: '/solutions/retainer-optimization',
   },
   {
     id: 'delivery',
     title: 'Delivery & Lead Distribution',
+    icon: Send,
     description: 'Qualified case delivery with complete documentation, attribution data, and seamless integration with your systems.',
     href: '/solutions/delivery',
   },
   {
     id: 'reporting',
     title: 'Reporting & Campaign Intelligence',
+    icon: BarChart3,
     description: 'Transparent performance reporting, metrics tracking, operational visibility, and campaign intelligence dashboards.',
     href: '/solutions/reporting',
   },
@@ -154,7 +179,7 @@ export function SolutionsClient() {
         <div className="section-divider-animated" />
 
         {/* Solution Architecture */}
-        <section className="bg-[#F8F8F6] pt-16 md:pt-20 lg:pt-24 pb-40 md:pb-44 lg:pb-48 relative overflow-hidden section-glow-gold">
+        <section className="bg-[#F8F8F6] pt-16 md:pt-20 lg:pt-24 pb-24 sm:pb-40 md:pb-44 lg:pb-48 relative overflow-hidden section-glow-gold">
           <SectionNumber number="02" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
           {/* Ambient accents */}
           <div className="absolute top-1/3 left-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
@@ -188,7 +213,7 @@ export function SolutionsClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Connected Acquisition Architecture
@@ -248,7 +273,7 @@ export function SolutionsClient() {
                     className="h-px bg-[#C6A24A]"
                   />
                 </motion.div>
-                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Acquisition Solutions
@@ -267,14 +292,17 @@ export function SolutionsClient() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {solutions.map((solution, index) => (
+                {solutions.map((solution, index) => {
+                  const Icon = solution.icon
+                  return (
                   <motion.div
                     key={solution.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, margin: '-40px' }}
                     transition={{ delay: index * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className="h-full"
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    className="h-full group"
                   >
                     <GlareHover
                       width="100%"
@@ -287,34 +315,46 @@ export function SolutionsClient() {
                       glareAngle={-30}
                       glareSize={250}
                       transitionDuration={800}
-                      className="glass-card"
+                      className="glass-card transition-all duration-500 group-hover:border-[#C6A24A]/40 group-hover:shadow-[0_12px_40px_rgba(198,162,74,0.12)]"
                       style={{ padding: '1.5rem', position: 'relative', boxSizing: 'border-box' }}
                     >
                       <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="w-7 h-7 rounded-lg bg-[#C6A24A]/10 flex items-center justify-center border border-[#C6A24A]/20">
-                            <span className="text-[#C6A24A] font-serif text-xs font-bold">
-                              {String(index + 1).padStart(2, '0')}
-                            </span>
+                        {/* Top bar */}
+                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#C6A24A]/40 to-transparent rounded-t-xl transition-all duration-500 group-hover:h-1" />
+
+                        {/* Shine sweep */}
+                        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-xl">
+                          <div className="absolute top-0 left-[-150%] w-[60%] h-full bg-gradient-to-r from-transparent via-[rgba(198,162,74,0.06)] to-transparent skew-x-[-20deg] transition-all duration-700 group-hover:left-[150%]" />
+                        </div>
+
+                        {/* Icon badge + number */}
+                        <div className="flex items-center justify-between mb-4 relative">
+                          <div className="w-11 h-11 rounded-xl bg-[#C6A24A]/10 border border-[#C6A24A]/20 flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:bg-[#C6A24A]/15 group-hover:shadow-[0_0_20px_rgba(198,162,74,0.25)] group-hover:-rotate-3">
+                            <Icon className="w-5 h-5 text-[#C6A24A]" strokeWidth={1.5} />
+                          </div>
+                          <span className="font-serif text-2xl font-bold text-[#C6A24A]/20 transition-colors duration-500 group-hover:text-[#C6A24A]/40">
+                            {String(index + 1).padStart(2, '0')}
                           </span>
                         </div>
-                        <h3 className="font-serif text-lg font-bold text-[#202124] mb-3">
+
+                        <h3 className="font-serif text-lg font-bold text-[#202124] mb-3 transition-colors duration-300 group-hover:text-[#9B7830] relative">
                           {solution.title}
                         </h3>
-                        <p className="text-sm text-[#4B5563] leading-[1.7] mb-4 flex-1">
+                        <p className="text-sm text-[#4B5563] leading-[1.7] mb-4 flex-1 relative">
                           {solution.description}
                         </p>
                         <a
                           href={solution.href}
-                          className="text-sm text-[#C6A24A] hover:text-[#202124] transition-colors inline-flex items-center gap-1 group"
+                          className="text-sm text-[#C6A24A] hover:text-[#202124] transition-colors inline-flex items-center gap-1 group/link relative py-2 -my-2"
                         >
                           Learn more
-                          <span className="transition-transform group-hover:translate-x-1">→</span>
+                          <span className="transition-transform group-hover/link:translate-x-1">→</span>
                         </a>
                       </div>
                     </GlareHover>
                   </motion.div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </div>
