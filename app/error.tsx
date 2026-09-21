@@ -12,6 +12,27 @@ export default function Error({
 }) {
   useEffect(() => {
     console.error(error)
+
+    // Stale-deploy recovery: after a redeploy, cached HTML can reference
+    // chunks that no longer exist → ChunkLoadError. A hard reload fetches
+    // fresh HTML with valid chunk URLs. Guarded so it only happens once.
+    const msg = error?.message ?? ''
+    const name = error?.name ?? ''
+    const isChunkError =
+      name === 'ChunkLoadError' ||
+      /loading chunk|chunkloaderror|failed to fetch dynamically imported module|loading css chunk/i.test(msg)
+
+    if (isChunkError && typeof window !== 'undefined') {
+      try {
+        if (!sessionStorage.getItem('tta-chunk-reload')) {
+          sessionStorage.setItem('tta-chunk-reload', '1')
+          window.location.reload()
+          return
+        }
+      } catch {
+        // sessionStorage unavailable — fall through to error UI
+      }
+    }
   }, [error])
 
   return (

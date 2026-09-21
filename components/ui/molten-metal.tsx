@@ -157,6 +157,7 @@ export function MoltenMetal({
     mesh: Mesh
   } | null>(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     const isTouch = window.matchMedia('(pointer: coarse)').matches
@@ -173,17 +174,27 @@ export function MoltenMetal({
 
   useEffect(() => {
     const container = containerRef.current
-    if (!container) return
+    if (!container || failed) return
 
-    const renderer = new Renderer({
-      webgl: 2,
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
-    })
+    let renderer: Renderer
+    try {
+      renderer = new Renderer({
+        webgl: 2,
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: false,
+        dpr: Math.min(window.devicePixelRatio || 1, 2),
+      })
+    } catch {
+      setFailed(true)
+      return
+    }
 
     const gl = renderer.gl
+    if (!gl) {
+      setFailed(true)
+      return
+    }
     gl.clearColor(0, 0, 0, 0)
     const canvas = gl.canvas as HTMLCanvasElement
     canvas.style.width = '100%'
@@ -191,8 +202,12 @@ export function MoltenMetal({
     canvas.style.display = 'block'
     container.appendChild(canvas)
 
-    const geometry = new Triangle(gl)
-    const program = new Program(gl, {
+    let geometry: Triangle
+    let program: Program
+    let mesh: Mesh
+    try {
+      geometry = new Triangle(gl)
+      program = new Program(gl, {
       vertex,
       fragment,
       uniforms: {
@@ -218,9 +233,19 @@ export function MoltenMetal({
         uColor2: { value: new Float32Array(hexToRgb(color2)) },
         uColor3: { value: new Float32Array(hexToRgb(color3)) },
       },
-    })
-
-    const mesh = new Mesh(gl, { geometry, program })
+      })
+      mesh = new Mesh(gl, { geometry, program })
+    } catch {
+      try {
+        container.removeChild(canvas)
+      } catch {
+        // already removed
+      }
+      const loseCtx = gl.getExtension('WEBGL_lose_context')
+      if (loseCtx) loseCtx.loseContext()
+      setFailed(true)
+      return
+    }
     ctxRef.current = { renderer, program, mesh }
 
     const setSize = () => {
@@ -259,14 +284,27 @@ export function MoltenMetal({
     const t0 = performance.now()
 
     const loop = (t: number) => {
-      program.uniforms.iTime.value = (t - t0) * 0.001
-      currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0])
-      currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1])
-      ;(program.uniforms.uMouse.value as Float32Array)[0] = currentMouse[0]
-      ;(program.uniforms.uMouse.value as Float32Array)[1] = currentMouse[1]
-      renderer.render({ scene: mesh })
+      try {
+        program.uniforms.iTime.value = (t - t0) * 0.001
+        currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0])
+        currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1])
+        ;(program.uniforms.uMouse.value as Float32Array)[0] = currentMouse[0]
+        ;(program.uniforms.uMouse.value as Float32Array)[1] = currentMouse[1]
+        renderer.render({ scene: mesh })
+      } catch {
+        return
+      }
       raf = requestAnimationFrame(loop)
     }
+
+    const onContextLost = (e: Event) => {
+      e.preventDefault()
+      if (raf !== 0) {
+        cancelAnimationFrame(raf)
+        raf = 0
+      }
+    }
+    canvas.addEventListener('webglcontextlost', onContextLost)
 
     const tryStart = () => {
       if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop)
@@ -302,6 +340,7 @@ export function MoltenMetal({
       document.removeEventListener('visibilitychange', onVisibility)
       canvas.removeEventListener('mousemove', handleMouseMove)
       canvas.removeEventListener('mouseleave', handleMouseLeave)
+      canvas.removeEventListener('webglcontextlost', onContextLost)
       ctxRef.current = null
       try {
         container.removeChild(canvas)
