@@ -144,7 +144,7 @@ export function Hero() {
         </div>
 
         {/* Overlay — only the essential hero message */}
-        <div className="relative max-w-2xl mx-auto px-4 sm:px-8 py-24" style={{ textShadow: '0 2px 24px rgba(32,33,36,0.5)' }}>
+        <div className="relative max-w-2xl mx-auto px-4 sm:px-8 py-24">
             {/* Dedicated text backdrop — guarantees readability over any shader state */}
             <div className="absolute inset-0 -mx-4 -my-6 sm:-mx-8 rounded-[24px] pointer-events-none"
               style={{
@@ -169,10 +169,12 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-[-0.02em] mb-5 sm:mb-6 lg:mb-8"
             >
-              <GradientText animationSpeed={5}>
+              <span className="text-[#202124]">
                 Bring More of the Right<br />
+              </span>
+              <span className="text-[#9B7830]">
                 Opportunities to Your Firm.
-              </GradientText>
+              </span>
             </motion.h1>
 
             <motion.p

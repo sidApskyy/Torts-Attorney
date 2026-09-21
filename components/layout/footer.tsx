@@ -164,7 +164,7 @@ export function Footer() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="border-t border-[rgba(255,255,255,0.08)] mt-16 pt-8 text-center text-xs text-[rgba(255,255,255,0.3)]"
         >
-          <p>&copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved. | Developed by <a href="https://rdcsgenix.com" target="_blank" rel="noopener noreferrer" className="text-[#C6A24A] hover:underline">RDCS Genix</a></p>
         </motion.div>
       </div>
     </footer>
