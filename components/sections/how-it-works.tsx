@@ -62,7 +62,7 @@ export function HowItWorks() {
           </div>
 
           {/* Steps */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 lg:gap-12 relative">
             {/* Animated SVG connecting line — desktop only */}
             <div className="hidden md:block absolute top-12 left-[16.66%] right-[16.66%] z-0">
               <SvgLineDraw color="rgba(198, 162, 74, 0.3)" strokeWidth={1} className="w-full h-[2px]" />
@@ -78,32 +78,46 @@ export function HowItWorks() {
                 className="relative [perspective:1000px]"
               >
                 <TiltCard intensity={6} className="rounded-2xl">
-                {/* Number circle */}
-                <div className="relative mb-8">
-                  <div className="w-24 h-24 rounded-2xl bg-white border border-[#C6A24A]/20 flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(198,162,74,0.15)] relative z-10">
-                    <span className="font-serif text-3xl font-bold text-[#C6A24A]">{step.number}</span>
+                {/* Mobile: timeline rail — circle left, content right, connected vertically */}
+                <div className="flex gap-5 md:block">
+                  {/* Number circle + connector rail */}
+                  <div className="relative shrink-0 md:mb-8">
+                    <div className="relative">
+                      <div className="w-14 h-14 md:w-24 md:h-24 rounded-2xl bg-white border border-[#C6A24A]/20 flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(198,162,74,0.15)] relative z-10">
+                        <span className="font-serif text-xl md:text-3xl font-bold text-[#C6A24A]">{step.number}</span>
+                      </div>
+                      {/* Glow behind circle */}
+                      <div className="absolute inset-0 rounded-2xl bg-[#C6A24A]/8 blur-xl" />
+                    </div>
+                    {/* Vertical connector to next step — mobile only */}
+                    {index < steps.length - 1 && (
+                      <div
+                        aria-hidden
+                        className="md:hidden absolute top-14 -bottom-10 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-[#C6A24A]/50 via-[#C6A24A]/25 to-[#C6A24A]/5"
+                      />
+                    )}
                   </div>
-                  {/* Glow behind circle */}
-                  <div className="absolute inset-0 rounded-2xl bg-[#C6A24A]/8 blur-xl" />
+
+                  {/* Content */}
+                  <div className="min-w-0 pt-1 md:pt-0">
+                    <h3 className="font-serif text-xl md:text-2xl font-bold text-[#202124] mb-2.5 md:mb-4">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-[#4B5563] leading-[1.7] mb-4 md:mb-6">
+                      {step.description}
+                    </p>
+
+                    {/* Highlights */}
+                    <ul className="space-y-2">
+                      {step.highlights.map((highlight, hIndex) => (
+                        <li key={hIndex} className="flex items-center gap-3 text-sm text-[#202124]">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#C6A24A] flex-shrink-0" />
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-
-                {/* Content */}
-                <h3 className="font-serif text-xl md:text-2xl font-bold text-[#202124] mb-4">
-                  {step.title}
-                </h3>
-                <p className="text-base text-[#4B5563] leading-[1.7] mb-6">
-                  {step.description}
-                </p>
-
-                {/* Highlights */}
-                <ul className="space-y-2">
-                  {step.highlights.map((highlight, hIndex) => (
-                    <li key={hIndex} className="flex items-center gap-3 text-sm text-[#202124]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#C6A24A] flex-shrink-0" />
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
                 </TiltCard>
               </motion.div>
             ))}

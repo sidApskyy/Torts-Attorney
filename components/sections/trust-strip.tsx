@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { Marquee } from '@/components/ui/marquee'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 
@@ -69,9 +69,27 @@ export function TrustStrip() {
 function MarqueeCard({ index, title, description }: { index: number; title: string; description: string }) {
   const [isFlipped, setIsFlipped] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
+  const cardRef = useRef<HTMLDivElement>(null)
+  const inView = useInView(cardRef, { once: true, margin: '-10% 0px' })
+
+  // Mobile: no hover, so auto-flip once when the card scrolls into view —
+  // reveal the description, hold, then flip back. Staggered per card.
+  useEffect(() => {
+    if (!inView) return
+    if (!window.matchMedia('(max-width: 767px)').matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const delay = 500 + index * 350
+    const flipOn = setTimeout(() => setIsFlipped(true), delay)
+    const flipOff = setTimeout(() => setIsFlipped(false), delay + 2600)
+    return () => {
+      clearTimeout(flipOn)
+      clearTimeout(flipOff)
+    }
+  }, [inView, index])
 
   return (
     <div
+      ref={cardRef}
       className="relative h-44 w-72 shrink-0 cursor-pointer [perspective:1000px]"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}

@@ -63,6 +63,11 @@ function TrustedFormLoader() {
       'https://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=' +
       Date.now() +
       Math.random()
+    // Ad blockers/privacy extensions block api.trustedform.com — the form
+    // still submits; the lead just travels without a certificate URL.
+    tf.onerror = () => {
+      console.warn('TrustedForm script blocked — submitting leads without certificate')
+    }
     document.body.appendChild(tf)
   }, [])
   return null
