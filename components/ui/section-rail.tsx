@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const sections = [
@@ -19,10 +20,17 @@ const sections = [
 ]
 
 export function SectionRail() {
+  const pathname = usePathname()
   const [activeIndex, setActiveIndex] = useState(0)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
+    // Only show on the homepage
+    if (pathname !== '/') {
+      setVisible(false)
+      return
+    }
+
     const handleScroll = () => {
       setVisible(window.scrollY > window.innerHeight * 0.5)
 
@@ -47,7 +55,7 @@ export function SectionRail() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pathname])
 
   const scrollToSection = (index: number) => {
     const el = document.getElementById(sections[index].id)
