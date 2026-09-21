@@ -3,19 +3,30 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-function useSSRReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+// Static gradient on reduced-motion users AND on mobile/coarse pointers —
+// animating scale on 80px-blurred orbs re-rasterizes every frame and
+// stutters badly on phone GPUs. Static variant keeps the same look.
+function useStaticBackground() {
+  const [isStatic, setIsStatic] = useState(false)
 
   useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setPrefersReducedMotion(media.matches)
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const coarse = window.matchMedia('(pointer: coarse)')
+    const update = () =>
+      setIsStatic(motion.matches || coarse.matches || window.innerWidth < 768)
     update()
     const listener = () => update()
-    media.addEventListener('change', listener)
-    return () => media.removeEventListener('change', listener)
+    motion.addEventListener('change', listener)
+    coarse.addEventListener('change', listener)
+    window.addEventListener('resize', listener)
+    return () => {
+      motion.removeEventListener('change', listener)
+      coarse.removeEventListener('change', listener)
+      window.removeEventListener('resize', listener)
+    }
   }, [])
 
-  return prefersReducedMotion
+  return isStatic
 }
 
 interface AnimatedGradientBackgroundProps {
@@ -31,9 +42,9 @@ export function AnimatedGradientBackground({
   speed = 12,
   blur = true,
 }: AnimatedGradientBackgroundProps) {
-  const prefersReducedMotion = useSSRReducedMotion()
+  const isStatic = useStaticBackground()
 
-  if (prefersReducedMotion) {
+  if (isStatic) {
     return (
       <div
         className={`absolute inset-0 pointer-events-none ${className}`}

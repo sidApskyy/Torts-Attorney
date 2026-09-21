@@ -17,6 +17,7 @@ export function Marquee({ children, speed = 30, className = '', reverse = false,
   const x = useMotionValue(0)
   const trackRef = useRef<HTMLDivElement>(null)
   const offset = useRef(0)
+  const halfRef = useRef(0)
   const touching = useRef(false)
   const dragging = useRef(false)
   const dragged = useRef(false)
@@ -29,6 +30,24 @@ export function Marquee({ children, speed = 30, className = '', reverse = false,
   const wrapOffset = (v: number, half: number) =>
     (((v % half) + half) % half) - half
 
+  // Cache track width — reading scrollWidth every frame forces layout
+  // recalc 60×/s and makes the marquee stutter on mobile.
+  useEffect(() => {
+    const el = trackRef.current
+    if (!el) return
+    const measure = () => {
+      halfRef.current = el.scrollWidth / 2
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    window.addEventListener('resize', measure)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [])
+
   useEffect(() => {
     const el = trackRef.current
     if (!el) return
@@ -39,7 +58,7 @@ export function Marquee({ children, speed = 30, className = '', reverse = false,
     const loop = (t: number) => {
       const dt = Math.min((t - last) / 1000, 0.05)
       last = t
-      const half = el.scrollWidth / 2
+      const half = halfRef.current
       if (half > 0 && !reduced && !pausedRef.current && !touching.current) {
         offset.current = wrapOffset(offset.current + dir * (half / speed) * dt, half)
         x.set(offset.current)
@@ -64,7 +83,7 @@ export function Marquee({ children, speed = 30, className = '', reverse = false,
     if (!dragging.current && Math.abs(dx) > 6) dragging.current = true
     if (!dragging.current) return
     lastX.current = cx
-    const half = trackRef.current ? trackRef.current.scrollWidth / 2 : 0
+    const half = halfRef.current
     if (half <= 0) return
     offset.current = wrapOffset(offset.current + dx, half)
     x.set(offset.current)
@@ -95,7 +114,11 @@ export function Marquee({ children, speed = 30, className = '', reverse = false,
       onTouchCancel={onTouchEnd}
       onClickCapture={onClickCapture}
     >
-      <motion.div ref={trackRef} style={{ x }} className="flex gap-6 w-max">
+      <motion.div
+        ref={trackRef}
+        style={{ x, willChange: 'transform' }}
+        className="flex gap-6 w-max"
+      >
         <div className="flex gap-6 shrink-0">{children}</div>
         <div className="flex gap-6 shrink-0" aria-hidden>{children}</div>
       </motion.div>

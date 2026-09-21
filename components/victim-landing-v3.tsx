@@ -234,8 +234,10 @@ export function VictimLanding() {
   }
 
   const item = {
-    hidden: prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease } },
+    hidden: prefersReducedMotion
+      ? { opacity: 1, y: 0, scale: 1 }
+      : { opacity: 0, y: 28, scale: 0.95 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease } },
   }
 
   const popIn = {
@@ -674,15 +676,19 @@ export function VictimLanding() {
                     key={campaign.label}
                     type="button"
                     variants={item}
-                    whileHover={prefersReducedMotion ? undefined : { y: -6 }}
+                    whileHover={prefersReducedMotion ? undefined : { y: -8, scale: 1.02 }}
                     whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
                     onClick={() => handleCampaignClick(campaign.label)}
                     aria-pressed={selected}
                     className={cn(
-                      'text-left content-card p-5 relative rounded-2xl group transition-all duration-300',
+                      'text-left content-card p-5 relative rounded-2xl group transition-all duration-300 overflow-hidden hover:border-[#C6A24A]/50 hover:shadow-[0_16px_44px_rgba(198,162,74,0.16)]',
                       selected && 'border-[#C6A24A] ring-2 ring-[#C6A24A]/25 shadow-[0_12px_36px_rgba(198,162,74,0.14)]'
                     )}
                   >
+                    {/* Shine sweep on hover */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden rounded-2xl">
+                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-[rgba(198,162,74,0.07)] to-transparent" />
+                    </div>
                     {campaign.hot && !selected && (
                       <motion.span
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -698,10 +704,10 @@ export function VictimLanding() {
                     <div className="relative inline-flex mb-4">
                       <span
                         className={cn(
-                          'inline-flex items-center justify-center w-11 h-11 rounded-xl transition-colors duration-300',
+                          'inline-flex items-center justify-center w-11 h-11 rounded-xl transition-all duration-300',
                           selected
                             ? 'bg-[#C6A24A] text-white shadow-[0_6px_16px_rgba(198,162,74,0.35)]'
-                            : 'bg-[#C6A24A]/10 text-[#C6A24A]'
+                            : 'bg-[#C6A24A]/10 text-[#C6A24A] group-hover:bg-[#C6A24A]/20 group-hover:scale-110 group-hover:-rotate-3 group-hover:shadow-[0_8px_20px_rgba(198,162,74,0.25)]'
                         )}
                       >
                         <Icon className="w-5 h-5" />

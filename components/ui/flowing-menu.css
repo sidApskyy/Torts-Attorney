@@ -157,6 +157,37 @@
   .flowing-menu__item:hover .flowing-menu__item-link {
     opacity: 1;
   }
+
+  /* Tap affordance — visible only on touch layouts */
+  .flowing-menu__item-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    margin-left: auto;
+    border-radius: 50%;
+    border: 1px solid rgba(198, 162, 74, 0.35);
+    color: #C6A24A;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .flowing-menu__item-chevron.is-open {
+    transform: rotate(180deg);
+    background: rgba(198, 162, 74, 0.12);
+  }
+}
+
+/* Chevron stays hidden on desktop — hover marquee is the affordance there */
+.flowing-menu__item-chevron {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .flowing-menu__item-chevron {
+    display: flex;
+  }
 }
 
 /* Mobile tap-to-reveal description */
@@ -169,6 +200,11 @@
   font-size: 0.95rem;
   line-height: 1.6;
   color: #4B5563;
+}
+
+/* Dark theme — description sits on near-black image overlay */
+.flowing-menu__item--dark .flowing-menu__mobile-desc p {
+  color: rgba(248, 248, 246, 0.75);
 }
 
 @media (min-width: 769px) {
