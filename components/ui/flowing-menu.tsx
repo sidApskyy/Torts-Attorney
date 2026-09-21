@@ -52,9 +52,13 @@ function FlowingMenuItemRow({
       const marqueeContent = marqueeInnerRef.current.querySelector('.flowing-menu__marquee-part')
       if (!marqueeContent) return
       const contentWidth = (marqueeContent as HTMLElement).offsetWidth
+      // Marquee is display:none on mobile → offsetWidth is 0 → division
+      // yields Infinity → Array(Infinity) throws RangeError. Bail out.
+      if (!contentWidth || !Number.isFinite(contentWidth)) return
       const viewportWidth = window.innerWidth
       const needed = Math.ceil(viewportWidth / contentWidth) + 2
-      setRepetitions(Math.max(4, needed))
+      if (!Number.isFinite(needed)) return
+      setRepetitions(Math.min(Math.max(4, needed), 50))
     }
 
     calculateRepetitions()
