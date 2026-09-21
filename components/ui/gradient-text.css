@@ -4,12 +4,12 @@
   border-radius: 1.25rem;
   font-weight: inherit;
   transition: box-shadow 0.5s ease-out;
-  overflow: hidden;
   cursor: pointer;
 }
 
 .animated-gradient-text.with-border {
   padding: 0.35rem 0.75rem;
+  overflow: hidden;
 }
 
 .gradient-overlay {

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
@@ -17,7 +17,18 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobileViewport, setIsMobileViewport] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
   const { role, setRole } = useRole()
+
+  const switchRole = (newRole: 'attorney' | 'victim') => {
+    setRole(newRole)
+    setIsMobileMenuOpen(false)
+    if (pathname !== '/') {
+      router.push('/')
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
 
   useEffect(() => {
     let lastScrollY = window.scrollY
@@ -180,7 +191,7 @@ export function Header() {
             <div className="flex items-center p-1 rounded-full border border-[#C6A24A]/20 bg-[#E4E1D8]/30">
               <button
                 type="button"
-                onClick={() => setRole('attorney')}
+                onClick={() => switchRole('attorney')}
                 className={cn(
                   'px-3 py-1.5 text-xs font-semibold rounded-full transition-all',
                   role === 'attorney'
@@ -192,7 +203,7 @@ export function Header() {
               </button>
               <button
                 type="button"
-                onClick={() => setRole('victim')}
+                onClick={() => switchRole('victim')}
                 className={cn(
                   'px-3 py-1.5 text-xs font-semibold rounded-full transition-all',
                   role === 'victim'
@@ -261,7 +272,7 @@ export function Header() {
               <div className="grid grid-cols-2 gap-2 pb-3 border-b border-[#E4E1D8] mb-2">
                 <button
                   type="button"
-                  onClick={() => { setRole('attorney'); setIsMobileMenuOpen(false) }}
+                  onClick={() => switchRole('attorney')}
                   className={cn(
                     'py-2.5 rounded-xl text-sm font-semibold transition-colors',
                     role === 'attorney'
@@ -273,7 +284,7 @@ export function Header() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setRole('victim'); setIsMobileMenuOpen(false) }}
+                  onClick={() => switchRole('victim')}
                   className={cn(
                     'py-2.5 rounded-xl text-sm font-semibold transition-colors',
                     role === 'victim'

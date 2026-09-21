@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
@@ -20,7 +21,11 @@ export function RoleGate({ children }: { children: React.ReactNode }) {
   if (role === 'attorney') return <>{children}</>
 
   if (role === 'victim') {
-    return <VictimLanding />
+    return (
+      <Suspense fallback={null}>
+        <VictimLanding />
+      </Suspense>
+    )
   }
 
   return (

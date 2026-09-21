@@ -71,8 +71,8 @@ export function SolutionsClient() {
         <PageHero
           eyebrow="Acquisition Solutions"
           title={
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-[-0.02em] overflow-hidden">
-              <WordReveal text="Complete Plaintiff Acquisition Systems" delay={0.15} />
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-[-0.02em] pb-2">
+              <WordReveal as="span" text="Complete Plaintiff Acquisition Systems" delay={0.15} />
             </h1>
           }
           subtitle="We don't simply generate leads. We build and operate plaintiff acquisition systems that connect every stage from strategy through optimization."
@@ -106,7 +106,7 @@ export function SolutionsClient() {
                     The Problem
                   </p>
                 </div>
-                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       The Problem with Lead-Only Approaches
@@ -154,7 +154,7 @@ export function SolutionsClient() {
         <div className="section-divider-animated" />
 
         {/* Solution Architecture */}
-        <section className="bg-[#F8F8F6] py-16 md:py-20 lg:py-24 relative overflow-hidden section-glow-gold">
+        <section className="bg-[#F8F8F6] pt-16 md:pt-20 lg:pt-24 pb-40 md:pb-44 lg:pb-48 relative overflow-hidden section-glow-gold">
           <SectionNumber number="02" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
           {/* Ambient accents */}
           <div className="absolute top-1/3 left-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#F1F3F5] blur-3xl rounded-full pointer-events-none float-orb" />
@@ -344,7 +344,7 @@ export function SolutionsClient() {
                 className="content-card p-6 sm:p-12 md:p-16 relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C6A24A] to-transparent rounded-t-xl" />
-                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] pb-2">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Build Your Acquisition System

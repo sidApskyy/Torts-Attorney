@@ -98,7 +98,7 @@ export function HowItWorksClient() {
         <div className="section-divider-animated" />
 
         {/* Lifecycle Connection */}
-        <section className="bg-[#F5F7FA] py-16 md:py-20 lg:py-24 relative overflow-hidden" aria-labelledby="lifecycle-heading">
+        <section className="bg-[#F5F7FA] pt-16 md:pt-20 lg:pt-24 pb-40 md:pb-44 lg:pb-48 relative overflow-hidden" aria-labelledby="lifecycle-heading">
           <SectionNumber number="01" className="top-10 right-4 text-[180px] md:text-[280px] lg:text-[340px] leading-none" />
           <AnimatedGradientBackground colors={['#C6A24A', '#F5F7FA', '#E4E1D8']} speed={20} />
           {/* Ambient accents */}

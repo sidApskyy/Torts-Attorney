@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
@@ -10,6 +11,7 @@ import { GlareHover } from '@/components/ui/glare-hover'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 import { PageHero } from '@/components/layout/page-hero'
+import { useRole } from '@/components/providers/role-provider'
 
 const metrics = [
   { label: 'Campaign Spend', value: '$125,000', change: '+12%', positive: true },
@@ -25,48 +27,56 @@ const campaigns = [
 ]
 
 const activeMassTortCampaigns = [
-  { name: "Camp Lejeune", description: "Water contamination claims for veterans and families stationed at Camp Lejeune." },
-  { name: "AFFF", description: "Firefighting foam exposure linked to cancer and serious health conditions." },
-  { name: "Roundup", description: "Weedkiller exposure claims for non-Hodgkin lymphoma and related cancers." },
-  { name: "Ozempic", description: "GLP-1 receptor agonist claims for gastroparesis and severe digestive injuries." },
-  { name: "NEC", description: "Baby formula claims for necrotizing enterocolitis in premature infants." },
-  { name: "Depo Provera", description: "Contraceptive injection claims linked to meningioma brain tumors." },
-  { name: "PFAS", description: "Forever chemical contamination claims from drinking water and consumer products." },
-  { name: "Suboxone", description: "Sublingual film claims for severe dental decay and tooth loss." },
-  { name: "Bard PowerPort", description: "Implantable port catheter claims for device fracture and migration injuries." },
-  { name: "Hair Relaxer", description: "Chemical hair straightener claims linked to uterine cancer and fibroids." },
-  { name: "Oxbryta", description: "Sickle cell disease drug claims following market withdrawal for safety concerns." },
-  { name: "Hernia Mesh", description: "Surgical mesh implant claims for chronic pain, infection, and mesh failure." },
-  { name: "Zantac", description: "Heartburn medication claims for cancer caused by NDMA contamination." },
-  { name: "Dacthal", description: "Pesticide exposure claims linked to thyroid damage and developmental harm." },
-  { name: "Rideshare", description: "Assault and safety claims against rideshare companies for passenger injuries." },
-  { name: "Risperdal", description: "Antipsychotic medication claims for gynecomastia and hormonal side effects." },
-  { name: "Olympus Scope", description: "Duodenoscope and endoscope infection claims including CRE superbug outbreaks and the 2025 MAJ-891 recall." },
-  { name: "Social Media Addiction", description: "MDL 3047 claims against Meta, TikTok, Snap, YouTube, and Discord for adolescent mental health harms — bellwether trials approaching." },
-  { name: "Sports Betting Addiction", description: "Consumer protection claims against DraftKings, FanDuel, BetMGM, Caesars — predatory VIP targeting and self-exclusion failures." },
-  { name: "Video Game Addiction", description: "Roblox, Fortnite, and loot-box claims — variable-reinforcement design defects and unauthorized child microtransactions." },
-  { name: "Benzene Exposure", description: "Occupational and consumer-product benzene claims — AML, CML, NHL, MDS from refinery work or recalled sunscreens, antiperspirants, and dry shampoos." },
-  { name: "Talcum Powder", description: "Johnson & Johnson talc claims linked to ovarian cancer and mesothelioma — MDL 2738, active in 2026." },
-  { name: "Tepezza", description: "Thyroid eye disease infusion claims for permanent hearing loss and tinnitus — MDL 3079." },
-  { name: "Taxotere", description: "Docetaxel chemotherapy claims for permanent hair loss and tear-duct eye injuries — MDL 2740/3023." },
-  { name: "Silicosis", description: "Engineered-stone countertop worker claims for silicosis — 560+ confirmed CA cases, early-stage litigation with plaintiff verdicts." },
-  { name: "Paraquat", description: "Herbicide exposure claims for Parkinson's disease — MDL 3004, ~6,600 federal plaintiffs, new claims still filed in 2026." },
-  { name: "Paragard", description: "Copper IUD breakage claims for surgical retrieval and related injuries — MDL 2974, ~4,000 federal cases." },
-  { name: "Wildfire", description: "Eaton and Palisades fire claims against Southern California Edison — SOL deadlines begin January 2027." },
-  { name: "IVC Filter", description: "Retrievable vena cava filter claims for fracture, migration, and perforation — Cook MDL 2570, ~6,500 cases pending and still open." },
-  { name: "Mesothelioma", description: "Asbestos exposure claims for mesothelioma and lung cancer — state court dockets plus 60+ bankruptcy trusts holding $30B+." },
-  { name: "Allergan Breast Implant", description: "Recalled BIOCELL textured implant claims for BIA-ALCL and explant surgery — MDL 2921, first bellwether October 2026." },
-  { name: "Valsartan", description: "NDMA-contaminated blood pressure medication claims for cancer — MDL 2875, personal injury track still in active litigation." },
-  { name: "Exactech", description: "Recalled knee, hip, and ankle implant claims for revision surgery — MDL 3044, currently stayed by Chapter 11 bankruptcy." },
-  { name: "Philips CPAP", description: "PE-PUR foam degradation claims from recalled sleep devices — MDL 3014, settlement registration closed January 2025." },
-  { name: "Motor Vehicle Accidents", description: "Exclusive motor vehicle accident leads — live transfers, qualified forms, and data leads with TCPA and DPPA compliance baked in." },
-  { name: "Transvaginal Mesh (TVM)", description: "Pelvic mesh erosion, chronic pain, and revision-surgery claims from POP and SUI implants." },
-  { name: "Premises Liability", description: "Slip and fall, negligent security, and dangerous-condition claims against property owners." },
-  { name: "CA Juvenile Detention Abuse", description: "Survivors of staff sexual abuse in California juvenile halls and probation camps, under the AB 218 revival window." },
-  { name: "CA Women's Prison Abuse", description: "Women sexually abused by correctional staff in California state and federal women's facilities." },
+  { name: "Camp Lejeune", emoji: "💧", description: "Water contamination claims for veterans and families stationed at Camp Lejeune." },
+  { name: "AFFF", emoji: "🧯", description: "Firefighting foam exposure linked to cancer and serious health conditions." },
+  { name: "Roundup", emoji: "🌿", description: "Weedkiller exposure claims for non-Hodgkin lymphoma and related cancers." },
+  { name: "Ozempic", emoji: "💉", description: "GLP-1 receptor agonist claims for gastroparesis and severe digestive injuries." },
+  { name: "NEC", emoji: "🍼", description: "Baby formula claims for necrotizing enterocolitis in premature infants." },
+  { name: "Depo Provera", emoji: "💊", description: "Contraceptive injection claims linked to meningioma brain tumors." },
+  { name: "PFAS", emoji: "⚗️", description: "Forever chemical contamination claims from drinking water and consumer products." },
+  { name: "Suboxone", emoji: "🦷", description: "Sublingual film claims for severe dental decay and tooth loss." },
+  { name: "Bard PowerPort", emoji: "🩺", description: "Implantable port catheter claims for device fracture and migration injuries." },
+  { name: "Hair Relaxer", emoji: "💇", description: "Chemical hair straightener claims linked to uterine cancer and fibroids." },
+  { name: "Oxbryta", emoji: "💊", description: "Sickle cell disease drug claims following market withdrawal for safety concerns." },
+  { name: "Hernia Mesh", emoji: "🩹", description: "Surgical mesh implant claims for chronic pain, infection, and mesh failure." },
+  { name: "Zantac", emoji: "💊", description: "Heartburn medication claims for cancer caused by NDMA contamination." },
+  { name: "Dacthal", emoji: "🌾", description: "Pesticide exposure claims linked to thyroid damage and developmental harm." },
+  { name: "Rideshare", emoji: "🚗", description: "Assault and safety claims against rideshare companies for passenger injuries." },
+  { name: "Risperdal", emoji: "💊", description: "Antipsychotic medication claims for gynecomastia and hormonal side effects." },
+  { name: "Olympus Scope", emoji: "🔬", description: "Duodenoscope and endoscope infection claims including CRE superbug outbreaks and the 2025 MAJ-891 recall." },
+  { name: "Social Media Addiction", emoji: "📱", description: "MDL 3047 claims against Meta, TikTok, Snap, YouTube, and Discord for adolescent mental health harms — bellwether trials approaching." },
+  { name: "Sports Betting Addiction", emoji: "🎰", description: "Consumer protection claims against DraftKings, FanDuel, BetMGM, Caesars — predatory VIP targeting and self-exclusion failures." },
+  { name: "Video Game Addiction", emoji: "🎮", description: "Roblox, Fortnite, and loot-box claims — variable-reinforcement design defects and unauthorized child microtransactions." },
+  { name: "Benzene Exposure", emoji: "⚠️", description: "Occupational and consumer-product benzene claims — AML, CML, NHL, MDS from refinery work or recalled sunscreens, antiperspirants, and dry shampoos." },
+  { name: "Talcum Powder", emoji: "💄", description: "Johnson & Johnson talc claims linked to ovarian cancer and mesothelioma — MDL 2738, active in 2026." },
+  { name: "Tepezza", emoji: "💉", description: "Thyroid eye disease infusion claims for permanent hearing loss and tinnitus — MDL 3079." },
+  { name: "Taxotere", emoji: "💉", description: "Docetaxel chemotherapy claims for permanent hair loss and tear-duct eye injuries — MDL 2740/3023." },
+  { name: "Silicosis", emoji: "🏗️", description: "Engineered-stone countertop worker claims for silicosis — 560+ confirmed CA cases, early-stage litigation with plaintiff verdicts." },
+  { name: "Paraquat", emoji: "🌾", description: "Herbicide exposure claims for Parkinson's disease — MDL 3004, ~6,600 federal plaintiffs, new claims still filed in 2026." },
+  { name: "Paragard", emoji: "🔧", description: "Copper IUD breakage claims for surgical retrieval and related injuries — MDL 2974, ~4,000 federal cases." },
+  { name: "Wildfire", emoji: "🔥", description: "Eaton and Palisades fire claims against Southern California Edison — SOL deadlines begin January 2027." },
+  { name: "IVC Filter", emoji: "🩺", description: "Retrievable vena cava filter claims for fracture, migration, and perforation — Cook MDL 2570, ~6,500 cases pending and still open." },
+  { name: "Mesothelioma", emoji: "🏭", description: "Asbestos exposure claims for mesothelioma and lung cancer — state court dockets plus 60+ bankruptcy trusts holding $30B+." },
+  { name: "Allergan Breast Implant", emoji: "🩺", description: "Recalled BIOCELL textured implant claims for BIA-ALCL and explant surgery — MDL 2921, first bellwether October 2026." },
+  { name: "Valsartan", emoji: "💊", description: "NDMA-contaminated blood pressure medication claims for cancer — MDL 2875, personal injury track still in active litigation." },
+  { name: "Exactech", emoji: "🦴", description: "Recalled knee, hip, and ankle implant claims for revision surgery — MDL 3044, currently stayed by Chapter 11 bankruptcy." },
+  { name: "Philips CPAP", emoji: "😴", description: "PE-PUR foam degradation claims from recalled sleep devices — MDL 3014, settlement registration closed January 2025." },
+  { name: "Motor Vehicle Accidents", emoji: "🚗", description: "Exclusive motor vehicle accident leads — live transfers, qualified forms, and data leads with TCPA and DPPA compliance baked in." },
+  { name: "Transvaginal Mesh (TVM)", emoji: "🩺", description: "Pelvic mesh erosion, chronic pain, and revision-surgery claims from POP and SUI implants." },
+  { name: "Premises Liability", emoji: "🏢", description: "Slip and fall, negligent security, and dangerous-condition claims against property owners." },
+  { name: "CA Juvenile Detention Abuse", emoji: "⚖️", description: "Survivors of staff sexual abuse in California juvenile halls and probation camps, under the AB 218 revival window." },
+  { name: "CA Women's Prison Abuse", emoji: "⚖️", description: "Women sexually abused by correctional staff in California state and federal women's facilities." },
 ]
 
 export function CampaignIntelligenceClient() {
+  const { setRole } = useRole()
+  const router = useRouter()
+
+  const goToVictimForm = (campaignName: string) => {
+    setRole('victim')
+    router.push(`/?campaign=${encodeURIComponent(campaignName)}#victim-form`)
+  }
+
   return (
     <main>
         <PageHero
@@ -416,29 +426,47 @@ export function CampaignIntelligenceClient() {
                 {activeMassTortCampaigns.map((campaign, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, margin: '-40px' }}
                     transition={{ delay: index * 0.015, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="h-full"
+                    whileHover={{ y: -8, scale: 1.03 }}
+                    className="h-full group"
                   >
-                    <div className="content-card p-5 h-full relative overflow-hidden flex flex-col">
-                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C6A24A] to-transparent" />
-                      <h3 className="font-serif text-lg font-bold text-[#202124] mb-2 leading-tight">
+                    <div className="content-card p-5 h-full relative overflow-hidden flex flex-col transition-all duration-500 group-hover:border-[#C6A24A]/40 group-hover:shadow-[0_12px_40px_rgba(198,162,74,0.15)]">
+                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C6A24A] to-transparent transition-all duration-500 group-hover:h-1" />
+
+                      {/* Shine sweep on hover */}
+                      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                        <div className="absolute top-0 left-[-150%] w-[60%] h-full bg-gradient-to-r from-transparent via-[rgba(198,162,74,0.08)] to-transparent skew-x-[-20deg] transition-all duration-700 group-hover:left-[150%]" />
+                      </div>
+
+                      {/* Emoji badge */}
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="w-10 h-10 rounded-xl bg-[#C6A24A]/10 border border-[#C6A24A]/20 flex items-center justify-center text-xl transition-all duration-500 group-hover:scale-110 group-hover:bg-[#C6A24A]/15 group-hover:shadow-[0_0_20px_rgba(198,162,74,0.25)] tort-card-emoji">
+                          {campaign.emoji}
+                        </span>
+                        <div className="h-px flex-1 bg-gradient-to-r from-[#C6A24A]/20 to-transparent transition-all duration-500 group-hover:from-[#C6A24A]/40" />
+                      </div>
+
+                      <h3 className="font-serif text-lg font-bold text-[#202124] mb-2 leading-tight transition-colors duration-300 group-hover:text-[#9B7830]">
                         {campaign.name}
                       </h3>
                       <p className="text-sm text-[#4B5563] leading-[1.6] mb-4">
                         {campaign.description}
                       </p>
-                      <Link href="/contact" className="mt-auto block">
+                      <div
+                        onClick={() => goToVictimForm(campaign.name)}
+                        className="mt-auto block w-full"
+                      >
                         <Button
                           variant="outline"
                           size="sm"
-                          className="w-full bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A]"
+                          className="w-full bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] transition-all duration-300 group-hover:shadow-sm"
                         >
                           Check Your Eligibility
                         </Button>
-                      </Link>
+                      </div>
                     </div>
                   </motion.div>
                 ))}

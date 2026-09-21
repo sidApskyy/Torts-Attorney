@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, type ReactNode } from 'react'
+import { useSearchParams } from 'next/navigation'
 import {
   motion,
   AnimatePresence,
@@ -165,6 +166,7 @@ function Field({ id, label, children }: { id: string; label: string; children: R
 export function VictimLanding() {
   const prefersReducedMotion = useReducedMotion()
   const { scrollY } = useScroll()
+  const searchParams = useSearchParams()
 
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -172,6 +174,7 @@ export function VictimLanding() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [scrolledPast, setScrolledPast] = useState(false)
   const [formInView, setFormInView] = useState(true)
+  const [extraCampaign, setExtraCampaign] = useState<string | null>(null)
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -185,6 +188,12 @@ export function VictimLanding() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+    const campaignParam = searchParams.get('campaign')
+    if (campaignParam) {
+      const exists = campaigns.some((c) => c.label === campaignParam)
+      if (!exists) setExtraCampaign(campaignParam)
+      setForm((prev) => ({ ...prev, campaign: campaignParam }))
+    }
     if (window.location.hash === '#victim-form') {
       const el = document.getElementById('victim-form')
       if (el) {
@@ -192,7 +201,7 @@ export function VictimLanding() {
         window.history.replaceState(null, '', window.location.pathname + window.location.search)
       }
     }
-  }, [])
+  }, [searchParams])
 
   useEffect(() => {
     const el = document.getElementById('victim-form')
@@ -483,6 +492,9 @@ export function VictimLanding() {
                                 )}
                               >
                                 <option value="" disabled>Select a campaign</option>
+                                {extraCampaign && (
+                                  <option key={extraCampaign} value={extraCampaign}>{extraCampaign}</option>
+                                )}
                                 {campaigns.map((c) => (
                                   <option key={c.label} value={c.label}>{c.label}</option>
                                 ))}

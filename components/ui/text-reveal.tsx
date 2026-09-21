@@ -42,7 +42,7 @@ export function TextReveal({ children, className = '', delay = 0, as = 'h2', id 
         delay: prefersReducedMotion ? 0 : delay,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className={`overflow-hidden ${className}`}
+      className={className}
     >
       {children}
     </MotionTag>

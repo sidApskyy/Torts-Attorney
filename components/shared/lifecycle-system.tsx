@@ -149,14 +149,14 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
           ))}
 
           {/* Stage markers along the path */}
-          <div className="relative flex items-center justify-between">
+          <div className="relative flex items-stretch">
             {visibleStages.map((stage, index) => {
             const isActive = isStageActive(stage.id, index)
             const isPulsing = pulseStage === index && introductionComplete
             return (
               <motion.div
                 key={stage.id}
-                className="relative cursor-pointer group"
+                className="relative cursor-pointer group flex-1 py-[80px] -my-[80px]"
                 initial={{ opacity: 0, y: 20, scale: 0.8 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ delay: index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -278,7 +278,7 @@ export function LifecycleSystem({ variant = 'hero', interactive = true }: Lifecy
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-8 px-4 py-3 md:px-6 md:py-4 glass-card text-xs md:text-sm text-[#4B5563] z-10 max-w-[200px] sm:max-w-[280px] md:max-w-none"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-0 px-4 py-3 md:px-6 md:py-4 glass-card text-xs md:text-sm text-[#4B5563] z-10 max-w-[200px] sm:max-w-[280px] md:max-w-none"
                     >
                       {stage.description}
                     </motion.div>

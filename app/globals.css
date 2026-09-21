@@ -604,6 +604,10 @@
     animation: icon-jiggle 0.9s ease-in-out infinite;
   }
 
+  .group:hover .tort-card-emoji {
+    animation: icon-jiggle 0.9s ease-in-out infinite;
+  }
+
   /* Motion States - Hover */
   .motion-hover-lift:hover {
     transform: translateY(-4px);
@@ -1222,7 +1226,8 @@
     .motion-scale-in-premium,
     .motion-clip-reveal-right,
     .motion-stagger-fade-up,
-    .group:hover .tort-card-icon {
+    .group:hover .tort-card-icon,
+    .group:hover .tort-card-emoji {
       animation: none;
       opacity: 1;
       transform: none;
@@ -1437,6 +1442,8 @@
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
 }
 
 .word-reveal > span {
