@@ -485,10 +485,17 @@ export function CampaignIntelligenceClient() {
             className="absolute top-0 left-1/4 w-56 h-56 sm:w-80 sm:h-80 rounded-full blur-3xl pointer-events-none"
             style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }}
           />
+          <motion.div
+            aria-hidden
+            animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+            className="absolute bottom-0 right-1/4 w-64 h-64 sm:w-96 sm:h-96 rounded-full blur-3xl pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.04), transparent 70%)' }}
+          />
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C6A24A]/20 to-transparent pointer-events-none" />
 
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
+            <div className="max-w-5xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
                 whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
@@ -497,7 +504,23 @@ export function CampaignIntelligenceClient() {
                 className="content-card p-6 sm:p-12 md:p-16 relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C6A24A] to-transparent rounded-t-xl" />
-                <h2 id="intelligence-cta" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[0.95] tracking-[-0.02em] overflow-hidden">
+
+                {/* Eyebrow */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.05 }}
+                  className="flex items-center justify-center gap-3 mb-6"
+                >
+                  <div className="h-px w-8 bg-[#C6A24A]" />
+                  <span className="text-sm md:text-base font-semibold uppercase tracking-[0.15em] text-[#C6A24A]">
+                    Get Started
+                  </span>
+                  <div className="h-px w-8 bg-[#C6A24A]" />
+                </motion.div>
+
+                <h2 id="intelligence-cta" className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] overflow-hidden pb-2 text-center">
                   <TextReveal as="span" delay={0.1}>
                     <GradientText animationSpeed={5}>
                       Implement Campaign Intelligence
@@ -510,24 +533,63 @@ export function CampaignIntelligenceClient() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
-                  className="text-lg md:text-xl text-[#4B5563] max-w-2xl mx-auto mb-10 leading-[1.7]"
+                  className="text-lg md:text-xl text-[#4B5563] max-w-2xl mx-auto mb-10 leading-[1.7] text-center"
                 >
                   Let's discuss how we can implement campaign intelligence for your acquisition operations.
                 </motion.p>
 
+                {/* Benefit bullets */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 max-w-3xl mx-auto">
+                  {[
+                    { icon: '📊', title: 'Real-time Visibility', desc: 'Monitor every stage of your acquisition funnel' },
+                    { icon: '🎯', title: 'Quality Tracking', desc: 'Lead quality and qualification metrics at a glance' },
+                    { icon: '⚡', title: 'Faster Decisions', desc: 'Act on performance data before spend is wasted' },
+                  ].map((benefit, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-40px' }}
+                      transition={{ delay: 0.15 + i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-center p-4 rounded-xl bg-[#F5F7FA] border border-[#C6A24A]/10 relative overflow-hidden group/benefit"
+                    >
+                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#C6A24A]/40 to-transparent" />
+                      <span className="text-2xl mb-2 block transition-transform duration-300 group-hover/benefit:scale-125 group-hover/benefit:-rotate-6">
+                        {benefit.icon}
+                      </span>
+                      <h3 className="font-serif text-sm font-bold text-[#202124] mb-1">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-xs text-[#4B5563] leading-[1.5]">
+                        {benefit.desc}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Dual CTAs */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.15 }}
-                  className="flex justify-center"
+                  className="flex flex-col sm:flex-row gap-4 justify-center items-center"
                 >
                   <Link href="/contact">
                     <MagneticButton strength={0.25} className="rounded-full">
-                      <Button variant="outline" size="lg" className="bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] text-base">
+                      <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198,162,74,0.16)] hover:shadow-[0_8px_30px_rgba(198,162,74,0.22)]">
                         Start a Conversation
                       </Button>
                     </MagneticButton>
+                  </Link>
+                  <Link href="/how-it-works">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] text-base transition-all duration-300"
+                    >
+                      See How It Works
+                    </Button>
                   </Link>
                 </motion.div>
               </motion.div>

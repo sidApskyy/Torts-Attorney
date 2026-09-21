@@ -11,11 +11,33 @@ import { TiltCard } from '@/components/ui/tilt-card'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 import { PageHero } from '@/components/layout/page-hero'
+import {
+  Stethoscope,
+  PencilRuler,
+  Hammer,
+  Rocket,
+  CheckCircle,
+  TrendingUp,
+  Maximize,
+  Eye,
+  Ruler,
+  Cog,
+  type LucideIcon,
+} from 'lucide-react'
 
-const stages = [
+const stages: Array<{
+  number: string
+  title: string
+  icon: LucideIcon
+  description: string
+  whatClientSees: string
+  whatGetsMeasured: string
+  whatGetsOptimized: string
+}> = [
   {
     number: '01',
     title: 'Diagnose',
+    icon: Stethoscope,
     description: 'We assess your firm\'s acquisition operations, identify bottlenecks, and understand your goals and capacity.',
     whatClientSees: 'Operational assessment, gap analysis, and strategic recommendations.',
     whatGetsMeasured: 'Current acquisition economics, conversion rates, and operational capacity.',
@@ -24,6 +46,7 @@ const stages = [
   {
     number: '02',
     title: 'Design',
+    icon: PencilRuler,
     description: 'We design a comprehensive acquisition system tailored to your firm\'s specific needs and market opportunity.',
     whatClientSees: 'System architecture, campaign strategy, and implementation roadmap.',
     whatGetsMeasured: 'Design feasibility, resource requirements, and projected ROI.',
@@ -32,6 +55,7 @@ const stages = [
   {
     number: '03',
     title: 'Build',
+    icon: Hammer,
     description: 'We build the acquisition system including media campaigns, intake workflows, qualification processes, and reporting infrastructure.',
     whatClientSees: 'System implementation, integration setup, and team training.',
     whatGetsMeasured: 'Implementation progress, integration success, and team readiness.',
@@ -40,6 +64,7 @@ const stages = [
   {
     number: '04',
     title: 'Launch',
+    icon: Rocket,
     description: 'We launch campaigns and begin driving qualified leads through your acquisition system.',
     whatClientSees: 'Campaign launch, initial lead flow, and system activation.',
     whatGetsMeasured: 'Lead volume, response times, and initial conversion rates.',
@@ -48,6 +73,7 @@ const stages = [
   {
     number: '05',
     title: 'Qualify',
+    icon: CheckCircle,
     description: 'We manage qualification processes, document collection, and retainer workflows to convert leads into qualified cases.',
     whatClientSees: 'Lead qualification, document management, and retainer completion.',
     whatGetsMeasured: 'Qualification rates, document completion, and retainer conversion.',
@@ -56,6 +82,7 @@ const stages = [
   {
     number: '06',
     title: 'Optimize',
+    icon: TrendingUp,
     description: 'We continuously analyze performance, identify optimization opportunities, and refine the acquisition system.',
     whatClientSees: 'Performance reports, optimization recommendations, and system refinements.',
     whatGetsMeasured: 'Acquisition economics, conversion rates, and ROI.',
@@ -64,6 +91,7 @@ const stages = [
   {
     number: '07',
     title: 'Scale',
+    icon: Maximize,
     description: 'We scale successful campaigns and expand acquisition systems to capture additional market opportunity.',
     whatClientSees: 'Campaign expansion, system scaling, and capacity growth.',
     whatGetsMeasured: 'Scaled performance, market penetration, and acquisition economics at scale.',
@@ -211,53 +239,101 @@ export function HowItWorksClient() {
                 </motion.p>
               </div>
 
-              <div className="space-y-6">
-                {stages.map((stage, index) => (
+              <div className="relative space-y-6">
+                {/* Vertical pipeline connector — draws itself as you scroll */}
+                <motion.div
+                  className="absolute left-6 md:left-10 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#C6A24A] via-[#C6A24A]/40 to-transparent origin-top pointer-events-none hidden sm:block"
+                  initial={{ scaleY: 0 }}
+                  whileInView={{ scaleY: 1 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 2, ease: 'easeOut' }}
+                />
+
+                {stages.map((stage, index) => {
+                  const Icon = stage.icon
+                  const isLast = index === stages.length - 1
+                  return (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30, x: -20 }}
+                    whileInView={{ opacity: 1, y: 0, x: 0 }}
                     viewport={{ once: true, margin: '-40px' }}
                     transition={{ delay: index * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative group"
                   >
+                    {/* Pipeline node — sits on the connector line */}
+                    <div className="absolute left-6 md:left-10 top-8 -translate-x-1/2 z-20 hidden sm:block">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        viewport={{ once: true, margin: '-40px' }}
+                        transition={{ delay: index * 0.08 + 0.3, duration: 0.4, ease: 'backOut' }}
+                        className="w-4 h-4 rounded-full bg-[#C6A24A] border-2 border-[#F1F3F5] shadow-[0_0_12px_rgba(198,162,74,0.4)]"
+                      />
+                    </div>
+
                     <TiltCard
-                      intensity={6}
-                      className="glass-card bg-[#F8F8F6] border border-[rgba(198, 162, 74, 0.15)] rounded-2xl p-8 md:p-10 relative overflow-hidden"
+                      intensity={4}
+                      className="glass-card bg-[#F8F8F6] border border-[rgba(198, 162, 74, 0.15)] rounded-2xl p-6 md:p-10 relative overflow-hidden sm:ml-16 transition-all duration-500 group-hover:border-[#C6A24A]/35 group-hover:shadow-[0_12px_40px_rgba(198,162,74,0.10)]"
                     >
-                      <div className="absolute top-0 left-0 bottom-0 w-1 bg-gradient-to-b from-[#C6A24A] to-[#9B7830]" />
                       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#C6A24A]/2 to-transparent pointer-events-none" />
-                      <div className="relative flex flex-col md:flex-row gap-8 md:gap-12">
-                        <div className="md:w-1/4">
-                          <span className="font-serif text-5xl md:text-6xl font-bold text-[#C6A24A] leading-none">
-                            {stage.number}
-                          </span>
-                          <h3 className="font-serif text-2xl md:text-3xl font-bold text-[#202124] mt-4">
-                            {stage.title}
-                          </h3>
+
+                      {/* Shine sweep on hover */}
+                      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                        <div className="absolute top-0 left-[-150%] w-[60%] h-full bg-gradient-to-r from-transparent via-[rgba(198,162,74,0.06)] to-transparent skew-x-[-20deg] transition-all duration-700 group-hover:left-[150%]" />
+                      </div>
+
+                      <div className="relative flex flex-col md:flex-row gap-6 md:gap-10">
+                        {/* Left: Icon + number + title */}
+                        <div className="md:w-1/4 flex md:flex-col items-center md:items-start gap-4 md:gap-3">
+                          {/* Icon badge */}
+                          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#C6A24A]/15 to-[#9B7830]/10 border border-[#C6A24A]/20 flex items-center justify-center shrink-0 transition-all duration-500 group-hover:scale-110 group-hover:bg-[#C6A24A]/20 group-hover:shadow-[0_0_24px_rgba(198,162,74,0.25)] group-hover:-rotate-3">
+                            <Icon className="w-6 h-6 text-[#C6A24A] transition-transform duration-500 group-hover:scale-110" strokeWidth={1.5} />
+                          </div>
+                          <div>
+                            <span className="font-serif text-4xl md:text-5xl font-bold text-[#C6A24A]/30 leading-none block transition-colors duration-500 group-hover:text-[#C6A24A]/50">
+                              {stage.number}
+                            </span>
+                            <h3 className="font-serif text-xl md:text-2xl font-bold text-[#202124] mt-2 transition-colors duration-300 group-hover:text-[#9B7830]">
+                              {stage.title}
+                            </h3>
+                          </div>
                         </div>
+
+                        {/* Right: Description + 3 columns */}
                         <div className="md:w-3/4">
-                          <p className="text-lg md:text-xl text-[#4B5563] leading-[1.7] mb-8">
+                          <p className="text-base md:text-lg text-[#4B5563] leading-[1.7] mb-6">
                             {stage.description}
                           </p>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div className="border-l-2 border-[#C6A24A]/30 pl-4">
-                              <p className="text-xs font-semibold text-[#C6A24A] mb-2 uppercase tracking-wider">What You See</p>
-                              <p className="text-sm md:text-base text-[#4B5563] leading-[1.7]">{stage.whatClientSees}</p>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="bg-[#F5F7FA] rounded-xl p-4 border border-[#C6A24A]/8 transition-all duration-300 group-hover:border-[#C6A24A]/20 group-hover:bg-[#F5F7FA]/80">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Eye className="w-3.5 h-3.5 text-[#C6A24A]" strokeWidth={2} />
+                                <p className="text-xs font-semibold text-[#C6A24A] uppercase tracking-wider">What You See</p>
+                              </div>
+                              <p className="text-sm text-[#4B5563] leading-[1.6]">{stage.whatClientSees}</p>
                             </div>
-                            <div className="border-l-2 border-[#C6A24A]/30 pl-4">
-                              <p className="text-xs font-semibold text-[#C6A24A] mb-2 uppercase tracking-wider">What We Measure</p>
-                              <p className="text-sm md:text-base text-[#4B5563] leading-[1.7]">{stage.whatGetsMeasured}</p>
+                            <div className="bg-[#F5F7FA] rounded-xl p-4 border border-[#C6A24A]/8 transition-all duration-300 group-hover:border-[#C6A24A]/20 group-hover:bg-[#F5F7FA]/80">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Ruler className="w-3.5 h-3.5 text-[#C6A24A]" strokeWidth={2} />
+                                <p className="text-xs font-semibold text-[#C6A24A] uppercase tracking-wider">What We Measure</p>
+                              </div>
+                              <p className="text-sm text-[#4B5563] leading-[1.6]">{stage.whatGetsMeasured}</p>
                             </div>
-                            <div className="border-l-2 border-[#C6A24A]/30 pl-4">
-                              <p className="text-xs font-semibold text-[#C6A24A] mb-2 uppercase tracking-wider">What We Optimize</p>
-                              <p className="text-sm md:text-base text-[#4B5563] leading-[1.7]">{stage.whatGetsOptimized}</p>
+                            <div className="bg-[#F5F7FA] rounded-xl p-4 border border-[#C6A24A]/8 transition-all duration-300 group-hover:border-[#C6A24A]/20 group-hover:bg-[#F5F7FA]/80">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Cog className="w-3.5 h-3.5 text-[#C6A24A]" strokeWidth={2} />
+                                <p className="text-xs font-semibold text-[#C6A24A] uppercase tracking-wider">What We Optimize</p>
+                              </div>
+                              <p className="text-sm text-[#4B5563] leading-[1.6]">{stage.whatGetsOptimized}</p>
                             </div>
                           </div>
                         </div>
                       </div>
                     </TiltCard>
                   </motion.div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </div>
