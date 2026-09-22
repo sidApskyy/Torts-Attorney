@@ -58,8 +58,10 @@ export function Preloader() {
                 src="/TTA_2@4x.webp"
                 alt="The Torts Attorney"
                 width={200}
-                height={200}
+                height={100}
                 priority
+                className="w-44 sm:w-52 h-auto"
+                style={{ height: 'auto' }}
               />
             </motion.div>
 

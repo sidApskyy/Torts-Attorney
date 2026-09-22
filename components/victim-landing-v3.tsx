@@ -1015,7 +1015,7 @@ export function VictimLanding() {
             transition={{ duration: 0.4, ease }}
             className="fixed bottom-0 inset-x-0 z-40 block lg:hidden"
           >
-            <div className="flex items-center justify-between gap-3 bg-[#202124]/95 backdrop-blur-md border-t border-[#C6A24A]/30 px-5 pr-20 pt-3.5 pb-[max(env(safe-area-inset-bottom),0.875rem)]">
+            <div className="flex items-center justify-between gap-3 bg-[#202124]/95 border-t border-[#C6A24A]/30 px-5 pr-20 pt-3.5 pb-[max(env(safe-area-inset-bottom),0.875rem)]">
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-white leading-tight">Free, confidential review</p>
                 <p className="text-[11px] text-[#C9CDD4] leading-tight mt-0.5">

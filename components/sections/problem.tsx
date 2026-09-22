@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
@@ -20,6 +20,16 @@ export function Problem() {
   const sectionRef = useRef<HTMLElement>(null)
   const insightRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useReducedMotion()
+  const [isTouch, setIsTouch] = useState(false)
+
+  useEffect(() => {
+    // Scroll-linked transforms (clip-path wipes, 3D tilt, fullscreen gradient
+    // crossfades) repaint large layers every frame — static end-states on touch
+    // devices keep scrolling smooth while preserving the desktop experience.
+    setIsTouch(window.matchMedia('(pointer: coarse)').matches)
+  }, [])
+
+  const animateScroll = !prefersReducedMotion && !isTouch
 
   const { scrollYProgress: sectionProgress } = useScroll({
     target: sectionRef,
@@ -55,21 +65,21 @@ export function Problem() {
           className="absolute inset-0"
           style={{
             background: 'radial-gradient(circle at 20% 30%, rgba(198, 162, 74, 0.08), transparent 50%)',
-            opacity: prefersReducedMotion ? 1 : bgLayer1Opacity,
+            opacity: animateScroll ? bgLayer1Opacity : 1,
           }}
         />
         <motion.div
           className="absolute inset-0"
           style={{
             background: 'radial-gradient(circle at 80% 50%, rgba(198, 162, 74, 0.10), transparent 50%)',
-            opacity: prefersReducedMotion ? 0 : bgLayer2Opacity,
+            opacity: animateScroll ? bgLayer2Opacity : 0,
           }}
         />
         <motion.div
           className="absolute inset-0"
           style={{
             background: 'radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.04), transparent 50%)',
-            opacity: prefersReducedMotion ? 0 : bgLayer3Opacity,
+            opacity: animateScroll ? bgLayer3Opacity : 0,
           }}
         />
       </div>
@@ -156,7 +166,7 @@ export function Problem() {
               >
                 <ImageReveal direction="circle" delay={0.3} className="absolute inset-0">
                 <motion.div
-                  style={{ y: prefersReducedMotion ? 0 : imageParallaxY }}
+                  style={{ y: animateScroll ? imageParallaxY : 0 }}
                   className="absolute inset-0"
                 >
                   <Image
@@ -316,18 +326,18 @@ export function Problem() {
           <div ref={insightRef} className="mt-24" style={{ perspective: '1000px' }}>
             <motion.div
               style={{
-                rotateX: prefersReducedMotion ? 0 : insightRotateX,
-                opacity: prefersReducedMotion ? 1 : insightOpacity,
+                rotateX: animateScroll ? insightRotateX : 0,
+                opacity: animateScroll ? insightOpacity : 1,
                 transformStyle: 'preserve-3d',
                 transformOrigin: 'center bottom',
                 transformPerspective: 1000,
               }}
             >
-              <div className="max-w-4xl mx-auto p-6 sm:p-10 md:p-16 relative overflow-hidden rounded-2xl border border-[rgba(198,162,74,0.15)] bg-[rgba(255,255,255,0.03)] backdrop-blur-sm">
+              <div className="max-w-4xl mx-auto p-6 sm:p-10 md:p-16 relative overflow-hidden rounded-2xl border border-[rgba(198,162,74,0.15)] bg-[rgba(255,255,255,0.03)] md:backdrop-blur-sm">
                 {/* Accent bar — scroll-driven grow from top */}
                 <motion.div
                   className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-[#C6A24A] to-[#9B7830] origin-top"
-                  style={{ scaleY: prefersReducedMotion ? 1 : accentBarScaleY }}
+                  style={{ scaleY: animateScroll ? accentBarScaleY : 1 }}
                 />
 
                 {/* Subtle static gradient sheen */}
@@ -336,7 +346,7 @@ export function Problem() {
                 {/* Text — scroll-driven clip-path wipe reveal */}
                 <motion.p
                   style={{
-                    clipPath: prefersReducedMotion ? 'inset(0 0 0 0)' : insightClipPath,
+                    clipPath: animateScroll ? insightClipPath : 'inset(0 0 0 0)',
                   }}
                   className="font-serif text-2xl md:text-3xl text-[rgba(255,255,255,0.9)] leading-[1.4] tracking-[-0.01em] relative"
                 >

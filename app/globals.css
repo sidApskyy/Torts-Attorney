@@ -1549,6 +1549,14 @@
   animation: gold-dust 8s ease-in-out infinite;
 }
 
+/* 15 infinite-animating dots are compositor churn during touch scroll —
+   imperceptible at mobile sizes anyway */
+@media (pointer: coarse) {
+  .gold-dust-particle {
+    display: none;
+  }
+}
+
 /* ── Text shimmer sweep on headings ── */
 @keyframes text-shimmer-sweep {
   0% { background-position: -200% center; }

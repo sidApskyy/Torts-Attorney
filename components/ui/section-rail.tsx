@@ -31,25 +31,37 @@ export function SectionRail() {
       return
     }
 
+    // The rail is hidden below lg — skip the scroll work entirely on mobile.
+    // Previously this ran 12 getBoundingClientRect() calls per scroll event on
+    // devices where the rail never renders, forcing layout thrash mid-scroll.
+    const mq = window.matchMedia('(min-width: 1024px)')
+    if (!mq.matches) return
+
+    let ticking = false
     const handleScroll = () => {
-      setVisible(window.scrollY > window.innerHeight * 0.5)
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setVisible(window.scrollY > window.innerHeight * 0.5)
 
-      const midPoint = window.scrollY + window.innerHeight / 2
-      let bestIndex = 0
-      let bestDist = Infinity
+        const midPoint = window.scrollY + window.innerHeight / 2
+        let bestIndex = 0
+        let bestDist = Infinity
 
-      sections.forEach((sec, index) => {
-        const el = document.getElementById(sec.id)
-        if (el) {
-          const rect = el.getBoundingClientRect()
-          const dist = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2)
-          if (dist < bestDist) {
-            bestDist = dist
-            bestIndex = index
+        sections.forEach((sec, index) => {
+          const el = document.getElementById(sec.id)
+          if (el) {
+            const rect = el.getBoundingClientRect()
+            const dist = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2)
+            if (dist < bestDist) {
+              bestDist = dist
+              bestIndex = index
+            }
           }
-        }
+        })
+        setActiveIndex(bestIndex)
+        ticking = false
       })
-      setActiveIndex(bestIndex)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })

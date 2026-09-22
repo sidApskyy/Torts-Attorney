@@ -156,21 +156,34 @@ export function MoltenMetal({
     program: Program
     mesh: Mesh
   } | null>(null)
-  const [isMobile, setIsMobile] = useState(false)
+  // Computed synchronously (not in an effect) so the WebGL renderer initializes
+  // with mobile values on its first run — the mount effect only runs once.
+  const [isMobile] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      (window.matchMedia('(pointer: coarse)').matches ||
+        window.innerWidth < 768 ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  )
   const [failed, setFailed] = useState(false)
+  // Incrementing rebuilds the renderer with a fresh canvas/context — the only
+  // reliable recovery from webglcontextlost (OGL doesn't re-upload resources
+  // on restore). Capped retries avoid an infinite rebuild loop on dead GPUs.
+  const [ctxKey, setCtxKey] = useState(0)
+  const lossesRef = useRef(0)
 
-  useEffect(() => {
-    const isTouch = window.matchMedia('(pointer: coarse)').matches
-    const smallScreen = window.innerWidth < 768
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    setIsMobile(isTouch || smallScreen || reducedMotion)
-  }, [])
-
-  const effectiveDetail = isMobile ? 2 : detail
+  // Speed costs nothing on the GPU — cost drivers are detail (loop iterations
+  // per pixel) and resolution (DPR). Keep full speed on mobile but cap detail —
+  // the pages pass detail=5, which on a phone GPU can stall frames or force a
+  // context loss (the loop then stops permanently and the shader looks frozen).
+  const effectiveDetail = isMobile ? Math.min(detail, 3) : detail
   const effectiveBrightness = isMobile ? brightness * 0.85 : brightness
   const effectiveMouseInteraction = isMobile ? false : mouseInteraction
   const effectiveMouseStrength = isMobile ? 0 : mouseStrength
-  const effectiveSpeed = isMobile ? speed * 0.6 : speed
+  const effectiveDpr =
+    typeof window === 'undefined'
+      ? 1
+      : Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2)
 
   useEffect(() => {
     const container = containerRef.current
@@ -183,7 +196,7 @@ export function MoltenMetal({
         alpha: true,
         premultipliedAlpha: true,
         antialias: false,
-        dpr: Math.min(window.devicePixelRatio || 1, 2),
+        dpr: effectiveDpr,
       })
     } catch {
       setFailed(true)
@@ -213,7 +226,7 @@ export function MoltenMetal({
       uniforms: {
         iTime: { value: 0 },
         iResolution: { value: new Float32Array([1, 1]) },
-        uSpeed: { value: effectiveSpeed },
+        uSpeed: { value: speed },
         uScale: { value: scale },
         uDetail: { value: effectiveDetail },
         uGlow: { value: glow },
@@ -303,6 +316,9 @@ export function MoltenMetal({
         cancelAnimationFrame(raf)
         raf = 0
       }
+      lossesRef.current += 1
+      if (lossesRef.current <= 3) setCtxKey((k) => k + 1)
+      else setFailed(true)
     }
     canvas.addEventListener('webglcontextlost', onContextLost)
 
@@ -351,14 +367,14 @@ export function MoltenMetal({
       if (loseCtx) loseCtx.loseContext()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [ctxKey])
 
   useEffect(() => {
     const ctx = ctxRef.current
     if (!ctx) return
     const u = ctx.program.uniforms
 
-    u.uSpeed.value = effectiveSpeed
+    u.uSpeed.value = speed
     u.uScale.value = scale
     u.uDetail.value = effectiveDetail
     u.uGlow.value = glow
@@ -384,7 +400,7 @@ export function MoltenMetal({
     uc2[0] = c2[0]; uc2[1] = c2[1]; uc2[2] = c2[2]
     uc3[0] = c3[0]; uc3[1] = c3[1]; uc3[2] = c3[2]
   }, [
-    color1, color2, color3, effectiveSpeed, scale, effectiveDetail, glow, coreSize,
+    color1, color2, color3, speed, scale, effectiveDetail, glow, coreSize,
     swirl, fold, blackPoint, effectiveBrightness, colorMode, grain,
     grainIntensity, effectiveMouseInteraction, effectiveMouseStrength, opacity,
   ])

@@ -36,6 +36,7 @@ export function Footer() {
                   alt="The Torts Attorney"
                   width={1600}
                   height={799}
+                  style={{ width: 'auto' }}
                   className="h-12 md:h-14 w-auto object-contain"
                 />
               </Link>

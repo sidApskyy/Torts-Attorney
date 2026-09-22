@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, type ReactNode } from 'react'
+import { useRef, useState, useEffect, type ReactNode } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
 interface ScrollTiltProps {
@@ -20,6 +20,13 @@ export function ScrollTilt({
 }: ScrollTiltProps) {
   const ref = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useReducedMotion()
+  const [isTouch, setIsTouch] = useState(false)
+
+  useEffect(() => {
+    // 3D tilt on a large card forces a repaint of the whole layer per scroll
+    // frame — expensive on mobile GPUs and barely perceptible on touch scroll.
+    setIsTouch(window.matchMedia('(pointer: coarse)').matches)
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -31,7 +38,7 @@ export function ScrollTilt({
   const scaleValue = useTransform(scrollYProgress, [0, 0.5, 1], [scale * 0.95, scale, scale * 0.95])
   const yValue = useTransform(scrollYProgress, [0, 1], [40, -40])
 
-  if (prefersReducedMotion) {
+  if (prefersReducedMotion || isTouch) {
     return <div className={className}>{children}</div>
   }
 

@@ -10,6 +10,7 @@ export default function Loading() {
           width={160}
           height={80}
           priority
+          style={{ width: 'auto' }}
           className="h-16 sm:h-20 w-auto object-contain animate-pulse"
         />
         <div className="flex gap-2">

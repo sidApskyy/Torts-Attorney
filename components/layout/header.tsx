@@ -114,9 +114,12 @@ export function Header() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)]',
         isScrolled
-          ? 'bg-[rgba(248,248,246,0.70)] backdrop-blur-[24px] border border-[rgba(198,162,74,0.12)] rounded-[18px] mx-2 mt-2 sm:mx-4 sm:mt-3 shadow-[0_8px_32px_rgba(32,33,36,0.08)]'
+          // backdrop-blur on a fixed element forces the GPU to re-sample the
+          // content behind it on every scroll frame — skip it below md and use
+          // a more opaque solid fill instead (visually identical on mobile).
+          ? 'bg-[rgba(248,248,246,0.95)] md:bg-[rgba(248,248,246,0.70)] md:backdrop-blur-[24px] border border-[rgba(198,162,74,0.12)] rounded-[18px] mx-2 mt-2 sm:mx-4 sm:mt-3 shadow-[0_8px_32px_rgba(32,33,36,0.08)]'
           : isMobileViewport && isMobileMenuOpen
-            ? 'bg-[rgba(248,248,246,0.95)] backdrop-blur-[20px] border-b border-[#E4E1D8]'
+            ? 'bg-[rgba(248,248,246,0.95)] md:backdrop-blur-[20px] border-b border-[#E4E1D8]'
             : 'bg-transparent border border-transparent',
         (!headerVisible || (isHidden && !isMobileMenuOpen)) && 'pointer-events-none'
       )}
@@ -141,6 +144,7 @@ export function Header() {
               width={160}
               height={80}
               priority
+              style={{ width: 'auto' }}
               className={cn(
                 'h-8 sm:h-10 md:h-12 w-auto object-contain transition-all duration-300 group-hover:opacity-80 group-hover:scale-[1.02]',
                 isScrolled ? 'h-7 sm:h-9 md:h-10' : 'h-8 sm:h-10 md:h-12'
