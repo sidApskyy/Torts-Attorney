@@ -8,10 +8,9 @@ import { z } from 'zod'
 import { submitContactForm } from '../actions/contact'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
-import { MagneticButton } from '@/components/ui/magnetic-button'
 import { Turnstile } from '@/components/ui/turnstile'
-import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
-import { GoldBeam } from '@/components/ui/gold-beam'
+import { TrustedFormLoader } from '@/components/ui/trusted-form-loader'
+import { MoltenMetal } from '@/components/ui/molten-metal'
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -78,6 +77,12 @@ export function ContactClient() {
       })
 
       formDataObj.append('cf-turnstile-response', turnstileToken)
+      // TrustedForm injects this hidden field after page load — read it at
+      // submit time so the certificate URL travels with the lead
+      formDataObj.append(
+        'trustedFormCertUrl',
+        document.querySelector<HTMLInputElement>('input[name="xxTrustedFormCertUrl"]')?.value ?? ''
+      )
 
       const result = await submitContactForm(formDataObj)
 
@@ -105,20 +110,52 @@ export function ContactClient() {
     <main>
         {/* Hero */}
         <section className="relative bg-[#F8F8F6] py-16 md:py-20 lg:py-24 overflow-hidden">
-          {/* Animated gradient mesh */}
-          <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F5F7FA']} speed={16} />
-          <GoldBeam position="center" />
-          {/* Architectural grid overlay */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `
-              linear-gradient(to right, #6B7280 1px, transparent 1px),
-              linear-gradient(to bottom, #6B7280 1px, transparent 1px)
-            `,
-            backgroundSize: '100px 100px'
-          }} />
+          {/* Molten metal shader — same cinematic background as the technology page */}
+          <div className="absolute inset-0" aria-hidden>
+            <MoltenMetal
+              color1="#0A0A0A"
+              color2="#1A1A1F"
+              color3="#000000"
+              speed={0.25}
+              scale={4}
+              detail={5}
+              glow={1.2}
+              coreSize={0.18}
+              swirl={1.2}
+              fold={-0.4}
+              blackPoint={0.15}
+              brightness={0.9}
+              colorMode="molten"
+              grain={true}
+              grainIntensity={0.02}
+              mouseInteraction={true}
+              mouseStrength={0.3}
+              opacity={0.9}
+              className="absolute inset-0"
+            />
+            {/* Cream wash for readability */}
+            <div className="absolute inset-0 bg-[rgba(248,248,246,0.3)]" />
+          </div>
+
           {/* Ambient orbs */}
-          <div className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb" style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }} />
-          <div className="absolute bottom-[5%] right-[10%] w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] rounded-full blur-[120px] pointer-events-none float-orb" style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.04), transparent 70%)', animationDelay: '4s' }} />
+          <div
+            className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb"
+            style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }}
+          />
+          <div
+            className="absolute bottom-[10%] right-[5%] w-[220px] h-[220px] sm:w-[400px] sm:h-[400px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb"
+            style={{ background: 'radial-gradient(circle, rgba(32, 33, 36, 0.04), transparent 70%)', animationDelay: '4s' }}
+          />
+
+          {/* Text backdrop — guarantees readability over any shader state */}
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(ellipse 50% 40% at 30% 50%, rgba(248,248,246,0.85) 0%, rgba(248,248,246,0.5) 50%, transparent 100%)',
+            }}
+          />
 
           <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl">
@@ -143,11 +180,9 @@ export function ContactClient() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[0.95] tracking-[-0.02em]"
+                className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[0.95] tracking-[-0.02em] text-[#202124]"
               >
-                <GradientText animationSpeed={5}>
-                  Build Your Acquisition System
-                </GradientText>
+                Build Your Acquisition System
               </motion.h1>
 
               <motion.p
@@ -321,7 +356,8 @@ export function ContactClient() {
                 transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
               <Card className="glass-card bg-[#F1F3F5] border-[rgba(198, 162, 74, 0.15)] p-6 sm:p-10 md:p-12 shadow-premium-lg border-sheen relative overflow-hidden">
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form onSubmit={handleSubmit} className="space-y-8" data-tf-element-role="offer">
+                  <TrustedFormLoader />
                   {/* Honeypot field — hidden from users, catches bots */}
                   <input
                     type="text"
@@ -451,17 +487,15 @@ export function ContactClient() {
                   </div>
 
                   <div className="pt-4">
-                    <MagneticButton strength={0.15} className="rounded-full w-full">
-                      <Button
-                        type="submit"
-                        variant="red"
-                        size="lg"
-                        className="w-full text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]"
-                        disabled={isPending}
-                      >
-                        {isPending ? 'Submitting...' : 'Start a Conversation'}
-                      </Button>
-                    </MagneticButton>
+                    <Button
+                      type="submit"
+                      variant="red"
+                      size="lg"
+                      className="w-full text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]"
+                      disabled={isPending}
+                    >
+                      {isPending ? 'Submitting...' : 'Start a Conversation'}
+                    </Button>
                   </div>
 
                   <p className="text-sm text-[#6B7280] text-center">

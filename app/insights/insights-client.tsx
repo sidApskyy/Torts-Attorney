@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { INSIGHT_CATEGORIES } from '@/lib/constants'
-import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
-import { GoldBeam } from '@/components/ui/gold-beam'
+import { MoltenMetal } from '@/components/ui/molten-metal'
 
 const articles = [
   {
@@ -79,15 +78,52 @@ export function InsightsClient() {
     <main>
         {/* Hero */}
         <section className="relative bg-[#F8F8F6] py-16 md:py-20 overflow-hidden" aria-labelledby="insights-heading">
-          <AnimatedGradientBackground colors={['#C6A24A', '#9B7830', '#F5F7FA']} speed={16} />
-          <GoldBeam position="center" />
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `
-              linear-gradient(to right, #6B7280 1px, transparent 1px),
-              linear-gradient(to bottom, #6B7280 1px, transparent 1px)
-            `,
-            backgroundSize: '100px 100px'
-          }} />
+          {/* Molten metal shader — same cinematic background as the technology page */}
+          <div className="absolute inset-0" aria-hidden>
+            <MoltenMetal
+              color1="#0A0A0A"
+              color2="#1A1A1F"
+              color3="#000000"
+              speed={0.25}
+              scale={4}
+              detail={5}
+              glow={1.2}
+              coreSize={0.18}
+              swirl={1.2}
+              fold={-0.4}
+              blackPoint={0.15}
+              brightness={0.9}
+              colorMode="molten"
+              grain={true}
+              grainIntensity={0.02}
+              mouseInteraction={true}
+              mouseStrength={0.3}
+              opacity={0.9}
+              className="absolute inset-0"
+            />
+            {/* Cream wash for readability */}
+            <div className="absolute inset-0 bg-[rgba(248,248,246,0.3)]" />
+          </div>
+
+          {/* Ambient orbs */}
+          <div
+            className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb"
+            style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }}
+          />
+          <div
+            className="absolute bottom-[10%] right-[5%] w-[220px] h-[220px] sm:w-[400px] sm:h-[400px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb"
+            style={{ background: 'radial-gradient(circle, rgba(32, 33, 36, 0.04), transparent 70%)', animationDelay: '4s' }}
+          />
+
+          {/* Text backdrop — guarantees readability over any shader state */}
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(ellipse 50% 40% at 30% 50%, rgba(248,248,246,0.85) 0%, rgba(248,248,246,0.5) 50%, transparent 100%)',
+            }}
+          />
           
           <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl">

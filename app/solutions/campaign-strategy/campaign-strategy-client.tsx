@@ -7,7 +7,6 @@ import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
 import { GlareHover } from '@/components/ui/glare-hover'
-import { MagneticButton } from '@/components/ui/magnetic-button'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 import { PageHero } from '@/components/layout/page-hero'
@@ -37,11 +36,9 @@ export function CampaignStrategyClient() {
           subtitle="Strategic campaign planning, media strategy, and operational design tailored to your firm's capacity and acquisition goals."
           cta={
             <Link href="/contact">
-              <MagneticButton strength={0.25} className="rounded-full">
-                <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
-                  Start a Conversation
-                </Button>
-              </MagneticButton>
+              <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
+                Start a Conversation
+              </Button>
             </Link>
           }
         />
@@ -322,11 +319,9 @@ export function CampaignStrategyClient() {
                 transition={{ delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               >
                 <Link href="/contact">
-                  <MagneticButton strength={0.25} className="rounded-full">
-                    <Button variant="outline" size="lg" className="bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] text-base shadow-sm hover:shadow-[0_8px_24px_rgba(198, 162, 74,0.12)] transition-all duration-300">
-                      Start a Conversation
-                    </Button>
-                  </MagneticButton>
+                  <Button variant="outline" size="lg" className="bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] text-base shadow-sm hover:shadow-[0_8px_24px_rgba(198, 162, 74,0.12)] transition-all duration-300">
+                    Start a Conversation
+                  </Button>
                 </Link>
               </motion.div>
             </div>

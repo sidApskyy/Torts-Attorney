@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { checkRateLimit } from '@/lib/rate-limiter'
 import { verifyTurnstile } from '@/lib/turnstile'
 import { sendMail } from '@/lib/mailer'
+import { claimTrustedFormCert } from '@/lib/trustedform'
 
 // Escape user-supplied values before interpolating into email HTML
 function esc(value: string): string {
@@ -23,6 +24,7 @@ const contactSchema = z.object({
   website: z.string().url('Invalid website URL').optional().or(z.literal('')),
   challenge: z.string().min(10, 'Please describe your primary challenge'),
   message: z.string().min(10, 'Message must be at least 10 characters'),
+  trustedFormCertUrl: z.string().url().optional().or(z.literal('')),
 })
 
 type ContactFormData = z.infer<typeof contactSchema>
@@ -65,6 +67,7 @@ export async function submitContactForm(formData: FormData) {
       website: formData.get('website') as string,
       challenge: formData.get('challenge') as string,
       message: formData.get('message') as string,
+      trustedFormCertUrl: (formData.get('trustedFormCertUrl') as string) || undefined,
     }
 
     // Validate with Zod
@@ -95,6 +98,19 @@ export async function submitContactForm(formData: FormData) {
       }
     }
 
+    const certUrl = validatedData.trustedFormCertUrl
+    const certRow = certUrl
+      ? `<p><strong>TrustedForm Certificate:</strong> <a href="${esc(certUrl)}">${esc(certUrl)}</a></p>`
+      : ''
+
+    // Claim the cert into the TrustedForm account (no-op without API key)
+    if (certUrl) {
+      await claimTrustedFormCert(
+        certUrl,
+        `contact-lead:${validatedData.email}`
+      )
+    }
+
     await sendMail({
       to: notificationEmail,
       replyTo: validatedData.email,
@@ -110,6 +126,7 @@ export async function submitContactForm(formData: FormData) {
         <p>${esc(validatedData.challenge)}</p>
         <h3>Message</h3>
         <p>${esc(validatedData.message)}</p>
+        ${certRow}
       `,
     })
 

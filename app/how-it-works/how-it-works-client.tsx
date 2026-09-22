@@ -8,8 +8,8 @@ import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
 import { TiltCard } from '@/components/ui/tilt-card'
-import { MagneticButton } from '@/components/ui/magnetic-button'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
+import { MoltenMetal } from '@/components/ui/molten-metal'
 import { PageHero } from '@/components/layout/page-hero'
 import {
   Stethoscope,
@@ -104,21 +104,67 @@ export function HowItWorksClient() {
     <main>
         <PageHero
           eyebrow="Our Process"
+          background={
+            <>
+              {/* Molten metal shader — same cinematic background as the technology page */}
+              <div className="absolute inset-0" aria-hidden>
+                <MoltenMetal
+                  color1="#0A0A0A"
+                  color2="#1A1A1F"
+                  color3="#000000"
+                  speed={0.25}
+                  scale={4}
+                  detail={5}
+                  glow={1.2}
+                  coreSize={0.18}
+                  swirl={1.2}
+                  fold={-0.4}
+                  blackPoint={0.15}
+                  brightness={0.9}
+                  colorMode="molten"
+                  grain={true}
+                  grainIntensity={0.02}
+                  mouseInteraction={true}
+                  mouseStrength={0.3}
+                  opacity={0.9}
+                  className="absolute inset-0"
+                />
+                {/* Cream wash for readability */}
+                <div className="absolute inset-0 bg-[rgba(248,248,246,0.3)]" />
+              </div>
+
+              {/* Ambient orbs */}
+              <div
+                className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb"
+                style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.06), transparent 70%)' }}
+              />
+              <div
+                className="absolute bottom-[10%] right-[5%] w-[220px] h-[220px] sm:w-[400px] sm:h-[400px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb"
+                style={{ background: 'radial-gradient(circle, rgba(32, 33, 36, 0.04), transparent 70%)', animationDelay: '4s' }}
+              />
+
+              {/* Text backdrop — guarantees readability over any shader state */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(ellipse 50% 40% at 30% 50%, rgba(248,248,246,0.85) 0%, rgba(248,248,246,0.5) 50%, transparent 100%)',
+                }}
+              />
+            </>
+          }
           title={
-            <h1 id="how-it-works-heading" className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.02em]">
-              <GradientText animationSpeed={5}>
-                How We Build Acquisition Systems
-              </GradientText>
+            <h1 id="how-it-works-heading" className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.02em] text-[#202124]">
+              How We Build Acquisition Systems
             </h1>
           }
           subtitle="A systematic approach to building and operating plaintiff acquisition systems that drive qualified cases."
           cta={
             <Link href="/contact">
-              <MagneticButton strength={0.25} className="rounded-full">
-                <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
-                  Start a Conversation
-                </Button>
-              </MagneticButton>
+              <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
+                Start a Conversation
+              </Button>
             </Link>
           }
         />
@@ -389,11 +435,9 @@ export function HowItWorksClient() {
                   className="flex justify-center"
                 >
                   <Link href="/contact">
-                    <MagneticButton strength={0.25} className="rounded-full">
-                      <Button variant="outline" size="lg" className="bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] text-base shadow-sm hover:shadow-[0_8px_24px_rgba(198, 162, 74,0.12)] transition-all duration-300">
-                        Schedule a Consultation
-                      </Button>
-                    </MagneticButton>
+                    <Button variant="outline" size="lg" className="bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] text-base shadow-sm hover:shadow-[0_8px_24px_rgba(198, 162, 74,0.12)] transition-all duration-300">
+                      Schedule a Consultation
+                    </Button>
                   </Link>
                 </motion.div>
               </motion.div>

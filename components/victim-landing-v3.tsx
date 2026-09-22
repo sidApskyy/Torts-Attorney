@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-background'
 import { GoldBeam } from '@/components/ui/gold-beam'
+import { TrustedFormLoader } from '@/components/ui/trusted-form-loader'
 import { GradientText } from '@/components/ui/gradient-text'
 import { cn } from '@/lib/utils'
 import { submitVictimLeadForm } from '@/app/actions/lead'
@@ -47,31 +48,6 @@ const spring = { type: 'spring' as const, stiffness: 300, damping: 20 }
 
 const fieldClass =
   'h-11 rounded-xl border-[#E4E1D8] bg-white px-3.5 text-[#202124] placeholder:text-[#9CA3AF] transition-all duration-200 hover:border-[#C6A24A]/40 focus-visible:border-[#C6A24A]/70 focus-visible:ring-[#C6A24A]/15 focus-visible:shadow-[0_0_0_3px_rgba(198,162,74,0.12)]'
-
-// TrustedForm Certify Web SDK — injects a hidden xxTrustedFormCertUrl
-// field into the form and records the session for TCPA consent proof.
-// The SDK requires the form to already exist in the DOM when it loads,
-// so this component mounts inside the <form> itself.
-function TrustedFormLoader() {
-  useEffect(() => {
-    if (document.querySelector('script[data-trustedform]')) return
-    const tf = document.createElement('script')
-    tf.type = 'text/javascript'
-    tf.async = true
-    tf.dataset.trustedform = 'true'
-    tf.src =
-      'https://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=' +
-      Date.now() +
-      Math.random()
-    // Ad blockers/privacy extensions block api.trustedform.com — the form
-    // still submits; the lead just travels without a certificate URL.
-    tf.onerror = () => {
-      console.warn('TrustedForm script blocked — submitting leads without certificate')
-    }
-    document.body.appendChild(tf)
-  }, [])
-  return null
-}
 
 const campaigns = [
   { label: 'Depo Provera', description: 'Possible brain tumor link', hot: true, icon: Syringe },
@@ -668,7 +644,7 @@ export function VictimLanding() {
               viewport={{ once: true, margin: '-80px' }}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
             >
-              {campaigns.map((campaign) => {
+              {campaigns.map((campaign, index) => {
                 const selected = form.campaign === campaign.label
                 const Icon = campaign.icon
                 return (
@@ -702,15 +678,43 @@ export function VictimLanding() {
                       </motion.span>
                     )}
                     <div className="relative inline-flex mb-4">
+                      {!prefersReducedMotion && !selected && (
+                        <motion.span
+                          aria-hidden="true"
+                          animate={{ scale: [1, 1.6], opacity: [0.5, 0] }}
+                          transition={{
+                            duration: 2.4,
+                            repeat: Infinity,
+                            ease: 'easeOut',
+                            delay: index * 0.4,
+                          }}
+                          className="absolute inset-0 rounded-xl bg-[#C6A24A]/30 pointer-events-none"
+                        />
+                      )}
                       <span
                         className={cn(
-                          'inline-flex items-center justify-center w-11 h-11 rounded-xl transition-all duration-300',
+                          'relative inline-flex items-center justify-center w-11 h-11 rounded-xl transition-all duration-300',
                           selected
                             ? 'bg-[#C6A24A] text-white shadow-[0_6px_16px_rgba(198,162,74,0.35)]'
                             : 'bg-[#C6A24A]/10 text-[#C6A24A] group-hover:bg-[#C6A24A]/20 group-hover:scale-110 group-hover:-rotate-3 group-hover:shadow-[0_8px_20px_rgba(198,162,74,0.25)]'
                         )}
                       >
-                        <Icon className="w-5 h-5" />
+                        <motion.span
+                          animate={
+                            prefersReducedMotion
+                              ? undefined
+                              : { y: [0, -3, 0] }
+                          }
+                          transition={{
+                            duration: 2.6,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                            delay: index * 0.3,
+                          }}
+                          className="inline-flex"
+                        >
+                          <Icon className="w-5 h-5" />
+                        </motion.span>
                       </span>
                       {selected && (
                         <motion.span

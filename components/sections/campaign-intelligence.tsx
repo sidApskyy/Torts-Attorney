@@ -6,7 +6,6 @@ import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { SectionNumber } from '@/components/ui/section-number'
 import { GlareHover } from '@/components/ui/glare-hover'
-import { MagneticButton } from '@/components/ui/magnetic-button'
 import { Button } from '@/components/ui/button'
 import { StatusBadge } from '@/components/shared/status-badge'
 
@@ -147,11 +146,9 @@ export function CampaignIntelligence() {
             className="flex justify-center"
           >
             <Link href="/campaign-intelligence">
-              <MagneticButton strength={0.25} className="rounded-full">
-                <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
-                  Explore Campaign Intelligence
-                </Button>
-              </MagneticButton>
+              <Button variant="red" size="lg" className="text-base shadow-[0_4px_20px_rgba(198, 162, 74,0.16)] hover:shadow-[0_8px_30px_rgba(198, 162, 74,0.22)]">
+                Explore Campaign Intelligence
+              </Button>
             </Link>
           </motion.div>
         </div>

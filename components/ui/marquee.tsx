@@ -53,6 +53,7 @@ export function Marquee({ children, speed = 30, className = '', reverse = false,
     if (!el) return
     let raf = 0
     let last = performance.now()
+    let inView = true
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const loop = (t: number) => {
@@ -65,8 +66,38 @@ export function Marquee({ children, speed = 30, className = '', reverse = false,
       }
       raf = requestAnimationFrame(loop)
     }
-    raf = requestAnimationFrame(loop)
-    return () => cancelAnimationFrame(raf)
+    const start = () => {
+      if (raf === 0) {
+        last = performance.now()
+        raf = requestAnimationFrame(loop)
+      }
+    }
+    const stop = () => {
+      if (raf !== 0) {
+        cancelAnimationFrame(raf)
+        raf = 0
+      }
+    }
+
+    // Pause the loop entirely when the marquee is offscreen or the tab is
+    // hidden — otherwise it burns a rAF every frame doing nothing on mobile.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting
+        inView ? start() : stop()
+      },
+      { threshold: 0 }
+    )
+    io.observe(el)
+    const onVisibility = () => (document.hidden ? stop() : inView && start())
+    document.addEventListener('visibilitychange', onVisibility)
+
+    start()
+    return () => {
+      stop()
+      io.disconnect()
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [speed, dir])
 
