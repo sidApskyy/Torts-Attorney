@@ -73,6 +73,7 @@ const activeMassTortCampaigns = [
 // resolve via shortLabel/name, with aliases for the mismatches.
 const tortSlugAliases: Record<string, string> = {
   Ozempic: 'ozempic-glp1',
+  'Motor Vehicle Accidents': 'motor-vehicle',
 }
 
 const tortSlugFor = (name: string): string | null => {
