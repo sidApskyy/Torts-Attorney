@@ -1,8 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  useScroll,
+  useMotionValueEvent,
+} from 'framer-motion'
 import { MoltenMetal } from '@/components/ui/molten-metal'
 import { GradientText } from '@/components/ui/gradient-text'
 import { TextReveal } from '@/components/ui/text-reveal'
@@ -28,9 +34,26 @@ const spring = { type: 'spring' as const, stiffness: 300, damping: 20 }
 export function TortPageClient({ slug }: { slug: string }) {
   const prefersReducedMotion = useReducedMotion()
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [scrolledPast, setScrolledPast] = useState(false)
+  const [formInView, setFormInView] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const { scrollY } = useScroll()
   // Server page already validated the slug via notFound()
   const tort = tortBySlug(slug)!
   const Icon = tort.icon
+
+  useMotionValueEvent(scrollY, 'change', (y) => setScrolledPast(y > 560))
+
+  useEffect(() => {
+    const el = document.getElementById('case-review')
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setFormInView(entry.isIntersecting),
+      { threshold: 0.1 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const fadeUp = {
     initial: prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
@@ -74,15 +97,16 @@ export function TortPageClient({ slug }: { slug: string }) {
           <div className="absolute inset-0 bg-[rgba(248,248,246,0.55)]" />
         </div>
 
-        {/* Ambient floating orbs */}
+        {/* Ambient floating orbs — desktop only; blurred animated layers force a
+            repaint every frame on mobile GPUs while scrolling */}
         <div
           aria-hidden
-          className="absolute top-[10%] left-[5%] w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb"
+          className="hidden md:block absolute top-[10%] left-[5%] w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none float-orb"
           style={{ background: 'radial-gradient(circle, rgba(198, 162, 74, 0.10), transparent 70%)' }}
         />
         <div
           aria-hidden
-          className="absolute bottom-[10%] right-[5%] w-[220px] h-[220px] sm:w-[400px] sm:h-[400px] rounded-full blur-[100px] sm:blur-[120px] pointer-events-none float-orb"
+          className="hidden md:block absolute bottom-[10%] right-[5%] w-[400px] h-[400px] rounded-full blur-[120px] pointer-events-none float-orb"
           style={{ background: 'radial-gradient(circle, rgba(32, 33, 36, 0.06), transparent 70%)', animationDelay: '4s' }}
         />
         {/* Radial backdrop behind text for legibility */}
@@ -111,7 +135,7 @@ export function TortPageClient({ slug }: { slug: string }) {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.05, ease }}
-              className="flex items-center gap-4 mb-7"
+              className="flex flex-wrap items-center gap-4 mb-7"
             >
               <span className="relative inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#C6A24A]/10 text-[#C6A24A] border border-[#C6A24A]/20 shadow-[0_8px_20px_rgba(198,162,74,0.15)]">
                 {!prefersReducedMotion && (
@@ -229,7 +253,7 @@ export function TortPageClient({ slug }: { slug: string }) {
                 whileInView={{ scaleY: 1 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.9, ease }}
-                className="absolute -left-4 md:-left-6 top-1 bottom-1 w-0.5 bg-gradient-to-b from-[#C6A24A] via-[#C6A24A]/40 to-transparent origin-top"
+                className="absolute -left-3 md:-left-6 top-1 bottom-1 w-0.5 bg-gradient-to-b from-[#C6A24A] via-[#C6A24A]/40 to-transparent origin-top"
               />
               {tort.overview.map((para, i) => (
                 <motion.p
@@ -271,7 +295,7 @@ export function TortPageClient({ slug }: { slug: string }) {
                 delay={0.05}
                 className="font-serif text-3xl md:text-4xl font-bold mb-8 text-white"
               >
-                What the lawsuits allege
+                {tort.allegationsHeading ?? 'What the lawsuits allege'}
               </TextReveal>
               <ul className="space-y-4">
                 {tort.allegations.map((item, i) => (
@@ -526,6 +550,7 @@ export function TortPageClient({ slug }: { slug: string }) {
                 lockedCampaign={tort.shortLabel}
                 heading="Check Whether You May Qualify"
                 subheading={`You are reviewing: ${tort.name}. Complete the form — a case specialist may follow up if your information appears to fit.`}
+                onSubmitted={() => setSubmitted(true)}
               />
             </motion.div>
             <motion.p
@@ -541,6 +566,39 @@ export function TortPageClient({ slug }: { slug: string }) {
           </div>
         </div>
       </section>
+
+      {/* ── MOBILE STICKY CTA ──────────────────────────────
+          Long content pages need a persistent path to the form on phones.
+          Appears after the hero scrolls away, hides while the form is
+          visible or after a successful submission. */}
+      <AnimatePresence>
+        {scrolledPast && !formInView && !submitted && (
+          <motion.div
+            key="sticky-cta"
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ duration: 0.3, ease }}
+            className="fixed bottom-0 inset-x-0 z-40 block lg:hidden"
+          >
+            <div className="flex items-center justify-between gap-3 bg-[#202124]/95 border-t border-[#C6A24A]/30 px-5 pr-5 pt-3.5 pb-[max(env(safe-area-inset-bottom),0.875rem)]">
+              <div className="min-w-0">
+                <p className="text-white text-sm font-semibold truncate">{tort.name} review</p>
+                <p className="text-[rgba(255,255,255,0.55)] text-xs">Free · Confidential · 2 min</p>
+              </div>
+              <Button
+                variant="red"
+                size="sm"
+                onClick={scrollToForm}
+                className="shrink-0 text-xs"
+              >
+                Start Review
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }

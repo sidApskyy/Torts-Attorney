@@ -1,8 +1,12 @@
 import {
   Baby,
+  Building2,
+  Car,
+  CarFront,
   Droplets,
   Flame,
   FlaskConical,
+  Gamepad2,
   HeartPulse,
   Leaf,
   Pill,
@@ -20,6 +24,7 @@ export interface Tort {
   heroSummary: string
   overview: string[]
   allegations: string[]
+  allegationsHeading?: string
   eligibility: string[]
   injuries: string[]
   status: string
@@ -467,6 +472,221 @@ export const torts: Tort[] = [
       {
         q: 'How long ago can the surgery have been?',
         a: 'Reviews commonly cover implants from the last two decades. Deadlines vary by state and typically relate to when complications were discovered.',
+      },
+    ],
+  },
+  {
+    slug: 'wtc',
+    name: 'World Trade Center (9/11) Claims',
+    shortLabel: 'WTC / 9/11',
+    icon: Building2,
+    tagline: 'Compensation for 9/11 responders and survivors through the federal VCF',
+    heroSummary:
+      'More than two decades after the attacks, responders and survivors continue to be diagnosed with cancers and respiratory illnesses linked to toxic dust exposure. The September 11th Victim Compensation Fund is permanently funded and accepting claims through 2090.',
+    overview: [
+      'When the World Trade Center towers collapsed on September 11, 2001, they released a massive plume of pulverized concrete, asbestos, glass fibers, heavy metals, and burning jet fuel across Lower Manhattan. Responders, cleanup and construction crews, volunteers, residents, office workers, and students were exposed to the debris cloud and contaminated sites for weeks and months afterward.',
+      'The James Zadroga 9/11 Health and Compensation Act established two federal programs: the World Trade Center Health Program, which monitors and certifies covered 9/11-related conditions, and the September 11th Victim Compensation Fund (VCF), which compensates eligible claimants for certified illnesses, injuries, and deaths. In 2019, the Never Forget the Heroes Act permanently funded the VCF, extending claim filing through 2090.',
+      'Unlike a typical mass tort lawsuit, VCF claims are administrative — evaluated on documented presence in the exposure zone during the covered period and a WTC-related certified condition. Registration deadlines apply and depend on when each condition is certified, which is why early review is recommended.',
+    ],
+    allegations: [
+      'Documented presence in the 9/11 exposure zone — the WTC site, debris removal routes, barges, morgues, or the Lower Manhattan exposure area — during the covered period',
+      'A condition certified by the WTC Health Program, or a verifiable 9/11-related illness or injury',
+      'Latency is built into the analysis — many covered cancers take years to develop, and new diagnoses continue to rise among exposed populations',
+      'Individual registration deadlines tied to when a condition is certified — missing a deadline can forfeit compensation',
+    ],
+    allegationsHeading: 'What these claims are based on',
+    eligibility: [
+      'Responded, worked, or volunteered at the WTC site, Pentagon, or Shanksville — or lived, worked, or attended school in the Lower Manhattan exposure zone',
+      'Present in the exposure zone during the covered period (generally September 11, 2001 through July 31, 2002 for VCF purposes)',
+      'Diagnosed with a condition certified or potentially certifiable by the WTC Health Program — cancers, respiratory and aerodigestive illnesses, or related injuries',
+      'Able to document presence through employment records, leases, school records, or witness attestation',
+    ],
+    injuries: [
+      'Cancers — lung, thyroid, skin, prostate, blood cancers, and dozens of other covered types',
+      'Asthma and reactive airway disease',
+      'COPD and interstitial lung disease',
+      'Chronic sinusitis and rhinosinusitis',
+      'GERD and other aerodigestive disorders',
+      'Musculoskeletal injuries from rescue and recovery work',
+    ],
+    status:
+      'The VCF is permanently funded and accepting claims through 2090. More than 100,000 responders and survivors are enrolled in the WTC Health Program, and the list of covered conditions — including newly associated cancers — continues to expand. Filing deadlines are individual to each claimant and depend on certification dates.',
+    faqs: [
+      {
+        q: 'I was a responder but never enrolled in the WTC Health Program — can I still be reviewed?',
+        a: 'Possibly. Certification through the Health Program is required for most VCF claims, but the review can start with your presence history and diagnosis — enrollment steps come later if your information appears to fit.',
+      },
+      {
+        q: 'How do I prove I was in the exposure zone?',
+        a: 'Employment records, pay stubs, leases, school records, photographs, and third-party attestations can all establish presence. Gaps in documentation are common and do not automatically disqualify a claim.',
+      },
+      {
+        q: 'Is there a deadline to file?',
+        a: 'Yes — and it is individualized. VCF registration deadlines depend on when a condition is certified or when a claim becomes eligible, not a single universal date. Reviewing early protects your window.',
+      },
+      {
+        q: 'Is this a lawsuit?',
+        a: 'No — the VCF is a federal administrative compensation fund. It exists separately from litigation and follows its own eligibility, certification, and award process.',
+      },
+    ],
+  },
+  {
+    slug: 'rideshare',
+    name: 'Rideshare Accident & Assault Claims',
+    shortLabel: 'Rideshare',
+    icon: Car,
+    tagline: 'Injury and assault claims involving Uber, Lyft, and other rideshare trips',
+    heroSummary:
+      'Rideshare crashes involve layered commercial insurance that changes with the driver\'s app status — and a growing body of litigation alleges platforms failed to protect passengers from driver-perpetrated assault.',
+    overview: [
+      'Uber, Lyft, and other transportation network companies now account for billions of trips each year. When a crash occurs — whether you were a passenger, rideshare driver, pedestrian, or occupant of another vehicle — determining coverage is more complicated than a typical car accident because rideshare companies carry layered commercial policies that shift with the driver\'s app status.',
+      'Rideshare companies generally provide up to $1 million in third-party liability coverage while a driver is en route to a pickup or transporting a passenger, with significantly lower limits when the app is on but no ride is active. Claims often require untangling which coverage tier applied at the moment of the crash — and insurers frequently dispute it.',
+      'Separately, thousands of claims allege Uber and Lyft failed to implement adequate safety measures to protect passengers from driver-perpetrated sexual assault and harassment. Those claims have been consolidated in a federal multidistrict litigation in the Northern District of California and in state coordinated proceedings.',
+    ],
+    allegations: [
+      'Driver negligence — distraction, speeding, fatigue, or unsafe pickup and dropoff locations',
+      'Layered insurance disputes over which coverage tier applied at the moment of the crash',
+      'For assault claims — allegations that platforms screened drivers inadequately, ignored prior complaints, or designed the service in ways that enabled foreseeable harm',
+      'Classification of drivers as independent contractors used to deflect responsibility for rider safety',
+    ],
+    allegationsHeading: 'What these claims are based on',
+    eligibility: [
+      'Injured in a crash involving an Uber, Lyft, or other rideshare vehicle — as a passenger, rideshare driver, pedestrian, cyclist, or occupant of another vehicle',
+      'Or experienced assault or harassment during a rideshare trip',
+      'Sought medical treatment or documented the resulting harm',
+      'Can identify approximate trip details — app records help but are not required to start a review',
+    ],
+    injuries: [
+      'Whiplash and neck/back injuries',
+      'Traumatic brain injury and concussion',
+      'Broken bones and orthopedic injuries',
+      'Spinal injuries and paralysis',
+      'Psychological trauma, PTSD, and emotional distress',
+      'Wrongful death',
+    ],
+    status:
+      'Accident claims proceed individually against layered commercial insurance policies. Separately, thousands of passenger-assault claims against Uber and Lyft are consolidated in a federal MDL in the Northern District of California and in California state coordinated proceedings, with early bellwether activity underway.',
+    faqs: [
+      {
+        q: 'The rideshare driver wasn\'t at fault — do I still have a claim?',
+        a: 'Possibly. Coverage can come from the rideshare policy, the at-fault driver\'s policy, or uninsured/underinsured motorist coverage depending on app status and state law.',
+      },
+      {
+        q: 'How much insurance coverage is available?',
+        a: 'While a driver is en route or transporting a passenger, Uber and Lyft generally carry up to $1 million in third-party liability coverage. Lower tiers apply when the app is on without an active ride.',
+      },
+      {
+        q: 'I was assaulted during a trip — is that handled the same way?',
+        a: 'No. Assault claims are evaluated separately from accident claims and connect to coordinated litigation alleging platform safety failures. Your information is routed to the appropriate review.',
+      },
+      {
+        q: 'How long do I have to file?',
+        a: 'Deadlines vary by state — typically one to four years for injury claims, with different rules that can apply to assault and minor-related claims. Early review protects your options.',
+      },
+    ],
+  },
+  {
+    slug: 'motor-vehicle',
+    name: 'Motor Vehicle Accident Claims',
+    shortLabel: 'Motor Vehicle Accident',
+    icon: CarFront,
+    tagline: 'Crashes involving cars, trucks, motorcycles, and commercial vehicles',
+    heroSummary:
+      'When a collision is caused by another party\'s negligence, injured victims may be entitled to compensation for medical bills, lost income, and pain and suffering — and commercial vehicle crashes often carry far higher policy limits.',
+    overview: [
+      'Car, truck, motorcycle, and commercial vehicle crashes remain the most common source of serious injury claims in the United States. Not every crash produces a viable claim — the strength of a case typically depends on liability evidence, injury severity and treatment documentation, and the insurance coverage available.',
+      'Commercial vehicle and trucking crashes involve additional complexity: federal safety regulations on driver hours, maintenance, and loading — plus significantly higher insurance limits. Multi-vehicle pileups, rideshare involvement, and uninsured drivers add further layers.',
+      'Claims are typically pursued against the at-fault driver\'s insurer, but can also involve commercial carriers, vehicle manufacturers (defective airbags, brakes, tires), or government entities responsible for dangerous road conditions.',
+    ],
+    allegations: [
+      'Another party\'s negligence — speeding, distraction, impairment, or failure to yield',
+      'Commercial and trucking crashes may involve federal safety violations, driver fatigue, or improper loading',
+      'Defective vehicle components can shift liability to manufacturers',
+      'Dangerous road design or maintenance failures can create claims against government entities',
+    ],
+    allegationsHeading: 'What these claims are based on',
+    eligibility: [
+      'Injured in a crash caused — at least in part — by another party',
+      'Sought or received medical treatment for your injuries',
+      'Within your state\'s filing deadline — often one to three years',
+      'Have basic incident details — approximate date, location, and a police report if one exists',
+    ],
+    injuries: [
+      'Whiplash, neck and back injuries',
+      'Traumatic brain injury and concussion',
+      'Broken bones and orthopedic injuries',
+      'Spinal cord injuries and paralysis',
+      'Internal injuries and organ damage',
+      'Psychological trauma and PTSD',
+      'Wrongful death',
+    ],
+    status:
+      'Motor vehicle claims are evaluated individually rather than through a consolidated fund or MDL. Settlement value depends on liability clarity, injury severity, treatment documentation, and available coverage — commercial and trucking crashes often carry substantially higher limits.',
+    faqs: [
+      {
+        q: 'I was partly at fault — can I still recover?',
+        a: 'In most states, yes. Comparative negligence rules reduce recovery by your share of fault rather than barring it entirely — though a few states apply stricter rules.',
+      },
+      {
+        q: 'The other driver was uninsured — now what?',
+        a: 'Your own uninsured/underinsured motorist coverage may apply. A review considers all available coverage sources, not just the at-fault driver\'s policy.',
+      },
+      {
+        q: 'How long do I have to file?',
+        a: 'Statutes of limitation vary by state — commonly two to three years, sometimes as short as one. Acting early preserves evidence and options.',
+      },
+    ],
+  },
+  {
+    slug: 'roblox',
+    name: 'Roblox Child Safety Claims',
+    shortLabel: 'Roblox',
+    icon: Gamepad2,
+    tagline: 'Exploitation and harm claims involving children on the Roblox platform',
+    heroSummary:
+      'Lawsuits allege Roblox\'s design allowed predators to contact, groom, and exploit minors — and that safety representations made to parents did not match how the platform actually operated.',
+    overview: [
+      'Roblox is one of the largest gaming platforms in the world, with tens of millions of daily users — a substantial share of them children under 13. A rapidly growing body of litigation alleges the platform\'s design enabled predators to contact and groom minors, and that the safety image marketed to parents did not reflect actual moderation and age-verification practices.',
+      'Filed complaints allege predators used the platform to pose as children, build trust, move conversations to other apps, exchange explicit images, and in some cases arrange real-world meetings. Suits also allege engagement-driven design kept children online while safety tools lagged behind the platform\'s growth.',
+      'Claims are being filed by families on behalf of children who experienced exploitation, exposure to explicit content, or psychological harm allegedly connected to platform use. Plaintiffs have sought coordinated treatment of cases, and filings expanded significantly through 2024 and 2025.',
+    ],
+    allegations: [
+      'The platform\'s design enabled predators to contact and groom minors despite marketing the platform as safe for children',
+      'Safety representations to parents allegedly did not match actual moderation and age-verification practices',
+      'The company allegedly knew of widespread exploitation risks and failed to implement adequate protections',
+      'Engagement-driven design allegedly prioritized growth and time-on-platform over child safety',
+    ],
+    eligibility: [
+      'A child under 18 who used the Roblox platform',
+      'Experienced grooming, exploitation, explicit-content exposure, or related harm connected to platform use',
+      'Within the applicable filing window — deadlines vary by state and the child\'s age',
+      'A parent or legal guardian typically requests the review on the child\'s behalf',
+    ],
+    injuries: [
+      'Sexual exploitation and grooming',
+      'Exposure to explicit or harmful content',
+      'Psychological trauma, anxiety, and depression',
+      'Self-harm or suicidal ideation allegedly linked to platform experiences',
+      'Financial exploitation through in-platform currency',
+    ],
+    status:
+      'Filings accelerated through 2024 and 2025, with plaintiffs seeking coordinated proceedings and platforms rolling out new safety measures as cases proceed. The litigation is in early stages and qualifying criteria continue to evolve.',
+    faqs: [
+      {
+        q: 'My child wasn\'t physically harmed — does that matter?',
+        a: 'Claims are being evaluated across a range of harms — exploitation, explicit-content exposure, and documented psychological harm can all potentially qualify.',
+      },
+      {
+        q: 'Do we need proof of what happened on the platform?',
+        a: 'Account records, chat logs, and device data can help, but a review can begin from the family\'s account of what occurred.',
+      },
+      {
+        q: 'Who files the claim — the child or the parent?',
+        a: 'A parent or legal guardian typically brings the claim on the minor\'s behalf.',
+      },
+      {
+        q: 'Is there a deadline?',
+        a: 'Yes — deadlines vary by state, and minors often have extended filing windows. Early review is still recommended because criteria and procedures continue to evolve.',
       },
     ],
   },

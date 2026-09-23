@@ -110,7 +110,7 @@ export function VictimIntakeForm({
   return (
     <div
       id={id}
-      className="relative scroll-mt-28 bg-white/85 backdrop-blur-[24px] rounded-3xl p-6 md:p-8 border border-[rgba(198,162,74,0.18)] shadow-[0_12px_48px_rgba(32,33,36,0.10)] overflow-hidden"
+      className="relative scroll-mt-28 bg-white/85 md:backdrop-blur-[24px] rounded-3xl p-6 md:p-8 border border-[rgba(198,162,74,0.18)] shadow-[0_12px_48px_rgba(32,33,36,0.10)] overflow-hidden"
     >
       <div
         aria-hidden
