@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useRole } from '@/components/providers/role-provider'
 import { Button } from '@/components/ui/button'
 import { MoltenMetal } from '@/components/ui/molten-metal'
@@ -21,31 +22,37 @@ import {
 const TORTS = [
   {
     title: 'Talcum',
+    slug: 'talcum-powder',
     description: 'Claims involving serious diagnoses linked to long-term talcum powder use.',
     icon: Sparkles,
   },
   {
     title: 'Depo',
+    slug: 'depo-provera',
     description: 'Injuries and brain tumor claims related to Depo-Provera injections.',
     icon: Pill,
   },
   {
     title: 'Rideshare',
+    slug: null,
     description: 'Accidents and injuries occurring in Uber, Lyft, and other rideshare trips.',
     icon: Car,
   },
   {
     title: 'Motor Vehicle',
+    slug: null,
     description: 'Crashes involving cars, trucks, motorcycles, and commercial vehicles.',
     icon: CarFront,
   },
   {
     title: 'Roblox',
+    slug: null,
     description: 'Concerns about extended platform use and reported physical or psychological harm.',
     icon: Gamepad2,
   },
   {
     title: 'WTC',
+    slug: null,
     description: 'Health conditions and VCF claims for 9/11 responders and survivors.',
     icon: Building2,
   },
@@ -69,11 +76,22 @@ const cardVariants = {
 export function Hero() {
   const prefersReducedMotion = useReducedMotion()
   const { setRole } = useRole()
+  const router = useRouter()
 
   const checkEligibility = () => {
     setRole('victim')
     if (typeof window !== 'undefined') {
       window.location.hash = 'victim-form'
+    }
+  }
+
+  // Cards with a dedicated tort page open it; the rest fall back to the
+  // victim intake form with the campaign context.
+  const openCampaign = (slug: string | null) => {
+    if (slug) {
+      router.push(`/campaigns/${slug}`)
+    } else {
+      checkEligibility()
     }
   }
 
@@ -239,13 +257,22 @@ export function Hero() {
             viewport={{ once: true, margin: '-60px' }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {TORTS.map(({ title, description, icon: Icon }) => (
+            {TORTS.map(({ title, slug, description, icon: Icon }) => (
               <motion.div
                 key={title}
                 variants={cardVariants}
                 whileHover={prefersReducedMotion ? undefined : { y: -8, scale: 1.02, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-[#F8F8F6] to-[#F8F8F6] border border-[rgba(198,162,74,0.12)] p-6 shadow-[0_8px_32px_rgba(32,33,36,0.04)] transition-colors duration-300 hover:border-[rgba(198,162,74,0.35)] hover:shadow-[0_24px_60px_rgba(198,162,74,0.12)]"
+                onClick={() => openCampaign(slug)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    openCampaign(slug)
+                  }
+                }}
+                className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-[#F8F8F6] to-[#F8F8F6] border border-[rgba(198,162,74,0.12)] p-6 shadow-[0_8px_32px_rgba(32,33,36,0.04)] transition-colors duration-300 hover:border-[rgba(198,162,74,0.35)] hover:shadow-[0_24px_60px_rgba(198,162,74,0.12)] cursor-pointer"
               >
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C6A24A]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute inset-0 bg-gradient-to-br from-[#C6A24A]/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -270,9 +297,8 @@ export function Hero() {
                   <Button
                     variant="outline"
                     className="w-full text-xs border-[#E4E1D8] text-[#202124] hover:bg-[#202124] hover:border-[#C6A24A]/50 hover:text-[#C6A24A] group/btn"
-                    onClick={checkEligibility}
                   >
-                    See if this may fit
+                    {slug ? 'Learn more & check eligibility' : 'See if this may fit'}
                     <ArrowRight className="w-3.5 h-3.5 ml-auto transition-transform group-hover/btn:translate-x-0.5" />
                   </Button>
                 </div>

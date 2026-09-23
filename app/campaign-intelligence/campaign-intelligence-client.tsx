@@ -12,6 +12,7 @@ import { AnimatedGradientBackground } from '@/components/ui/animated-gradient-ba
 import { MoltenMetal } from '@/components/ui/molten-metal'
 import { PageHero } from '@/components/layout/page-hero'
 import { useRole } from '@/components/providers/role-provider'
+import { torts } from '@/lib/torts'
 
 const metrics = [
   { label: 'Campaign Spend', value: '$125,000', change: '+12%', positive: true },
@@ -68,6 +69,18 @@ const activeMassTortCampaigns = [
   { name: "CA Women's Prison Abuse", emoji: "⚖️", description: "Women sexually abused by correctional staff in California state and federal women's facilities." },
 ]
 
+// Campaign names in this list don't always match the tort page slugs —
+// resolve via shortLabel/name, with aliases for the mismatches.
+const tortSlugAliases: Record<string, string> = {
+  Ozempic: 'ozempic-glp1',
+}
+
+const tortSlugFor = (name: string): string | null => {
+  if (tortSlugAliases[name]) return tortSlugAliases[name]
+  const match = torts.find((t) => t.shortLabel === name || t.name === name)
+  return match?.slug ?? null
+}
+
 export function CampaignIntelligenceClient() {
   const { setRole } = useRole()
   const router = useRouter()
@@ -75,6 +88,17 @@ export function CampaignIntelligenceClient() {
   const goToVictimForm = (campaignName: string) => {
     setRole('victim')
     router.push(`/?campaign=${encodeURIComponent(campaignName)}#victim-form`)
+  }
+
+  // Campaigns with a dedicated tort page go there; the rest fall back to the
+  // victim form with the campaign pre-selected.
+  const goToCampaign = (campaignName: string) => {
+    const slug = tortSlugFor(campaignName)
+    if (slug) {
+      router.push(`/campaigns/${slug}`)
+    } else {
+      goToVictimForm(campaignName)
+    }
   }
 
   return (
@@ -469,7 +493,9 @@ export function CampaignIntelligenceClient() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {activeMassTortCampaigns.map((campaign, index) => (
+                {activeMassTortCampaigns.map((campaign, index) => {
+                  const slug = tortSlugFor(campaign.name)
+                  return (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -479,7 +505,18 @@ export function CampaignIntelligenceClient() {
                     whileHover={{ y: -8, scale: 1.03 }}
                     className="h-full group"
                   >
-                    <div className="content-card p-5 h-full relative overflow-hidden flex flex-col transition-all duration-500 group-hover:border-[#C6A24A]/40 group-hover:shadow-[0_12px_40px_rgba(198,162,74,0.15)]">
+                    <div
+                      onClick={() => goToCampaign(campaign.name)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          goToCampaign(campaign.name)
+                        }
+                      }}
+                      className="content-card p-5 h-full relative overflow-hidden flex flex-col cursor-pointer transition-all duration-500 group-hover:border-[#C6A24A]/40 group-hover:shadow-[0_12px_40px_rgba(198,162,74,0.15)]"
+                    >
                       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C6A24A] to-transparent transition-all duration-500 group-hover:h-1" />
 
                       {/* Shine sweep on hover */}
@@ -501,20 +538,18 @@ export function CampaignIntelligenceClient() {
                       <p className="text-sm text-[#4B5563] leading-[1.6] mb-4">
                         {campaign.description}
                       </p>
-                      <div
-                        onClick={() => goToVictimForm(campaign.name)}
-                        className="mt-auto block w-full"
-                      >
+                      <div className="mt-auto block w-full">
                         <Button
                           variant="outline"
                           className="w-full bg-transparent border-[#C6A24A]/50 text-[#C6A24A] hover:bg-[#C6A24A]/10 hover:border-[#C6A24A] transition-all duration-300 group-hover:shadow-sm"
                         >
-                          Check Your Eligibility
+                          {slug ? 'Learn More & Check Eligibility' : 'Check Your Eligibility'}
                         </Button>
                       </div>
                     </div>
                   </motion.div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </div>
